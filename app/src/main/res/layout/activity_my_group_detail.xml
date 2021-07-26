@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginBottom="10dp"
     android:orientation="vertical"
     android:scrollbars="vertical">
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="동아리 모집"
+            android:text="나의 모임"
             android:textColor="#000000"
             android:textSize="18dp"
             android:textStyle="bold">
@@ -27,26 +27,57 @@
         </TextView>
 
 
-
     </androidx.appcompat.widget.Toolbar>
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/my_toolbar">
+        android:layout_below="@id/my_toolbar"
+        android:layout_marginBottom="-89dp">
+
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/my_toolbar"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/buttons_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView3"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button9"
+                    android:layout_width="160dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="9dp"
+                    android:text="출석체크"
+                    android:textColor="#000000"
+                    app:backgroundTint="#DBDBDB" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="160dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="9dp"
+                    android:text="커뮤니티"
+                    android:textColor="#000000"
+                    app:backgroundTint="#DBDBDB" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/preview_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/Detail_left"
@@ -113,8 +144,8 @@
 
                 </LinearLayout>
 
-            </RelativeLayout>
 
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/peopleNum_layout"
@@ -157,7 +188,7 @@
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/detail_image"
                 android:layout_marginStart="18dp"
                 android:layout_marginLeft="18dp"
@@ -168,25 +199,10 @@
                 android:text="매주 수요일 6시 정기모임 \n*불참자는 최소 전날 미리 연락하기 \n\n동아리 SNS 링크 인스타그램 : http://www.swu.ac.kr \n페이스북 : http://www.swu.ac.kr"
                 android:textColor="#000000" />
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView3"
-                android:layout_alignParentBottom="true"
-                android:text="지원하기"
-                android:textColor="#000000"
-                app:backgroundTint="#DBDBDB" />
 
         </RelativeLayout>
 
 
-
-
-
     </ScrollView>
-
-
-
 
 </RelativeLayout>
