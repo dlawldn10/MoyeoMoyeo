@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/gotoSearch"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="검색창"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/MyPage"
+        android:icon="@drawable/ic_baseline_person_24"
+        app:showAsAction="always"
+        android:title="마이페이지" />
+
+</menu>

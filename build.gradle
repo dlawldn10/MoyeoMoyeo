@@ -14,14 +14,16 @@ buildscript {
     }
 }
 
+apply plugin: 'kotlin2js'
+compileKotlin2Js.kotlinOptions {
+    moduleKind = "commonjs"
+    outputFile = "node/index.js"
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
