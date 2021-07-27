@@ -111,7 +111,7 @@
             app:backgroundTint="#D4D4D4" />
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/Kakao_Login_Bttn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="26dp"

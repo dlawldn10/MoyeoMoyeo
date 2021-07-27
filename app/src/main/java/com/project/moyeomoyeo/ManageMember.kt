@@ -2,7 +2,6 @@ package com.project.moyeomoyeo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -17,7 +16,7 @@ class ManageMember : AppCompatActivity() {
         val viewPager2=findViewById<ViewPager2>(R.id.viewPager)
         val backBtn=findViewById<Button>(R.id.BackBtn)
 
-        val adapter=VPAdapter(supportFragmentManager,lifecycle)
+        val adapter=ManageMemberViewPagerAdapter(supportFragmentManager,lifecycle)
 
         viewPager2.adapter = adapter
 

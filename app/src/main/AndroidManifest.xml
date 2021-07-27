@@ -13,14 +13,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoyeoMoyeo">
 
-        <activity android:name=".CreateMeeting" >
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="08bbd9429cd88ac8922553576fae5eaa" />
+
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
+                <data android:host="oauth"
+                    android:scheme="kakao08bbd9429cd88ac8922553576fae5eaa" />
+            </intent-filter>
         </activity>
-        <activity android:name=".EditMeeting" />
+
+        <activity android:name=".CreateClub" >
+        </activity>
+        <activity android:name=".EditClub" />
 <!--        <activity android:name=".MainActivity" />-->
         <activity android:name=".ManageMember" />
         <activity android:name=".AttendCheckMng" />
         <activity android:name=".AttendCheck" />
-        <activity android:name=".MyMeetingMng" />
+        <activity android:name=".MyClubMng" />
         <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,11 +46,11 @@
         </activity>
         <activity android:name=".SearchActivity" >
         </activity>
-        <activity android:name=".GroupDetailActivity" />
-        <activity android:name=".OtherGroupActivity" />
-        <activity android:name=".StudyGroupActivity" />
-        <activity android:name=".ExtraCurricularActivity" />
-        <activity android:name=".CirclesListActivity" />
+        <activity android:name=".ClubDetailActivity" />
+        <activity android:name=".EtcActivity" />
+        <activity android:name=".StudyActivity" />
+        <activity android:name=".SpecActivity" />
+        <activity android:name=".ClubListActivity" />
         <activity android:name=".HomeActivity" >
 
         </activity>

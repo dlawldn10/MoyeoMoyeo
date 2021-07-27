@@ -6,10 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 
-class GroupDetailActivity : AppCompatActivity() {
+class ClubDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_group_detail)
+        setContentView(R.layout.activity_club_detail)
 
         //툴바
         var toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.my_toolbar)

@@ -8,12 +8,12 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.moyeomoyeo.DataClass.GroupPreviews
 
-class ReccomendRecyclerViewAdapter (private val items : ArrayList<GroupPreviews>)
-    : RecyclerView.Adapter<ReccomendRecyclerViewAdapter.ViewHolder>(){
+class ReccomendClubRecyclerViewAdapter (private val items : ArrayList<GroupPreviews>)
+    : RecyclerView.Adapter<ReccomendClubRecyclerViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val myGroup = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_mygroups, parent, false) as CardView
+            .inflate(R.layout.item_my_clubs, parent, false) as CardView
 
         return ViewHolder(myGroup)
     }

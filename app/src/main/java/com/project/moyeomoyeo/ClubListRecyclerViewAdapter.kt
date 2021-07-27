@@ -9,17 +9,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.project.moyeomoyeo.DataClass.GroupPreviews
 
-class CircleListRecyclerViewAdapter(private val items : ArrayList<GroupPreviews>, val context : Context)
-    : RecyclerView.Adapter<CircleListRecyclerViewAdapter.ViewHolder>(){
+class ClubListRecyclerViewAdapter(private val items : ArrayList<GroupPreviews>, val context : Context)
+    : RecyclerView.Adapter<ClubListRecyclerViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val myGroup = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_circle_list_preview, parent, false)
+            .inflate(R.layout.item_club_list_preview, parent, false)
 
         return ViewHolder(myGroup)
     }
@@ -36,7 +34,7 @@ class CircleListRecyclerViewAdapter(private val items : ArrayList<GroupPreviews>
 
         holder.PreviewList.setOnClickListener {
             Toast.makeText(it.context, GroupName.text, Toast.LENGTH_SHORT).show()
-            val intent = Intent(context, GroupDetailActivity::class.java)
+            val intent = Intent(context, ClubDetailActivity::class.java)
             context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK))
         }
     }

@@ -3,7 +3,6 @@ package com.project.moyeomoyeo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,7 +34,7 @@ class SearchActivity : AppCompatActivity() {
         PreviewList.add(GroupPreviews("MBTI다모여", "MBTI 과몰입 모임", 100, null))
         PreviewList.add(GroupPreviews("공무원 합격하자", "(예비)공무원 스터디", 100, null))
 
-        viewAdapter = ReccomendRecyclerViewAdapter(PreviewList)
+        viewAdapter = ReccomendClubRecyclerViewAdapter(PreviewList)
         viewManager = LinearLayoutManager(this)
         recyclerView = findViewById<RecyclerView>(R.id.Recommend_RecyclerView).apply {
             setHasFixedSize(true)

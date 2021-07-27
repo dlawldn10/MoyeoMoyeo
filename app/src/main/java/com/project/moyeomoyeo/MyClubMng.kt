@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class MyMeetingMng : AppCompatActivity() {
+class MyClubMng : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_meeting_mng)
+        setContentView(R.layout.activity_my_club_mng)
 
         val manageBtn = findViewById<Button>(R.id.ManageBtn)
         val attendBtn = findViewById<Button>(R.id.AttendCheckBtn)
@@ -26,12 +26,12 @@ class MyMeetingMng : AppCompatActivity() {
         }
 
         optionBtn.setOnClickListener {
-            val nextIntent = Intent(this,EditMeeting::class.java)
+            val nextIntent = Intent(this,EditClub::class.java)
             startActivity(nextIntent)
         }
 
         backBtn.setOnClickListener {
-            val nextIntent = Intent(this,CreateMeeting::class.java)
+            val nextIntent = Intent(this,CreateClub::class.java)
             startActivity(nextIntent)
         }
     }

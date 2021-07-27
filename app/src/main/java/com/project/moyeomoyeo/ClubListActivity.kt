@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.moyeomoyeo.DataClass.GroupPreviews
 
-class CirclesListActivity : AppCompatActivity() {
+class ClubListActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var viewAdapter: RecyclerView.Adapter<*>
     lateinit var viewManager: RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_circles_list)
+        setContentView(R.layout.activity_club_list)
 
         //툴바
         var toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.my_toolbar)
@@ -33,7 +33,7 @@ class CirclesListActivity : AppCompatActivity() {
         NewCircleList.add(GroupPreviews("펜타킬", "게임 리그 오브 레전드 동아리", 10, null))
         NewCircleList.add(GroupPreviews("S.E.L.", "서울여대 중앙 락밴드 동아리", 14, null))
 
-        viewAdapter = CircleListRecyclerViewAdapter(NewCircleList, applicationContext)
+        viewAdapter = ClubListRecyclerViewAdapter(NewCircleList, applicationContext)
         viewManager = LinearLayoutManager(this)
         recyclerView = findViewById<RecyclerView>(R.id.NewCircles_RecyclerView).apply {
             setHasFixedSize(true)
@@ -47,7 +47,7 @@ class CirclesListActivity : AppCompatActivity() {
         PopularCircleList.add(GroupPreviews("동아리 이름", "동아리 한 줄 소개", 10, null))
         PopularCircleList.add(GroupPreviews("동아리 이름", "동아리 한 줄 소개", 10, null))
 
-        viewAdapter = CircleListRecyclerViewAdapter(PopularCircleList, applicationContext)
+        viewAdapter = ClubListRecyclerViewAdapter(PopularCircleList, applicationContext)
         viewManager = LinearLayoutManager(this)
         recyclerView = findViewById<RecyclerView>(R.id.PopularCircles_RecyclerView).apply {
             setHasFixedSize(true)
@@ -60,7 +60,7 @@ class CirclesListActivity : AppCompatActivity() {
         AllCircleList.add(GroupPreviews("동아리 이름", "동아리 한 줄 소개", 10, null))
         AllCircleList.add(GroupPreviews("동아리 이름", "동아리 한 줄 소개", 10, null))
 
-        viewAdapter = CircleListRecyclerViewAdapter(AllCircleList, applicationContext)
+        viewAdapter = ClubListRecyclerViewAdapter(AllCircleList, applicationContext)
         viewManager = LinearLayoutManager(this)
         recyclerView = findViewById<RecyclerView>(R.id.AllCircles_RecyclerView).apply {
             setHasFixedSize(true)

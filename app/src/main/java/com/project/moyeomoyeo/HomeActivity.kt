@@ -37,25 +37,25 @@ class HomeActivity : AppCompatActivity() {
         //각 버튼 씬 전환
         //동아리 게시판
         CircleBttn.setOnClickListener{
-            val intent = Intent(this, CirclesListActivity::class.java)
+            val intent = Intent(this, ClubListActivity::class.java)
             startActivity(intent)
         }
 
         //스터디 그룹 게시판
         StudyGroupBttn.setOnClickListener{
-            val intent = Intent(this, StudyGroupActivity::class.java)
+            val intent = Intent(this, StudyActivity::class.java)
             startActivity(intent)
         }
 
         //대외활동 게시판
         ExtraActivityBttn.setOnClickListener{
-            val intent = Intent(this, ExtraCurricularActivity::class.java)
+            val intent = Intent(this, SpecActivity::class.java)
             startActivity(intent)
         }
 
         //기타 게시판
         OtherGroupBttn.setOnClickListener{
-            val intent = Intent(this, OtherGroupActivity::class.java)
+            val intent = Intent(this, EtcActivity::class.java)
             startActivity(intent)
         }
 
@@ -65,7 +65,7 @@ class HomeActivity : AppCompatActivity() {
         PreviewList.add(GroupPreviews("펜타킬", "게임 리그 오브 레전드 동아리", 10, null))
         PreviewList.add(GroupPreviews("S.E.L.", "서울여대 중앙 락밴드 동아리", 14, null))
 
-        viewAdapter = MyGroupRecyclerViewAdapter(PreviewList)
+        viewAdapter = MyClubRecyclerViewAdapter(PreviewList)
         viewManager = LinearLayoutManager(this)
         recyclerView = findViewById<RecyclerView>(R.id.MyGroup_RecyclerView).apply {
             setHasFixedSize(true)
