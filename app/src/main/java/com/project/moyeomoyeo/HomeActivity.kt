@@ -90,8 +90,12 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.MyPage->
+            R.id.MyPage->{
                 Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MyPageActivity::class.java)
+                startActivity(intent)
+            }
+
         }
         return super.onOptionsItemSelected(item)
 

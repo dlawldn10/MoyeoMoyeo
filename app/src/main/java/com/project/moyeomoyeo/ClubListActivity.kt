@@ -81,8 +81,11 @@ class ClubListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             //마이페이지 아이콘 클릭
-            R.id.MyPage->
+            R.id.MyPage->{
                 Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MyPageActivity::class.java)
+                startActivity(intent)
+            }
             //돋보기 아이콘 클릭
             R.id.gotoSearch-> {
                 val intent = Intent(this, SearchActivity::class.java)

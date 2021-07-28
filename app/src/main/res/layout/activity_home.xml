@@ -44,56 +44,79 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            app:columnCount="2">
+            app:columnCount="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
 
-            <Button
-                android:id="@+id/Circles_Bttn"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_margin="9dp"
-                android:text="동아리"
-                android:textColor="#000000"
-                app:backgroundTint="#E9E9E9"
-                app:cornerRadius="10dp" />
+                <Button
+                    android:id="@+id/Circles_Bttn"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="9dp"
+                    android:text="동아리"
+                    android:textColor="#000000"
+                    app:backgroundTint="#E9E9E9"
+                    app:cornerRadius="10dp"
+                    android:layout_weight="1"/>
 
-            <Button
-                android:id="@+id/StudyGroups_Bttn"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_margin="9dp"
-                android:text="스터디"
-                android:textColor="#000000"
-                app:backgroundTint="#E9E9E9"
-                app:cornerRadius="10dp" />
+                <Button
+                    android:id="@+id/StudyGroups_Bttn"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="9dp"
+                    android:text="스터디"
+                    android:textColor="#000000"
+                    app:backgroundTint="#E9E9E9"
+                    app:cornerRadius="10dp"
+                    android:layout_weight="1"/>
 
-            <Button
-                android:id="@+id/ExtraActivies_Bttn"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="9dp"
-                android:layout_marginLeft="9dp"
-                android:layout_marginEnd="9dp"
-                android:layout_marginRight="9dp"
-                android:layout_marginBottom="9dp"
-                android:text="대외활동"
-                android:textColor="#000000"
-                app:backgroundTint="#E9E9E9"
-                app:cornerRadius="10dp" />
 
-            <Button
-                android:id="@+id/OtherGroups_Bttn"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="9dp"
-                android:layout_marginLeft="9dp"
-                android:layout_marginEnd="9dp"
-                android:layout_marginRight="9dp"
-                android:layout_marginBottom="9dp"
-                android:text="기타"
-                android:textColor="#000000"
-                app:backgroundTint="#E9E9E9"
-                app:cornerRadius="10dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/ExtraActivies_Bttn"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginEnd="9dp"
+                    android:layout_marginRight="9dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="대외활동"
+                    android:textColor="#000000"
+                    app:backgroundTint="#E9E9E9"
+                    app:cornerRadius="10dp"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/OtherGroups_Bttn"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginEnd="9dp"
+                    android:layout_marginRight="9dp"
+                    android:layout_marginBottom="9dp"
+                    android:text="기타"
+                    android:textColor="#000000"
+                    app:backgroundTint="#E9E9E9"
+                    app:cornerRadius="10dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+
         </androidx.gridlayout.widget.GridLayout>
 
         <LinearLayout

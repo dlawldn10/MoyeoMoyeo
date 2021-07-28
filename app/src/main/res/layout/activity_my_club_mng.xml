@@ -6,144 +6,149 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MyClubMng"
-    android:padding="20dp">
+    >
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/BackBtn"
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:text="B" />
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/detail_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="나의 모임" />
+            android:layout_gravity="center"
+            android:text="나의 모임"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="bold">
 
-        <Button
-            android:id="@+id/MyPageBtn"
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:text="ㅇ" />
+        </TextView>
 
-    </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:id="@+id/LogoImage"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/NameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="펜타킬"
-                android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/SubNameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/LogoImage"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="left"
-                android:text="게임 리그 오브 레전드 동아리" />
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/NameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="펜타킬"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/SubNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="게임 리그 오브 레전드 동아리" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/OptionBtn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="option"
+                android:textSize="8sp"
+                android:layout_weight="1"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/OptionBtn"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="option"
-            android:textSize="8sp"
-            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/CountText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center|end"
+            android:text="인원수" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/MainImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/CountText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center|end"
-        android:text="인원수" />
-
-    <ImageView
-        android:id="@+id/MainImage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/ContentText"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:gravity="start"
-        android:text="매주 수요일 6시 정기모임\n
+        <TextView
+            android:id="@+id/ContentText"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="start"
+            android:text="매주 수요일 6시 정기모임\n
         *불참자는 최소 전날 미리 연락하기\n\n
         동아리 SNS 링크\n
         인스타그램 : http://www.swu.ac.kr\n
         페이스북 : http://wwww.swu.ac.kr" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/AttendCheckBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="출석 확인" />
+            <Button
+                android:id="@+id/AttendCheckBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="출석 확인" />
 
-        <Button
-            android:id="@+id/AnswerBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="답변하기" />
+            <Button
+                android:id="@+id/AnswerBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="답변하기" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/ManageBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="모임원 관리" />
+
+            <Button
+                android:id="@+id/CommunityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="커뮤니티" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/ManageBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="모임원 관리" />
-
-        <Button
-            android:id="@+id/CommunityBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="커뮤니티" />
-    </LinearLayout>
 
 </LinearLayout>

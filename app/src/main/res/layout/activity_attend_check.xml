@@ -6,52 +6,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AttendCheck"
-    android:padding="20dp">
+    >
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/BackBtn"
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:text="B" />
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:text="출석 체크"
-            android:gravity="center"/>
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/AttendNumText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="총 출석 횟수 0회" />
+
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="496dp"
+            android:gravity="center"
+            android:numColumns="5" />
 
         <Button
-            android:id="@+id/MyPageBtn"
-            android:layout_width="54dp"
+            android:id="@+id/QRBtn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ㅇ" />
+            android:text="qr Code"
+            android:layout_gravity="center"/>
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/AttendNumText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="총 출석 횟수 0회" />
 
-    <GridView
-        android:layout_width="match_parent"
-        android:layout_height="496dp"
-        android:gravity="center"
-        android:numColumns="5" />
 
-    <Button
-        android:id="@+id/QRBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="qr Code"
-        android:layout_gravity="center"/>
+
 
 
 </LinearLayout>

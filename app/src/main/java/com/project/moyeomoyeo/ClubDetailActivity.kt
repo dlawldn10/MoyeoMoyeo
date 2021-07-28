@@ -1,5 +1,6 @@
 package com.project.moyeomoyeo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -29,8 +30,11 @@ class ClubDetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.MyPage->
+            R.id.MyPage->{
                 Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MyPageActivity::class.java)
+                startActivity(intent)
+            }
             android.R.id.home->
                 finish()
         }
