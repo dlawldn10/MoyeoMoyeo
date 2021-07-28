@@ -48,4 +48,6 @@ dependencies {
 
     implementation "com.kakao.sdk:v2-user:2.5.2" // 카카오 로그인
 
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+
 }

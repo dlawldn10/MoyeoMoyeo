@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.moyeomoyeo.DataClass.GroupPreviews
 
 class HomeActivity : AppCompatActivity() {
+
+    //뒤로가기 타이머
+    var backKeyPressedTime: Long = 0
+
     lateinit var recyclerView: RecyclerView
     lateinit var viewAdapter: RecyclerView.Adapter<*>
     lateinit var viewManager: RecyclerView.LayoutManager
@@ -90,6 +94,20 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
+
+    }
+
+    //뒤로가기 두번 누르면 종료
+    override fun onBackPressed() {
+
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finish()
+        }
 
     }
 }
