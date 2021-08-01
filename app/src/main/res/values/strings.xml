@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MoyeoMoyeo</string>
+
+    <string-array name = "sortIdx">
+        <item>최신순</item>
+        <item>인기순</item>
+        <item>추천순</item>
+    </string-array>
+
 </resources>

@@ -20,7 +20,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
 
-
+//카카오톡 로그인 액티비티
 class LoginActivity : AppCompatActivity() {
 
     //뒤로가기 타이머
@@ -36,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         var kakaoLoginBttn = findViewById<Button>(R.id.Kakao_Login_Bttn)
 
         loginBttn.setOnClickListener {
+            //기능만 넣음. 실제 로그인 안됨.
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
@@ -43,16 +44,20 @@ class LoginActivity : AppCompatActivity() {
 
 
 
+        //카카오톡 로그인
         KakaoSdk.init(this, "08bbd9429cd88ac8922553576fae5eaa")
         kakaoLoginBttn.setOnClickListener {
             // 로그인 공통 callback 구성
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+
                 if (error != null) {
                     Log.d(TAG, "로그인 실패", error)
                     Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
                 else if (token != null) {
                     Log.d(TAG, "로그인 성공 ${token.accessToken}")
+
+                    //사용자 정보 요청하기
                     UserApiClient.instance.me { user, error ->
                         if (error != null) {
                             Log.e(TAG, "사용자 정보 요청 실패", error)
@@ -92,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                                     }
                                 }
                             }else{
-
+                                //필요 항목 충족 시 바로 로그인.
                                 CoroutineScope(IO).async {
                                     PostUserToken(token)
                                 }
@@ -141,13 +146,14 @@ class LoginActivity : AppCompatActivity() {
     //홈 액티비티로 전환
     fun gotoHome(newToken : String){
         val intent = Intent(this, HomeActivity::class.java)
+        //토큰 정보를 다음 액티비티(홈 액티비티)로 넘긴다
         intent.putExtra("jwt", newToken)
         startActivity(intent)
     }
 
 
     //코루틴에서 호출
-    //비동기 방식 - POST
+    //okhttp 비동기 방식 - POST
     //서버로 토큰 보내기
     fun PostUserToken(token: OAuthToken?){
         //1.클라이언트 만들기

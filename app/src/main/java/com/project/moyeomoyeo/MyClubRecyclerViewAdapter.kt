@@ -1,14 +1,15 @@
 package com.project.moyeomoyeo
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.project.moyeomoyeo.DataClass.GroupPreviews
+import com.project.moyeomoyeo.DataClass.ClubData
 
-class MyClubRecyclerViewAdapter(private val items : ArrayList<GroupPreviews>)
+class MyClubRecyclerViewAdapter(private val items : ArrayList<ClubData>, val context : Context)
     : RecyclerView.Adapter<MyClubRecyclerViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,12 +24,13 @@ class MyClubRecyclerViewAdapter(private val items : ArrayList<GroupPreviews>)
         var GroupExplain = holder.PreviewList.findViewById<TextView>(R.id.MyGroup_Explain)
         var GroupPepNum = holder.PreviewList.findViewById<TextView>(R.id.MyGroup_PeopleNum)
 
-        GroupName.text = items[position].GroupName
-        GroupExplain.text = items[position].Explain
-        GroupPepNum.text = items[position].PeopleNum.toString()
+        GroupName.text = items[position].name
+        GroupExplain.text = items[position].description
+//        GroupPepNum.text = items[position].PeopleNum.toString()
 
         holder.PreviewList.setOnClickListener {
-            Toast.makeText(it.context, GroupName.text, Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, MyClubDetailActivity::class.java)
+            context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
     }
 

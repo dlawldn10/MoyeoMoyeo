@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoyeoMoyeo">
-        <activity android:name=".MyPageActivity"></activity>
+        <activity android:name=".CreateQRActivity"></activity>
+        <activity android:name=".MyPageActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -31,13 +32,11 @@
                     android:scheme="kakao08bbd9429cd88ac8922553576fae5eaa" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateClub"></activity>
+        <activity android:name=".CreateClub" />
         <activity android:name=".EditClub" /> <!-- <activity android:name=".MainActivity" /> -->
         <activity android:name=".ManageMember" />
         <activity android:name=".AttendCheckMng" />
-        <activity android:name=".AttendCheck">
-
-        </activity>
+        <activity android:name=".AttendCheck"></activity>
         <activity android:name=".MyClubMng" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -46,13 +45,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity" />
         <activity android:name=".ClubDetailActivity" />
+        <activity android:name=".MyClubDetailActivity" />
         <activity android:name=".EtcActivity" />
         <activity android:name=".StudyActivity" />
         <activity android:name=".SpecActivity" />
         <activity android:name=".ClubListActivity" />
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".HomeActivity" />
     </application>
 
 </manifest>

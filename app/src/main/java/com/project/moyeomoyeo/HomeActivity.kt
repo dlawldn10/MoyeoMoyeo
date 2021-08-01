@@ -3,14 +3,16 @@ package com.project.moyeomoyeo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.moyeomoyeo.DataClass.GroupPreviews
+import com.project.moyeomoyeo.DataClass.ClubData
 
+//메인 화면 액티비티
 class HomeActivity : AppCompatActivity() {
 
     //뒤로가기 타이머
@@ -23,6 +25,14 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        var jwt = ""
+        //이전 인텐트로 전달받은 jwt가 있다면 저장하고, 추후 다음 액티비티로 넘어갈때 전달한다.
+        if(intent.getStringExtra("jwt") != null){
+            jwt = intent.getStringExtra("jwt")!!
+        }else{
+            Log.d("리스트 ", "멤버 조회 실패")
+        }
 
         //툴바
         var toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.my_toolbar)
@@ -42,6 +52,8 @@ class HomeActivity : AppCompatActivity() {
         //동아리 게시판
         CircleBttn.setOnClickListener{
             val intent = Intent(this, ClubListActivity::class.java)
+            //토큰 정보를 다음 액티비티(동아리 목록 조회 액티비티)로 넘긴다
+            intent.putExtra("jwt", jwt)
             startActivity(intent)
         }
 
@@ -64,18 +76,18 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-        //리사이클러뷰 선언
-        val PreviewList = ArrayList<GroupPreviews>()
-        PreviewList.add(GroupPreviews("펜타킬", "게임 리그 오브 레전드 동아리", 10, null))
-        PreviewList.add(GroupPreviews("S.E.L.", "서울여대 중앙 락밴드 동아리", 14, null))
-
-        viewAdapter = MyClubRecyclerViewAdapter(PreviewList)
-        viewManager = LinearLayoutManager(this)
-        recyclerView = findViewById<RecyclerView>(R.id.MyGroup_RecyclerView).apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
+//        //리사이클러뷰 선언
+//        val PreviewList = ArrayList<ClubData>()
+//        PreviewList.add(ClubData("펜타킬", "게임 리그 오브 레전드 동아리", 10, null))
+//        PreviewList.add(ClubData("S.E.L.", "서울여대 중앙 락밴드 동아리", 14, null))
+//
+//        viewAdapter = MyClubRecyclerViewAdapter(PreviewList, this)
+//        viewManager = LinearLayoutManager(this)
+//        recyclerView = findViewById<RecyclerView>(R.id.MyGroup_RecyclerView).apply {
+//            setHasFixedSize(true)
+//            layoutManager = viewManager
+//            adapter = viewAdapter
+//        }
 
 
 

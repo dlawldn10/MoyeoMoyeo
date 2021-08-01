@@ -48,12 +48,12 @@
                 android:id="@+id/buttons_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textView3"
+                android:layout_below="@id/DetailLongExplain_TextView"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/MyClub_AttendCheck_Btn"
                     android:layout_width="160dp"
                     android:layout_height="70dp"
                     android:layout_margin="9dp"
@@ -62,7 +62,7 @@
                     app:backgroundTint="#DBDBDB" />
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/MyClub_Community_Btn"
                     android:layout_width="160dp"
                     android:layout_height="70dp"
                     android:layout_margin="9dp"
@@ -110,7 +110,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/Detail_Name"
+                        android:id="@+id/DetailName_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="펜타킬"
@@ -118,7 +118,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/Detail_Explain"
+                        android:id="@+id/DetailExplain_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="게임 리그 오브 레전드 동아리"
@@ -167,7 +167,7 @@
                     tools:ignore="VectorDrawableCompat" />
 
                 <TextView
-                    android:id="@+id/Detail_PeopleNum"
+                    android:id="@+id/DetailMemberNum_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -186,7 +186,7 @@
                 app:srcCompat="@android:drawable/ic_menu_camera" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/DetailLongExplain_TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/detail_image"

@@ -6,9 +6,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.project.moyeomoyeo.DataClass.GroupPreviews
+import com.project.moyeomoyeo.DataClass.ClubData
 
-class ReccomendClubRecyclerViewAdapter (private val items : ArrayList<GroupPreviews>)
+class ReccomendClubRecyclerViewAdapter (private val items : ArrayList<ClubData>)
     : RecyclerView.Adapter<ReccomendClubRecyclerViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,9 +23,9 @@ class ReccomendClubRecyclerViewAdapter (private val items : ArrayList<GroupPrevi
         var GroupExplain = holder.PreviewList.findViewById<TextView>(R.id.MyGroup_Explain)
         var GroupPepNum = holder.PreviewList.findViewById<TextView>(R.id.MyGroup_PeopleNum)
 
-        GroupName.text = items[position].GroupName
-        GroupExplain.text = items[position].Explain
-        GroupPepNum.text = items[position].PeopleNum.toString()
+        GroupName.text = items[position].name
+        GroupExplain.text = items[position].description
+//        GroupPepNum.text = items[position].PeopleNum.toString()
 
         holder.PreviewList.setOnClickListener {
             Toast.makeText(it.context, GroupName.text, Toast.LENGTH_SHORT).show()

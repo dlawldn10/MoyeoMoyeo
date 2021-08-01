@@ -10,9 +10,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.project.moyeomoyeo.DataClass.GroupPreviews
+import com.project.moyeomoyeo.DataClass.ClubData
+import com.project.moyeomoyeo.DataClass.ClubPreviewData
 
-class ClubListRecyclerViewAdapter(private val items : ArrayList<GroupPreviews>, val context : Context)
+class ClubListRecyclerViewAdapter(private val items : ArrayList<ClubPreviewData>,
+                                  val context : Context, val jwt : String)
     : RecyclerView.Adapter<ClubListRecyclerViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,12 +31,14 @@ class ClubListRecyclerViewAdapter(private val items : ArrayList<GroupPreviews>, 
 
         //프사 uri or url 넣기
         //GroupPhoto <- items[position].ProfilePhoto
-        GroupName.text = items[position].GroupName
-        GroupExplain.text = items[position].Explain
+        GroupName.text = items[position].name
+        GroupExplain.text = items[position].description
 
         holder.PreviewList.setOnClickListener {
             Toast.makeText(it.context, GroupName.text, Toast.LENGTH_SHORT).show()
             val intent = Intent(context, ClubDetailActivity::class.java)
+            intent.putExtra("clubIdx", items[position].clubIdx)
+            intent.putExtra("jwt", jwt)
             context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK))
         }
     }
