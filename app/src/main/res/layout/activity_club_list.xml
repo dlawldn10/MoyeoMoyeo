@@ -36,34 +36,123 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <TextView
-            android:id="@+id/ClubListTitle_TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="최신 동아리 모집 공고"
-            android:textColor="#000000"
-            android:textStyle="bold" />
-
-
-        출처: https://duckssi.tistory.com/20 [홍드로이드의 야매코딩]
-
-        <Button
-            android:id="@+id/arrangeType_Bttn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="90dp"
-            android:layout_height="40dp"
-            android:layout_gravity="right"
-            android:text="정렬방식"
-            android:textAlignment="center"
-            android:textColor="#838383"
-            app:iconPadding="0dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ClubList_RecyclerView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@id/imageButton"
+                android:background="@android:drawable/editbox_background"
+                android:backgroundTint="#C8C8C8"
+                android:hint="검색어를 입력해주세요" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:backgroundTint="#00FFFFFF"
+                app:srcCompat="@drawable/ic_baseline_search_24" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/ClubListFilter_Bttn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:text="조건설정"
+                android:textAlignment="center"
+                android:textColor="#838383"
+                app:icon="@android:drawable/ic_menu_preferences"
+                app:iconPadding="4dp"
+                app:iconTint="#000000" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="left"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="분야"
+                    android:textColor="#000000"
+                    android:textSize="11sp"
+                    app:backgroundTint="@color/white" />
+
+                <Button
+                    android:id="@+id/button6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="지역"
+                    android:textColor="#000000"
+                    android:textSize="11sp"
+                    app:backgroundTint="@color/white" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ClubListTitle_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="16dp"
+                android:text="최신 동아리 모집 공고"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/arrangeType_Bttn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:text="정렬방식"
+                android:textAlignment="center"
+                android:textColor="#838383"
+                app:icon="@android:drawable/arrow_down_float"
+                app:iconPadding="0dp"
+                app:iconTint="#5A5A5A" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ClubList_RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/arrangeType_Bttn" />
+        </RelativeLayout>
+
+
     </LinearLayout>
+
 
 
 </LinearLayout>

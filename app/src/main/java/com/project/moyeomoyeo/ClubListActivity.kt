@@ -70,8 +70,8 @@ class ClubListActivity : AppCompatActivity() {
 
     //액션바 옵션 반영하기
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        //mypage와 search 아이콘이 있는 툴바
-        menuInflater.inflate(R.menu.mypage_search_toolbar, menu)
+        //mypage만 있는 툴바
+        menuInflater.inflate(R.menu.mypage_toolbar, menu)
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -84,11 +84,11 @@ class ClubListActivity : AppCompatActivity() {
                 intent = Intent(this, MyPageActivity::class.java)
                 startActivity(intent)
             }
-            //돋보기 아이콘 클릭
-            R.id.gotoSearch-> {
-                intent = Intent(this, SearchActivity::class.java)
-                startActivity(intent)
-                }
+//            //돋보기 아이콘 클릭
+//            R.id.gotoSearch-> {
+//                intent = Intent(this, SearchActivity::class.java)
+//                startActivity(intent)
+//                }
             //뒤로가기 클릭
             android.R.id.home->
                 finish()
