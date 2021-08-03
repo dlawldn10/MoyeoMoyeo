@@ -1,6 +1,5 @@
 package com.project.moyeomoyeo
 
-import android.R.attr.name
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,19 +9,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.project.moyeomoyeo.DataClass.ClubData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import okhttp3.*
+import kotlinx.coroutines.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import org.json.JSONObject
 
 
 class ClubDetailActivity : AppCompatActivity() {
 
-    //사용자 토큰
-    var jwt = "null"
-    var club = 0
+
     var Data = ClubData(0,0,"","","",
         "","",0, 0, 0, 0, 0)
 
@@ -32,27 +28,28 @@ class ClubDetailActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
 
-            if(intent.getStringExtra("jwt") != null){
+            withContext(
+                CoroutineScope(Dispatchers.IO).coroutineContext
+            ) {
 
-                jwt = intent.getStringExtra("jwt")!!
-                club = intent.getIntExtra("clubIdx", 0)
 
-//                Data = getClubData(jwt, club)
+                if(intent.getStringExtra("jwt") != null) {
 
-                Log.d("리스트 ", Data.clubIdx.toString())
-                findViewById<TextView>(R.id.DetailName_TextView).text = Data.name
-                findViewById<TextView>(R.id.DetailExplain_TextView).text = Data.description
-                findViewById<TextView>(R.id.DetailLongExplain_TextView).text = Data.detailDescription
-                findViewById<TextView>(R.id.DetailMemberNum_TextView).text = Data.memberCount.toString()
-                //TODO : 로고 이미지와 동아리 이미지 추후 추가해야함
-            }else{
-                Log.d("리스트 ", "멤버 조회 실패")
+                    getClubData(intent.getStringExtra("jwt")!!, intent.getIntExtra("clubIdx", 0))
+
+                }else{
+                    Log.d("리스트 ", "멤버 조회 실패")
+                }
+
+
             }
 
-
+            findViewById<TextView>(R.id.DetailName_TextView).text = Data.name
+            findViewById<TextView>(R.id.DetailExplain_TextView).text = Data.description
+            findViewById<TextView>(R.id.DetailLongExplain_TextView).text = Data.detailDescription
+            findViewById<TextView>(R.id.DetailMemberNum_TextView).text = Data.memberCount.toString()
+            //TODO : 로고 이미지와 동아리 이미지 추후 추가해야함
         }
-
-
 
 
         //툴바
@@ -85,64 +82,46 @@ class ClubDetailActivity : AppCompatActivity() {
 
     }
 
-//    fun getClubData(jwt: String, clubIdx: Int): ClubData{
-//
-//        CoroutineScope(Dispatchers.IO).async {
-//            //동아리 정보를 받아온다.
-//        try {
-//
-//            val client = OkHttpClient.Builder().build()
-//            val httpUrl: HttpUrl = HttpUrl.Builder()
-//                .scheme("https")
-//                .host("moyeo.shop")
-//                .addPathSegment("clubs/:clubIdx")
-//                .addQueryParameter("clubIdx", clubIdx.toString())
-//                .build()
-//
-//
-//            val req = Request.Builder()
-//                .url(httpUrl)
-//                .addHeader("x-access-token", jwt)
-//                .build()
-//
-//            val response: Response = client.newCall(req).execute()
-//
-//            val result: String = response.body?.string() ?: "null"
-//            var jsonObject = JSONObject(result)
-//
-//            if(jsonObject.getBoolean("isSuccess")){
-//                Data = ClubData(
-//                    jsonObject.get("clubIdx") as Int,
-//                    jsonObject.get("sortIdx") as Int,
-//                    jsonObject.get("name") as String,
-//                    jsonObject.get("description") as String,
-//                    jsonObject.get("detailDescription") as String,
-//                    jsonObject.get("logoImage") as String,
-//                    jsonObject.get("clubImage") as String,
-//                    jsonObject.get("areaIdx") as Int,
-//                    jsonObject.get("fieldIdx") as Int,
-//                    jsonObject.get("userIdx") as Int,
-//                    jsonObject.get("memberCount") as Int,
-//                    jsonObject.get("isOrganizer") as Int
-//
-//                )
-//                Log.d("리스트 ", Data.clubIdx.toString())
-//                Log.d("리스트: ", jsonObject.toString())
-//            }else{
-//                //작업 실패 했을때
-//                Log.d("리스트: ", jsonObject.get("code").toString())
-//                Log.d("리스트: ", jsonObject.get("message").toString())
-//            }
-//
-//
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//
-//        }
-//
-//
-//        return Data
-//
-//    }
+    private fun getClubData(jwt: String, clubIdx: Int) {
+
+        val client = OkHttpClient.Builder().build()
+
+        val req = Request.Builder()
+            .url("https://moyeo.shop/clubs/$clubIdx")
+            .addHeader("x-access-token", jwt)
+            .build()
+
+        val response: Response = client.newCall(req).execute()
+
+        val result: String = response.body?.string() ?: "null"
+        var jsonObject = JSONObject(result)
+        var detailData = jsonObject.getJSONArray("result")
+
+        if (jsonObject.getBoolean("isSuccess")) {
+            for (i in 0 until detailData.length()) {
+
+                val entry: JSONObject = detailData.getJSONObject(i)
+                Data = ClubData(
+                    entry?.get("clubIdx") as Int,
+                    entry?.get("sortIdx") as Int,
+                    entry?.get("name") as String,
+                    entry?.get("description") as String,
+                    entry?.get("detailDescription") as String,
+                    entry?.get("logoImage") as String,
+                    entry?.get("clubImage") as String,
+                    entry?.get("areaIdx") as Int,
+                    entry?.get("fieldIdx") as Int,
+                    entry?.get("userIdx") as Int,
+                    entry?.get("memberCount") as Int,
+                    entry?.get("isOrganizer") as Int
+
+                )
+            }
+        } else {
+            //작업 실패 했을때
+            Log.d("리스트 ", jsonObject.get("code").toString())
+            Log.d("리스트 ", jsonObject.get("message").toString())
+        }
+
+    }
 }
