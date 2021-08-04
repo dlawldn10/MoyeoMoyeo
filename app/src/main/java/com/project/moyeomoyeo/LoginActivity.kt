@@ -70,7 +70,6 @@ class LoginActivity : AppCompatActivity() {
                             //필요한 동의 항목 체크 -> 하나라도 NeedsAgreement가 true이면 추가 동의가 필요함.
                             if (user.kakaoAccount?.emailNeedsAgreement == true) { scopes.add("account_email") }
                             if (user.kakaoAccount?.genderNeedsAgreement == true) { scopes.add("gender") }
-                            if (user.kakaoAccount?.phoneNumberNeedsAgreement == true) { scopes.add("phone_number") }
 
                             //필요 항목 미충족 시 추가 동의 받기
                             if (scopes.count() > 0) {
