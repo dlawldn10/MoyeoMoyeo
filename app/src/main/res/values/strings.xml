@@ -7,4 +7,30 @@
         <item>추천순</item>
     </string-array>
 
+    <string-array name = "fieldIdx">
+        <item>문화/예술/공연</item>
+        <item>학술/교양</item>
+        <item>어학</item>
+        <item>친목</item>
+
+        <item>봉사/사회활동</item>
+        <item>창업/취업</item>
+        <item>운동</item>
+        <item>기타</item>
+    </string-array>
+
+    <string-array name = "areaIdx">
+        <item>전국</item>
+        <item>충북/충남/대전</item>
+        <item>전남/광주</item>
+        <item>경남/부산/울산</item>
+        <item>제주</item>
+
+        <item>수도권</item>
+        <item>전북</item>
+        <item>경북/대구</item>
+        <item>강원</item>
+        <item>기타</item>
+    </string-array>
+
 </resources>

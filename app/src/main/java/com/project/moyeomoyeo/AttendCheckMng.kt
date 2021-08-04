@@ -1,16 +1,25 @@
 package com.project.moyeomoyeo
 
-import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.Toast
+import android.widget.ImageView
 
 class AttendCheckMng : AppCompatActivity() {
+
+    lateinit var qrCodeIV : ImageView
+    lateinit var QRbttn : Button
+
+    var bitmap : Bitmap? = null
+    //var qrEncoder : QRGEncoder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attend_check_mng)
+
+        qrCodeIV = findViewById(R.id.QR_imageView)
+        QRbttn = findViewById(R.id.QRBtn)
 
         //툴바
         var toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.my_toolbar)
@@ -31,4 +40,6 @@ class AttendCheckMng : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
 
     }
+
+
 }

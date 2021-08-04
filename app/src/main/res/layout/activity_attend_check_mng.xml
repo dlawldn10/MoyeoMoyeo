@@ -57,14 +57,25 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="604dp" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </ListView>
+        <ImageView
+            android:id="@+id/QR_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_gravity="center"/>
 
         <Button
             android:id="@+id/QRBtn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="QR 코드 인식" />
+            android:text="QR 코드 생성" />
+
+
 
 
     </LinearLayout>
