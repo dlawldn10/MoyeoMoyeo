@@ -47,6 +47,7 @@ class HomeActivity : AppCompatActivity() {
         val StudyGroupBttn = findViewById<Button>(R.id.StudyGroups_Bttn)
         val ExtraActivityBttn = findViewById<Button>(R.id.ExtraActivies_Bttn)
         val OtherGroupBttn = findViewById<Button>(R.id.OtherGroups_Bttn)
+        val CreateBttn = findViewById<Button>(R.id.CreateClub_Bttn)
 
         //각 버튼 씬 전환
         //동아리 게시판
@@ -72,6 +73,13 @@ class HomeActivity : AppCompatActivity() {
         //기타 게시판
         OtherGroupBttn.setOnClickListener{
             val intent = Intent(this, EtcActivity::class.java)
+            startActivity(intent)
+        }
+
+        //모임 생성
+        CreateBttn.setOnClickListener {
+            val intent = Intent(this, CreateClub::class.java)
+            intent.putExtra("jwt", jwt)
             startActivity(intent)
         }
 

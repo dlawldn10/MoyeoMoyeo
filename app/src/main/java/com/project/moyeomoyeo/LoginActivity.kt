@@ -23,6 +23,7 @@ import java.io.*
 //카카오톡 로그인 액티비티
 class LoginActivity : AppCompatActivity() {
 
+
     //뒤로가기 타이머
     var backKeyPressedTime: Long = 0
 
@@ -31,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         var loginBttn = findViewById<Button>(R.id.Login_Button)
         var kakaoLoginBttn = findViewById<Button>(R.id.Kakao_Login_Bttn)

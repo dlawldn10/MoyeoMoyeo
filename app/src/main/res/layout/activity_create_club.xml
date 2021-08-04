@@ -46,13 +46,14 @@
         android:textStyle="bold"/>
 
     <RadioGroup
+        android:id="@+id/Sort_radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/CircleRBtn"
+            android:id="@+id/ClubRBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -66,7 +67,7 @@
             android:text="스터디" />
 
         <RadioButton
-            android:id="@+id/ExternalRBtn"
+            android:id="@+id/SpecRBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -88,7 +89,7 @@
         android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/NameEditText"
+        android:id="@+id/Name_EditText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:ems="10"
@@ -103,7 +104,7 @@
         android:layout_marginTop="30dp"/>
 
     <EditText
-        android:id="@+id/SubNameEditText"
+        android:id="@+id/Description_EditText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:ems="10"
@@ -119,77 +120,81 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-        <RadioGroup
+    <RadioGroup
+        android:id="@+id/Field_RadioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="132dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/Field1RBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:text="문화/예술/공연" />
 
             <RadioButton
-                android:id="@+id/Category1RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="문화/예술/공연" />
-
-            <RadioButton
-                android:id="@+id/Category2RBtn"
+                android:id="@+id/Field2RBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="학술/교양" />
 
             <RadioButton
-                android:id="@+id/Category3RBtn"
+                android:id="@+id/Field3RBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="어학" />
 
             <RadioButton
-                android:id="@+id/Category4RBtn"
+                android:id="@+id/Field4RBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="친목" />
-        </RadioGroup>
+
+    </RadioGroup>
 
         <RadioGroup
+            android:id="@+id/Field_RadioGroup2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_height="132dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/Category5RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="봉사/사회활동" />
+                <RadioButton
+                    android:id="@+id/Field5RBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="봉사/사회활동" />
 
-            <RadioButton
-                android:id="@+id/Category6RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="창업/취업" />
+                <RadioButton
+                    android:id="@+id/Field6RBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="창업/취업" />
 
-            <RadioButton
-                android:id="@+id/Category7RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="운동" />
+                <RadioButton
+                    android:id="@+id/Field7RBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="운동" />
 
-            <RadioButton
-                android:id="@+id/Category8RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="기타" />
+                <RadioButton
+                    android:id="@+id/Field8RBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="기타" />
         </RadioGroup>
     </LinearLayout>
 
@@ -200,95 +205,101 @@
         android:textStyle="bold"
         android:layout_marginTop="30dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal">
-
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/Area_RadioGroup1"
+            android:layout_width="match_parent"
+            android:layout_height="165dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <RadioButton
-                android:id="@+id/Location1RBtn"
+                android:id="@+id/Area1RBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="전국" />
 
             <RadioButton
-                android:id="@+id/Location2RBtn"
+                android:id="@+id/Area3RBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="층북/충남/대전" />
 
             <RadioButton
-                android:id="@+id/Location3RBtn"
+                android:id="@+id/Area5RBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="전남/광주" />
 
             <RadioButton
-                android:id="@+id/Location4RBtn"
+                android:id="@+id/Area7RBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="경남/부산/울산" />
 
             <RadioButton
-                android:id="@+id/Location5RBtn"
+                android:id="@+id/Area9RBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="제주" />
+
         </RadioGroup>
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/Location6RBtn"
+            <RadioGroup
+                android:id="@+id/Area_RadioGroup2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="수도권" />
+                android:layout_height="165dp"
+                android:orientation="vertical"
+                android:layout_weight="1">
 
-            <RadioButton
-                android:id="@+id/Location7RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="전북" />
 
-            <RadioButton
-                android:id="@+id/Location8RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="경북/대구" />
+                <RadioButton
+                    android:id="@+id/Area2RBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="수도권" />
 
-            <RadioButton
-                android:id="@+id/Location9RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="강원" />
+                <RadioButton
+                    android:id="@+id/Area4RBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="전북" />
 
-            <RadioButton
-                android:id="@+id/Location10RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="기타" />
-        </RadioGroup>
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/Area6RBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="경북/대구" />
+
+                <RadioButton
+                    android:id="@+id/Area8RBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="강원" />
+
+                <RadioButton
+                    android:id="@+id/Area10RBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="기타" />
+
+            </RadioGroup>
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -297,19 +308,24 @@
         android:layout_marginTop="30dp">
 
         <TextView
-            android:layout_width="150dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:gravity="center|start"
             android:text="로고"
-            android:layout_weight="1"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/Logo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|start" />
 
         <Button
             android:id="@+id/LogoBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_weight="1"
             android:text="파일 선택" />
 
     </LinearLayout>
@@ -320,18 +336,23 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="150dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center|start"
             android:text="이미지"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/Image_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|start" />
 
         <Button
             android:id="@+id/ImageBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
             android:text="파일 선택" />
 
@@ -345,17 +366,20 @@
         android:layout_marginTop="30dp"
         android:textStyle="bold" />
 
-    <TextView
+    <EditText
+        android:id="@+id/detailDescription_EditText"
+        style="@style/Widget.AppCompat.EditText"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:gravity="start"
-        android:text="모임설명 내용" />
+        android:singleLine="false"
+        android:textSize="14sp" />
 
 
     <Button
+        android:id="@+id/CreateClub_Bttn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:text="모임 만들기"
         android:textSize="20dp" />
 
