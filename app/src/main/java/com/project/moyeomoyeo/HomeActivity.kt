@@ -1,3 +1,5 @@
+
+
 package com.project.moyeomoyeo
 
 import android.content.Intent
@@ -10,7 +12,17 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.moyeomoyeo.DataClass.ClubData
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.project.moyeomoyeo.DataClass.ClubPreviewData
+import com.project.moyeomoyeo.DataClass.UserData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import org.json.JSONObject
 
 //메인 화면 액티비티
 class HomeActivity : AppCompatActivity() {
@@ -22,14 +34,20 @@ class HomeActivity : AppCompatActivity() {
     lateinit var viewAdapter: RecyclerView.Adapter<*>
     lateinit var viewManager: RecyclerView.LayoutManager
 
+    var userData = UserData("", 0, "")
+
+    val MyClubList = ArrayList<ClubPreviewData>()
+
+    val TAG = "나의 모임"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        var jwt = ""
+
         //이전 인텐트로 전달받은 jwt가 있다면 저장하고, 추후 다음 액티비티로 넘어갈때 전달한다.
-        if(intent.getStringExtra("jwt") != null){
-            jwt = intent.getStringExtra("jwt")!!
+        if(intent.getSerializableExtra("userData") != null){
+            userData = intent.getSerializableExtra("userData") as UserData
         }else{
             Log.d("리스트 ", "멤버 조회 실패")
         }
@@ -47,57 +65,50 @@ class HomeActivity : AppCompatActivity() {
         val StudyGroupBttn = findViewById<Button>(R.id.StudyGroups_Bttn)
         val ExtraActivityBttn = findViewById<Button>(R.id.ExtraActivies_Bttn)
         val OtherGroupBttn = findViewById<Button>(R.id.OtherGroups_Bttn)
-        val CreateBttn = findViewById<Button>(R.id.CreateClub_Bttn)
+        val CreateBttn = findViewById<FloatingActionButton>(R.id.CreateClub_Bttn)
 
         //각 버튼 씬 전환
         //동아리 게시판
         CircleBttn.setOnClickListener{
             val intent = Intent(this, ClubListActivity::class.java)
             //토큰 정보를 다음 액티비티(동아리 목록 조회 액티비티)로 넘긴다
-            intent.putExtra("jwt", jwt)
+            intent.putExtra("userData", userData)
+            intent.putExtra("sortIdx", 1)
             startActivity(intent)
         }
 
         //스터디 그룹 게시판
         StudyGroupBttn.setOnClickListener{
-            val intent = Intent(this, StudyActivity::class.java)
+            val intent = Intent(this, ClubListActivity::class.java)
+            intent.putExtra("userData", userData)
+            intent.putExtra("sortIdx", 2)
             startActivity(intent)
         }
 
         //대외활동 게시판
         ExtraActivityBttn.setOnClickListener{
-            val intent = Intent(this, SpecActivity::class.java)
+            val intent = Intent(this, ClubListActivity::class.java)
+            intent.putExtra("userData", userData)
+            intent.putExtra("sortIdx", 3)
             startActivity(intent)
         }
 
         //기타 게시판
         OtherGroupBttn.setOnClickListener{
-            val intent = Intent(this, EtcActivity::class.java)
+            val intent = Intent(this, ClubListActivity::class.java)
+            intent.putExtra("userData", userData)
+            intent.putExtra("sortIdx", 4)
             startActivity(intent)
         }
 
         //모임 생성
         CreateBttn.setOnClickListener {
             val intent = Intent(this, CreateClub::class.java)
-            intent.putExtra("jwt", jwt)
+            intent.putExtra("userData", userData)
             startActivity(intent)
         }
 
-
-//        //리사이클러뷰 선언
-//        val PreviewList = ArrayList<ClubData>()
-//        PreviewList.add(ClubData("펜타킬", "게임 리그 오브 레전드 동아리", 10, null))
-//        PreviewList.add(ClubData("S.E.L.", "서울여대 중앙 락밴드 동아리", 14, null))
-//
-//        viewAdapter = MyClubRecyclerViewAdapter(PreviewList, this)
-//        viewManager = LinearLayoutManager(this)
-//        recyclerView = findViewById<RecyclerView>(R.id.MyGroup_RecyclerView).apply {
-//            setHasFixedSize(true)
-//            layoutManager = viewManager
-//            adapter = viewAdapter
-//        }
-
-
+        getMyList()
 
     }
 
@@ -113,6 +124,7 @@ class HomeActivity : AppCompatActivity() {
             R.id.MyPage->{
                 Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MyPageActivity::class.java)
+                intent.putExtra("userData", userData)
                 startActivity(intent)
             }
 
@@ -132,6 +144,67 @@ class HomeActivity : AppCompatActivity() {
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
             finish()
         }
+
+    }
+
+    private fun getMyList(){
+
+        CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.IO).async {
+                //동아리 목록 정보를 받아온다.
+                //리스트 초기화
+                MyClubList.clear()
+
+                val client = OkHttpClient.Builder().build()
+                var url = "https://moyeo.shop/my/clubs"
+
+                val req = Request.Builder()
+                    .url(url)
+                    .addHeader("x-access-token", userData.jwt)
+                    .build()
+
+                val response: Response = client.newCall(req).execute()
+
+                val result: String = response.body?.string() ?: "null"
+                var jsonObject = JSONObject(result)
+
+                if(jsonObject.getBoolean("isSuccess")){
+                    var jsonArray = jsonObject.getJSONArray("result")
+                    for (i in 0 until jsonArray.length()) {
+
+                        val entry: JSONObject = jsonArray.getJSONObject(i)
+                        var tmp : ClubPreviewData = ClubPreviewData(
+                            entry.get("clubIdx") as Int,
+                            entry.get("name") as String,
+                            entry.get("description") as String,
+                            null,
+                            1
+                        )
+                        MyClubList.add(tmp)
+                    }
+                    Log.d(TAG, jsonArray.toString())
+
+                }else{
+                    //작업 실패 했을때
+                    Log.d(TAG, jsonObject.get("code").toString())
+                    Log.d(TAG, jsonObject.get("message").toString())
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }.await()
+
+            //리사이클러뷰 선언
+            viewAdapter = ClubListRecyclerViewAdapter(MyClubList, applicationContext, userData)
+            viewManager = LinearLayoutManager(applicationContext)
+            recyclerView = findViewById<RecyclerView>(R.id.MyGroup_RecyclerView).apply {
+                setHasFixedSize(true)
+                layoutManager = viewManager
+                adapter = viewAdapter
+            }
+
+        }
+
 
     }
 }

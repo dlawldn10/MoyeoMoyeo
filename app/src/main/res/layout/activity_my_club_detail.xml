@@ -44,33 +44,6 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/buttons_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/DetailLongExplain_TextView"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/MyClub_AttendCheck_Btn"
-                    android:layout_width="160dp"
-                    android:layout_height="70dp"
-                    android:layout_margin="9dp"
-                    android:text="출석체크"
-                    android:textColor="#000000"
-                    app:backgroundTint="#DBDBDB" />
-
-                <Button
-                    android:id="@+id/MyClub_Community_Btn"
-                    android:layout_width="160dp"
-                    android:layout_height="70dp"
-                    android:layout_margin="9dp"
-                    android:text="커뮤니티"
-                    android:textColor="#000000"
-                    app:backgroundTint="#DBDBDB" />
-            </LinearLayout>
-
             <RelativeLayout
                 android:id="@+id/preview_layout"
                 android:layout_width="match_parent"
@@ -198,6 +171,34 @@
                 android:layout_marginBottom="18dp"
                 android:text="매주 수요일 6시 정기모임 \n*불참자는 최소 전날 미리 연락하기 \n\n동아리 SNS 링크 인스타그램 : http://www.swu.ac.kr \n페이스북 : http://www.swu.ac.kr"
                 android:textColor="#000000" />
+
+            <LinearLayout
+                android:id="@+id/buttons_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_below="@id/DetailLongExplain_TextView">
+
+                <Button
+                    android:id="@+id/MyClub_AttendCheck_Btn"
+                    android:layout_width="160dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="9dp"
+                    android:text="출석체크"
+                    android:textColor="#000000"
+                    app:backgroundTint="#DBDBDB" />
+
+                <Button
+                    android:id="@+id/MyClub_Community_Btn"
+                    android:layout_width="160dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="9dp"
+                    android:text="커뮤니티"
+                    android:textColor="#000000"
+                    app:backgroundTint="#DBDBDB" />
+            </LinearLayout>
+
 
 
         </RelativeLayout>

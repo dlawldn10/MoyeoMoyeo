@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import com.project.moyeomoyeo.DataClass.ClubData
 
+//나의 모임 - 모임장 버전
 class MyClubMng : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +19,13 @@ class MyClubMng : AppCompatActivity() {
         val manageBtn = findViewById<Button>(R.id.ManageBtn)
         val attendBtn = findViewById<Button>(R.id.AttendCheckBtn)
         val optionBtn = findViewById<Button>(R.id.OptionBtn)
+
+        val Data : ClubData = intent.getSerializableExtra("clubOwner") as ClubData
+
+        findViewById<TextView>(R.id.NameText).text = Data.name
+        findViewById<TextView>(R.id.SubNameText).text = Data.description
+        findViewById<TextView>(R.id.ContentText).text = Data.detailDescription
+        findViewById<TextView>(R.id.CountText).text = Data.memberCount.toString()
 
         manageBtn.setOnClickListener {
             val nextIntent = Intent(this,ManageMember::class.java)

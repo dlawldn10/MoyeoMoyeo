@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
+import com.project.moyeomoyeo.DataClass.UserData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -44,6 +44,8 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
+//        var keyHash = Utility.getKeyHash(this)
+//        Log.d("로그인", "" + keyHash)
 
 
         //카카오톡 로그인
@@ -102,10 +104,6 @@ class LoginActivity : AppCompatActivity() {
                                 CoroutineScope(IO).async {
                                     PostUserToken(token)
                                 }
-                                Toast.makeText(this, "성공적으로 로그인 되었습니다", Toast.LENGTH_SHORT).show()
-
-
-
 
                             }
                         }
@@ -145,10 +143,10 @@ class LoginActivity : AppCompatActivity() {
 
     //코루틴에서 호출
     //홈 액티비티로 전환
-    fun gotoHome(newToken : String){
+    fun gotoHome(userData : UserData){
         val intent = Intent(this, HomeActivity::class.java)
         //토큰 정보를 다음 액티비티(홈 액티비티)로 넘긴다
-        intent.putExtra("jwt", newToken)
+        intent.putExtra("userData", userData)
         startActivity(intent)
     }
 
@@ -171,7 +169,11 @@ class LoginActivity : AppCompatActivity() {
         //3.응답
         client.newCall(req).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                TODO("Not yet implemented")
+                CoroutineScope(Main).launch {
+                    Toast.makeText(applicationContext, "서버에 접근할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "다시 시도하세요.", Toast.LENGTH_SHORT).show()
+                }
+                Log.d("로그인 에러", e.toString())
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -183,10 +185,17 @@ class LoginActivity : AppCompatActivity() {
 
                     if(jsonObject.getBoolean("isSuccess")){
                         var jsonResultObject = JSONObject(jsonObject.get("result").toString())
-                        Log.d(TAG, jsonResultObject.get("jwt").toString())
-
+                        var Data = UserData(
+                            jsonResultObject.get("jwt") as String,
+                            jsonResultObject.get("userIdx") as Int,
+                            jsonResultObject.get("member") as String
+                        )
+                        Log.d(TAG, Data.jwt)
+                        CoroutineScope(Main).launch {
+                            Toast.makeText(applicationContext, "성공적으로 로그인 되었습니다", Toast.LENGTH_SHORT).show()
+                        }
                         //우리쪽 서버에 저장하기까지 완료 되면 다음 액티비티로.
-                        gotoHome(jsonResultObject.get("jwt").toString())
+                        gotoHome(Data)
 
                         //로그인 액티비티는 끝낸다.
                         finish()

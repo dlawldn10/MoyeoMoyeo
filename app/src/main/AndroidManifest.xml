@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateClub" />
-        <activity android:name=".EditClub" /> <!-- <activity android:name=".MainActivity" /> -->
+        <activity android:name=".EditClub" />
         <activity android:name=".ManageMember" />
         <activity android:name=".AttendCheckMng" />
         <activity android:name=".AttendCheck" />
@@ -56,7 +56,7 @@
         <activity android:name=".ClubDetailActivity" />
         <activity android:name=".MyClubDetailActivity" />
         <activity android:name=".EtcActivity" />
-        <activity android:name=".StudyActivity" />
+        <activity android:name=".StudyListActivity" />
         <activity android:name=".SpecActivity" />
         <activity android:name=".ClubListActivity" />
         <activity android:name=".HomeActivity" />
