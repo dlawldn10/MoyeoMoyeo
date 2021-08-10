@@ -1,25 +1,51 @@
 package com.project.moyeomoyeo
 
+import android.R.attr.key
+import android.R.attr.value
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.project.moyeomoyeo.DataClass.ClubData
+import com.project.moyeomoyeo.DataClass.UserData
+
 
 class ManageMember : AppCompatActivity() {
+
+
+    var userData = UserData("", 0, "")
+    var clubIdx = 0
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_member)
 
+        if(intent.getSerializableExtra("userData") != null){
+            userData = intent.getSerializableExtra("userData") as UserData
+            clubIdx = intent.getIntExtra("clubIdx", 0)
+
+            Log.d("멤버조회", "프래그먼트로 값 전달")
+
+
+        }else{
+            Log.d("리스트 ", "멤버 조회 실패")
+        }
+
+
+
         val tabLayout=findViewById<TabLayout>(R.id.tab_layout)
         val viewPager2=findViewById<ViewPager2>(R.id.viewPager)
 
-        val adapter=ManageMemberViewPagerAdapter(supportFragmentManager,lifecycle)
+        val adapter=ManageMemberViewPagerAdapter(supportFragmentManager,lifecycle, userData, clubIdx)
 
         viewPager2.adapter = adapter
 

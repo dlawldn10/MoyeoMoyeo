@@ -207,4 +207,10 @@ class HomeActivity : AppCompatActivity() {
 
 
     }
+
+
+    override fun onRestart() {
+        super.onRestart()
+        getMyList()
+    }
 }

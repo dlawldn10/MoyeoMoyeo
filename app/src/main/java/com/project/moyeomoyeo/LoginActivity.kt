@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
                 else if (token != null) {
-                    Log.d(TAG, "로그인 성공 ${token.accessToken}")
+                    Log.d(TAG, "카카오 로그인 성공 ${token.accessToken}")
 
                     //사용자 정보 요청하기
                     UserApiClient.instance.me { user, error ->

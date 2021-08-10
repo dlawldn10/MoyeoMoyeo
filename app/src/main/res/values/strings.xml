@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">MoyeoMoyeo</string>
 
-    <string-array name = "sortIdx">
+    <string-array name="sortIdx">
         <item>최신순</item>
         <item>인기순</item>
         <item>추천순</item>
     </string-array>
 
-    <string-array name = "fieldIdx">
+    <string-array name="fieldIdx">
         <item>문화/예술/공연</item>
         <item>학술/교양</item>
         <item>어학</item>
@@ -19,7 +19,7 @@
         <item>기타</item>
     </string-array>
 
-    <string-array name = "areaIdx">
+    <string-array name="areaIdx">
         <item>전국</item>
         <item>충북/충남/대전</item>
         <item>전남/광주</item>

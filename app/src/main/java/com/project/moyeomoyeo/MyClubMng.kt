@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.project.moyeomoyeo.DataClass.ClubData
 
+//이 액티비티 사용 안함. 추후 삭제
 //나의 모임 - 모임장 버전
 class MyClubMng : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -16,5 +16,4 @@ data class ClubData(val clubIdx: Int,
                     val isMember: Int,
                     val isOrganizer:Int ) : Serializable{
 
-//                         서버 -> val PeopleNum: Int가 빠져있음!
-}
+                    }

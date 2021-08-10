@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 
+//이 액티비티 사용 안함. 추후 삭제
 //모임원 - 내가 속해있는 모임 상세 페이지.
 class MyClubDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,8 @@ class MyClubDetailActivity : AppCompatActivity() {
             val intent = Intent(this, AttendCheck::class.java)
             startActivity(intent)
         }
+        
+        
     }
 
     //액션바 옵션 반영하기

@@ -242,7 +242,7 @@ class ClubListActivity : AppCompatActivity() {
 
         var fieldFilterRadioGroup = dilaog01.findViewById<GridRadioGroup>(R.id.fieldFilter_RadioGroup)
         var areaFilterRadioGroup = dilaog01.findViewById<GridRadioGroup>(R.id.areaFilter_RadioGroup)
-        var okBttn = dilaog01.findViewById<Button>(R.id.filter_ok)
+        var okBttn = dilaog01.findViewById<Button>(R.id.applyCancel_Bttn)
 
 
         fieldFilterRadioGroup.findViewById<RadioButton>(selectedItems_id[0]).isChecked = true

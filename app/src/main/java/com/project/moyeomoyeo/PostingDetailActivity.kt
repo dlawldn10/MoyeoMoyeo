@@ -17,7 +17,7 @@ import org.json.JSONObject
 import java.io.IOException
 
 
-class ClubDetailActivity : AppCompatActivity() {
+class PostingDetailActivity : AppCompatActivity() {
 
 
     var Data = ClubData(0,0,"","","",
@@ -67,6 +67,13 @@ class ClubDetailActivity : AppCompatActivity() {
         }
 
 
+        //툴바
+        var toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.my_toolbar)
+        setSupportActionBar(toolbar)
+        var actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)      //뒤로가기 활성화
+        actionBar?.setDisplayShowCustomEnabled(true)    //커스텀 허용
+        actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
     }
 
     //액션바 옵션 반영하기
@@ -139,9 +146,6 @@ class ClubDetailActivity : AppCompatActivity() {
         Log.d("디테일", contentNum.toString())
         if(contentNum == 0){
             //외부인 버전
-
-            setToolbar()
-
             findViewById<TextView>(R.id.DetailName_TextView).text = Data.name
             findViewById<TextView>(R.id.DetailExplain_TextView).text = Data.description
             findViewById<TextView>(R.id.DetailLongExplain_TextView).text = Data.detailDescription
@@ -152,19 +156,10 @@ class ClubDetailActivity : AppCompatActivity() {
                 ApplyDialogBuilder()
             }
 
-            //스크랩 버튼
-            findViewById<ImageButton>(R.id.Detail_Scrap_Bttn).setOnClickListener {
-                addScrapList()
-            }
-
         }else if(contentNum == 1){
             //모임장 버전
-
-            setToolbar()
-
             val manageBtn = findViewById<Button>(R.id.ManageBtn)
             val attendBtn = findViewById<Button>(R.id.AttendCheckBtn)
-            val communityBtn = findViewById<Button>(R.id.CommunityBtn)
             val optionBtn = findViewById<Button>(R.id.OptionBtn)
 
             findViewById<TextView>(R.id.NameText).text = Data.name
@@ -175,38 +170,26 @@ class ClubDetailActivity : AppCompatActivity() {
             //모임원 관리 버튼
             manageBtn.setOnClickListener {
                 val nextIntent = Intent(this,ManageMember::class.java)
-                nextIntent.putExtra("userData", userData)
-                nextIntent.putExtra("clubIdx", Data.clubIdx)
+                intent.putExtra("userData", userData)
                 startActivity(nextIntent)
             }
 
             //출석 확인 버튼
             attendBtn.setOnClickListener {
                 val nextIntent = Intent(this,AttendCheckMng::class.java)
-                nextIntent.putExtra("userData", userData)
+                intent.putExtra("userData", userData)
                 startActivity(nextIntent)
             }
 
             //모임 수정 버튼
             optionBtn.setOnClickListener {
                 val nextIntent = Intent(this,EditClub::class.java)
-                nextIntent.putExtra("userData", userData)
-                startActivity(nextIntent)
-            }
-
-            //커뮤니티 버튼
-            communityBtn.setOnClickListener {
-                val nextIntent = Intent(this,PostingListActivity::class.java)
-                nextIntent.putExtra("userData", userData)
-                nextIntent.putExtra("clubIdx", Data.clubIdx)
+                intent.putExtra("userData", userData)
                 startActivity(nextIntent)
             }
 
         }else if(contentNum == 2){
             //모임원 버전
-
-            setToolbar()
-
             val communityBtn = findViewById<Button>(R.id.MyClub_Community_Btn)
             val attendBtn = findViewById<Button>(R.id.MyClub_AttendCheck_Btn)
             val withdrawBtn = findViewById<Button>(R.id.withdrawClub_Bttn)
@@ -228,7 +211,7 @@ class ClubDetailActivity : AppCompatActivity() {
             //출석 체크 버튼
             attendBtn.setOnClickListener {
                 val nextIntent = Intent(this,AttendCheckMng::class.java)
-                nextIntent.putExtra("userData", userData)
+                intent.putExtra("userData", userData)
                 startActivity(nextIntent)
             }
             
@@ -247,9 +230,10 @@ class ClubDetailActivity : AppCompatActivity() {
 
         //2.요청
         val formBody: FormBody = FormBody.Builder()
+            .add("x-access-token", jwt)
             .add("motive", motive)
             .build()
-        val req = Request.Builder().url("https://moyeo.shop/clubs/$clubIdx").addHeader("x-access-token", jwt).post(formBody).build()
+        val req = Request.Builder().url("https://moyeo.shop/clubs/$clubIdx").post(formBody).build()
 
 
 
@@ -275,7 +259,6 @@ class ClubDetailActivity : AppCompatActivity() {
                     if(jsonObject.getBoolean("isSuccess")){
                         CoroutineScope(Dispatchers.Main).launch {
                             Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
-
                         }
                     }else{
                         //작업 실패 했을때
@@ -327,21 +310,6 @@ class ClubDetailActivity : AppCompatActivity() {
 
 
         }
-    }
-
-
-    fun addScrapList(){
-        //스크랩 버튼을 눌렀을때.
-    }
-
-    fun setToolbar(){
-        //툴바
-        var toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.my_toolbar)
-        setSupportActionBar(toolbar)
-        var actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)      //뒤로가기 활성화
-        actionBar?.setDisplayShowCustomEnabled(true)    //커스텀 허용
-        actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
     }
 
 }
