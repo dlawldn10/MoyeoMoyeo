@@ -22,7 +22,7 @@ class AttendCheck : AppCompatActivity() {
         actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
 
         var createQR = findViewById<Button>(R.id.QRBtn).setOnClickListener {
-            val intent = Intent(this, CreateQRActivity::class.java)
+            val intent = Intent(this, ScanQRActivity::class.java)
             startActivity(intent)
         }
     }

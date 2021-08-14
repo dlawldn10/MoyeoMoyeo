@@ -183,7 +183,8 @@ class ClubDetailActivity : AppCompatActivity() {
             //출석 확인 버튼
             attendBtn.setOnClickListener {
                 val nextIntent = Intent(this,AttendCheckMng::class.java)
-                nextIntent.putExtra("userData", userData)
+                nextIntent.putExtra("jwt", userData.jwt)
+                nextIntent.putExtra("clubIdx", Data.clubIdx.toString())
                 startActivity(nextIntent)
             }
 

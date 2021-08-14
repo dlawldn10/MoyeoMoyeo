@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.project.moyeomoyeo" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.project.moyeomoyeo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoyeoMoyeo"
-        android:usesCleartextTraffic="true" >
-        <activity android:name=".QnAActivity" >
-        </activity>
-        <activity android:name=".PostingListActivity" />
-
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config">
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/network_security_config" />
 
-        <activity android:name=".CreateQRActivity" />
+        <activity android:name=".ScanQRActivity"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".MyPageActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="08bbd9429cd88ac8922553576fae5eaa" />
 
-        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity" >
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -49,7 +52,7 @@
         <activity android:name=".AttendCheckMng" />
         <activity android:name=".AttendCheck" />
         <activity android:name=".MyClubMng" />
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,9 +62,6 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".ClubDetailActivity" />
         <activity android:name=".MyClubDetailActivity" />
-        <activity android:name=".EtcActivity" />
-        <activity android:name=".StudyListActivity" />
-        <activity android:name=".SpecActivity" />
         <activity android:name=".ClubListActivity" />
         <activity android:name=".HomeActivity" />
     </application>

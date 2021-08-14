@@ -50,6 +50,8 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
-    implementation 'androidmads.library.qrgenerator:QRGenerator:1.0.3' // QR 코드 생성
+    implementation 'com.google.zxing:core:3.4.0' // QR 생성
+
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0' // QR 인식
 
 }
