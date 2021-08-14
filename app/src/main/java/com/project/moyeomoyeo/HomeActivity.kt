@@ -104,7 +104,7 @@ class HomeActivity : AppCompatActivity() {
         //모임 생성
         CreateBttn.setOnClickListener {
             val intent = Intent(this, CreateClub::class.java)
-            intent.putExtra("userData", userData)
+            intent.putExtra("jwt", userData.jwt)
             startActivity(intent)
         }
 

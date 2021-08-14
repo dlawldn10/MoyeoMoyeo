@@ -19,7 +19,9 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.util.*
 
 class ScanQRActivity : AppCompatActivity() {
 
@@ -85,15 +87,21 @@ class ScanQRActivity : AppCompatActivity() {
         val result : IntentResult =
             IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
+        val now = System.currentTimeMillis()
+        val date = SimpleDateFormat("yyyyMMdd", Locale.KOREAN).format(now)
+        val datekor = SimpleDateFormat("MM월 dd일", Locale.KOREAN).format(now)
+
+        val qrdate = (clubIdx + date).trim()
+
         if(result != null){
             if(result.contents == null){
-                finish()
+               // finish()
             }
             else {
 
-                if(result.contents == clubIdx+LocalDate.now()){
+                if(result.contents == qrdate){
                     val builder = AlertDialog.Builder(this)
-                    val message = LocalDate.now().month.toString() + "월 " + LocalDate.now().dayOfMonth.toString() + "일 출석합니다."
+                    val message = datekor + " 출석합니다."
                     builder.setTitle("출석체크")
                     builder.setMessage(message)
                     builder.setPositiveButton("확인"){dialog:DialogInterface, i: Int->

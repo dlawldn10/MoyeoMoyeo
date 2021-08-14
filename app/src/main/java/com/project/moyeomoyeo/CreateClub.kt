@@ -2,12 +2,17 @@ package com.project.moyeomoyeo
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Resources
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.util.Base64
+import android.util.Base64.NO_WRAP
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -17,7 +22,9 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.io.InputStream
 
 class CreateClub : AppCompatActivity() {
 
@@ -27,6 +34,8 @@ class CreateClub : AppCompatActivity() {
 
     var logoPath = ""
     var ImagePath = ""
+
+    var logoImage = ""
 
     lateinit var areaRadio1 : RadioGroup
     lateinit var areaRadio2 : RadioGroup
@@ -96,19 +105,24 @@ class CreateClub : AppCompatActivity() {
             json.put("name",nameText.text)
             json.put("description",description.text)
             json.put("detailDescription",detailDescription.text)
-            json.put("logoImage",logoPath)
             json.put("clubImage",ImagePath)
             json.put("areaIdx",area.toString())
             json.put("fieldIdx",field.toString())
+            json.put("logoImage",logoPath)
 
             val body = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
             var url = "https://moyeo.shop/clubs"
 
+            val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("logoImage","logo",RequestBody.create("image/png".toMediaTypeOrNull(), logoImage))
+                .build()
+
             val request = Request.Builder()
                 .header("x-access-token",jwt)
                 .url(url)
                 .post(body)
+                //.post(requestBody)
                 .build()
 
             client.newCall(request).enqueue(object:Callback {
@@ -261,7 +275,34 @@ class CreateClub : AppCompatActivity() {
         when (requestCode){
             1 -> {
                 if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_GALLARY_LOGO){
+
+
                     Log.d(TAG, data?.data.toString())
+
+
+                    val currentImageURL = data?.data
+                    //Base 64 인코딩
+                    val ins : InputStream? = currentImageURL?.let{
+                        applicationContext.contentResolver.openInputStream(
+                            it
+                        )
+                    }
+
+                    val img: Bitmap = BitmapFactory.decodeStream(ins)
+                    ins?.close()
+                    val resized = Bitmap.createScaledBitmap(img, 256,256, true)
+                    val byteArrayOutputStream = ByteArrayOutputStream()
+                    resized.compress(Bitmap.CompressFormat.JPEG, 60, byteArrayOutputStream)
+                    val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
+                    val outStream = ByteArrayOutputStream()
+                    val res : Resources = resources
+                    logoImage = Base64.encodeToString(byteArray, NO_WRAP)
+                    val logoURL = Base64.decode(logoImage, NO_WRAP)
+
+                    Log.d(TAG, "로고 bitmap : $logoImage")
+                    Log.d(TAG, "로고 bitmap decode : $logoURL")
+
+                    //textview에 로고 절대 경로 표시
                     logoPath = absolutelyPath(data?.data!!)
                     findViewById<TextView>(R.id.Logo_text).text = logoPath
 

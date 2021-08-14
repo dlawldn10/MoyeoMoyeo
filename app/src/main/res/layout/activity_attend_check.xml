@@ -35,18 +35,83 @@
         android:paddingRight="20dp"
         android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/AttendNumText"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="239dp"
+            app:srcCompat="@drawable/ic_launcher_foreground" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="총 출석 횟수 0회" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/allCount_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="전체 모임 횟수"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0회"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="진행 모임 횟수"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:id="@+id/progressCount_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0회"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="출석 횟수"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:id="@+id/attendCount_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0회"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
+        </LinearLayout>
 
         <GridView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:numColumns="5"
+            android:numColumns="3"
             android:layout_weight="1"/>
 
         <Button

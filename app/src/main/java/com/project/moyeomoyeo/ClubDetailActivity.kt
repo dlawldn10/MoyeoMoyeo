@@ -228,8 +228,9 @@ class ClubDetailActivity : AppCompatActivity() {
 
             //출석 체크 버튼
             attendBtn.setOnClickListener {
-                val nextIntent = Intent(this,AttendCheckMng::class.java)
+                val nextIntent = Intent(this,AttendCheck::class.java)
                 nextIntent.putExtra("userData", userData)
+                nextIntent.putExtra("clubIdx", Data.clubIdx.toString())
                 startActivity(nextIntent)
             }
             
