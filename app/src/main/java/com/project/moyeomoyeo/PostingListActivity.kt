@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.moyeomoyeo.DataClass.PostingPreviewData
+import com.project.moyeomoyeo.DataClass.PostingData
 import com.project.moyeomoyeo.DataClass.UserData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,10 +19,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
-import java.sql.Timestamp
 
 //외부인 질의응답 -> QnA Activity
-//모임 내 커뮤니티 -> Community Activity
+//모임 내 커뮤니티 -> Posting Activity
 class PostingListActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -30,9 +29,10 @@ class PostingListActivity : AppCompatActivity() {
 
     //사용자 토큰
     var userData = UserData("", 0, "")
+    var clubIdx = 0
 
     //요청된 포스팅글 리스트
-    val RequestedPostingList = ArrayList<PostingPreviewData>()
+    val RequestedPostingList = ArrayList<PostingData>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,8 @@ class PostingListActivity : AppCompatActivity() {
 
         if(intent.getSerializableExtra("userData") != null){
             userData = intent.getSerializableExtra("userData") as UserData
-            openClubCommunity(userData.jwt, intent.getIntExtra("clubIdx", 0))
+            clubIdx = intent.getIntExtra("clubIdx", 0)
+            openClubCommunity(userData.jwt, clubIdx)
         }else{
             Log.d("리스트 ", "멤버 조회 실패")
         }
@@ -82,6 +83,7 @@ class PostingListActivity : AppCompatActivity() {
     private fun openClubCommunity(jwt: String, clubIdx: Int) {
 
         CoroutineScope(Dispatchers.Main).launch {
+            RequestedPostingList.clear()
             CoroutineScope(Dispatchers.IO).async {
                 val client = OkHttpClient.Builder().build()
 
@@ -98,12 +100,15 @@ class PostingListActivity : AppCompatActivity() {
                     for (i in 0 until jsonArray.length()) {
 
                         val entry: JSONObject = jsonArray.getJSONObject(i)
-                        var tmp = PostingPreviewData(
+                        var tmp = PostingData(
                             entry.get("postIdx") as Int,
                             entry.get("userIdx") as Int,
                             entry.get("clubIdx") as Int,
+                            entry.get("nickname") as String,
+                            entry.get("profileImage") as String,
                             entry.get("content") as String,
-                            entry.get("createdAt") as Timestamp
+                            entry.get("createdAt") as String,
+                            entry.get("commentsCount") as Int
                         )
                         RequestedPostingList.add(tmp)
                     }
@@ -132,5 +137,10 @@ class PostingListActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        openClubCommunity(userData.jwt, clubIdx)
     }
 }

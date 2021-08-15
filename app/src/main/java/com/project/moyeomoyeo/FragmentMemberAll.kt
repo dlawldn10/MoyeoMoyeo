@@ -1,23 +1,23 @@
 package com.project.moyeomoyeo
 
-import android.R.attr.defaultValue
-import android.R.attr.key
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.moyeomoyeo.DataClass.ClubPreviewData
+import com.project.moyeomoyeo.DataClass.ClubData
 import com.project.moyeomoyeo.DataClass.MemberData
 import com.project.moyeomoyeo.DataClass.UserData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -34,7 +34,8 @@ class FragmentMemberAll : Fragment() {
     val RequestedMemberList = ArrayList<MemberData>()
 
     var userData = UserData("", 0, "")
-    var clubIdx = 0
+    var Data = ClubData(0,0,"","","",
+        "","",0, 0, 0, 0, 0, 0, 0)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,20 +44,22 @@ class FragmentMemberAll : Fragment() {
         // Inflate the layout for this fragment
         var rootView = inflater.inflate(R.layout.fragment__member_all, container, false)
 
+
         val bundle = this.arguments
         if (bundle != null) {
             Log.d("멤버조회", "프래그먼트 값 받음")
-            clubIdx = bundle.getInt("clubIdx", 0)
+            Data = bundle.getSerializable("clubData") as ClubData
             userData = bundle.getSerializable("userData") as UserData
+            rootView.findViewById<TextView>(R.id.DetailMemberNum_TextView).text = Data.memberCount.toString()
 
-            getList(rootView)
+            getList(rootView, userData, Data.clubIdx)
         }
 
 
         return rootView
     }
 
-    private fun getList(rootView: View){
+    fun getList(rootView: View, userData: UserData, clubIdx: Int){
 
         CoroutineScope(Dispatchers.Main).launch {
             CoroutineScope(Dispatchers.IO).async {
@@ -83,7 +86,8 @@ class FragmentMemberAll : Fragment() {
                         val entry: JSONObject = jsonArray.getJSONObject(i)
                         var tmp : MemberData = MemberData(
                             entry.get("userIdx") as Int,
-                            entry.get("nickName") as String
+                            entry.get("nickname") as String,
+                            entry.get("profileImage") as String
                         )
                         RequestedMemberList.add(tmp)
                     }
@@ -94,13 +98,13 @@ class FragmentMemberAll : Fragment() {
                     Log.d("멤버조회: ", jsonObject.get("code").toString())
                     Log.d("멤버조회: ", jsonObject.get("message").toString())
                     CoroutineScope(Dispatchers.Main).launch {
-                        Toast.makeText(context, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(rootView.context, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
             }.await()
 
             //리사이클러뷰 선언
-            viewAdapter = MemberListRecyclerViewAdapter(RequestedMemberList, rootView.context)
+            viewAdapter = ManageMemberListRecyclerViewAdapter(RequestedMemberList, rootView.context, userData, Data.clubIdx, rootView)
             viewManager = LinearLayoutManager(rootView.context)
             recyclerView = rootView.findViewById<RecyclerView>(R.id.allMember_RecyclerView).apply {
                 setHasFixedSize(true)

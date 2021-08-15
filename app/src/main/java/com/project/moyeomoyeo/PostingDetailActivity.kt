@@ -1,14 +1,17 @@
 package com.project.moyeomoyeo
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.project.moyeomoyeo.DataClass.ClubData
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.project.moyeomoyeo.DataClass.CommentData
+import com.project.moyeomoyeo.DataClass.PostingData
 import com.project.moyeomoyeo.DataClass.UserData
 import kotlinx.coroutines.*
 import okhttp3.*
@@ -18,19 +21,34 @@ import java.io.IOException
 
 
 class PostingDetailActivity : AppCompatActivity() {
+    lateinit var recyclerView: RecyclerView
+    lateinit var viewAdapter: RecyclerView.Adapter<*>
+    lateinit var viewManager: RecyclerView.LayoutManager
 
-
-    var Data = ClubData(0,0,"","","",
-        "","",0, 0, 0, 0, 0, 0)
+    var Data = PostingData(0,0,0, "","", "", "", 0)
 
     var userData = UserData("", 0, "")
 
-    //외부인 버전, 모임장 버전, 모임원 버전
-    var contentViewList = arrayListOf<Int>(R.layout.activity_club_detail, R.layout.activity_my_club_mng, R.layout.activity_my_club_detail)
+    var toRecommentIdx = 0
+
+    val RequestedCommentList = mutableListOf<CommentData>()
+    val RecommentList = mutableListOf<CommentData>()
+
+    var FinalCommentData = mutableListOf<CommentData>()
+
+
+    //키보드와 연결해주는.
+    var imm : InputMethodManager? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_posting_detail)
         CoroutineScope(Dispatchers.Main).launch {
+
+            imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            var commentEditText = findViewById<EditText>(R.id.EditComment_EditText)
+            var SendCommentBttn = findViewById<Button>(R.id.SendComment_Bttn)
+
 
             withContext(
                 CoroutineScope(Dispatchers.IO).coroutineContext
@@ -39,7 +57,16 @@ class PostingDetailActivity : AppCompatActivity() {
 
                 if(intent.getSerializableExtra("userData") != null){
                     userData = intent.getSerializableExtra("userData") as UserData
-                    getClubData(userData.jwt, intent.getIntExtra("clubIdx", 0))
+                    Data = intent.getSerializableExtra("postingData") as PostingData
+
+                    getCommentData(userData.jwt, Data.clubIdx, Data.postIdx)
+
+                    //댓글 등록 버튼
+                    SendCommentBttn.setOnClickListener {
+                        //댓글 post
+                        PostComment(userData.jwt, Data.clubIdx, Data.postIdx, commentEditText)
+
+                    }
 
 
                 }else{
@@ -49,20 +76,10 @@ class PostingDetailActivity : AppCompatActivity() {
 
             }
 
-            if(Data.isOrganizer == 1 && Data.isMember == 0){
-                //모임장일때
-                setContentView(contentViewList[1])
-                setContent(1)
-            }else if(Data.isOrganizer == 0 && Data.isMember == 1){
-                //동아리원 일때
-                setContentView(contentViewList[2])
-                setContent(2)
-            }else{
-                //외부인 일때
-                setContentView(contentViewList[0])
-                setContent(0)
-            }
-
+            findViewById<TextView>(R.id.Posting_NickName).text = Data.nickname
+            findViewById<TextView>(R.id.Posting_Date).text = Data.createdAt
+            findViewById<TextView>(R.id.Posting_Content_TextView).text = Data.content
+            findViewById<TextView>(R.id.PostingDetail_CommentCount_TextView).text = Data.commentsCount.toString()
 
         }
 
@@ -74,6 +91,10 @@ class PostingDetailActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)      //뒤로가기 활성화
         actionBar?.setDisplayShowCustomEnabled(true)    //커스텀 허용
         actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
+
+
+
+
     }
 
     //액션바 옵션 반영하기
@@ -98,12 +119,12 @@ class PostingDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun getClubData(jwt: String, clubIdx: Int) {
+    private fun getPostingData(jwt: String, clubIdx: Int, postIdx: Int) {
 
         val client = OkHttpClient.Builder().build()
 
         val req = Request.Builder()
-            .url("https://moyeo.shop/clubs/$clubIdx")
+            .url("https://moyeo.shop/clubs/$clubIdx/posts/$postIdx")
             .addHeader("x-access-token", jwt)
             .build()
 
@@ -115,21 +136,17 @@ class PostingDetailActivity : AppCompatActivity() {
             for (i in 0 until detailData.length()) {
 
                 val entry: JSONObject = detailData.getJSONObject(i)
-                Data = ClubData(
-                    entry?.get("clubIdx") as Int,
-                    entry?.get("sortIdx") as Int,
-                    entry?.get("name") as String,
-                    entry?.get("description") as String,
-                    entry?.get("detailDescription") as String,
-                    entry?.get("logoImage") as String,
-                    entry?.get("clubImage") as String,
-                    entry?.get("areaIdx") as Int,
-                    entry?.get("fieldIdx") as Int,
-                    entry?.get("userIdx") as Int,
-                    entry?.get("memberCount") as Int,
-                    entry?.get("isMember") as Int,
-                    entry?.get("isOrganizer") as Int
+                Data = PostingData(
+                    entry.get("postIdx") as Int,
+                    entry.get("userIdx") as Int,
+                    entry.get("clubIdx") as Int,
+                    entry.get("nickname") as String,
+                    entry.get("profileImage") as String,
+                    entry.get("content") as String,
+                    entry.get("createdAt") as String,
+                    entry.get("commentsCount") as Int
                 )
+
             }
 
 
@@ -142,99 +159,116 @@ class PostingDetailActivity : AppCompatActivity() {
 
     }
 
-    fun setContent(contentNum : Int){
-        Log.d("디테일", contentNum.toString())
-        if(contentNum == 0){
-            //외부인 버전
-            findViewById<TextView>(R.id.DetailName_TextView).text = Data.name
-            findViewById<TextView>(R.id.DetailExplain_TextView).text = Data.description
-            findViewById<TextView>(R.id.DetailLongExplain_TextView).text = Data.detailDescription
-            findViewById<TextView>(R.id.DetailMemberNum_TextView).text = Data.memberCount.toString()
+    private fun getCommentData(jwt: String, clubIdx: Int, postIdx: Int) {
 
-            //지원하기 버튼
-            findViewById<Button>(R.id.ApplyClub_Bttn).setOnClickListener {
-                ApplyDialogBuilder()
+        CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.IO).async {
+                RequestedCommentList.clear()
+                RecommentList.clear()
+                FinalCommentData.clear()
+
+                val client = OkHttpClient.Builder().build()
+
+                val req = Request.Builder()
+                    .url("https://moyeo.shop/clubs/$clubIdx/posts/$postIdx/comments")
+                    .addHeader("x-access-token", jwt)
+                    .build()
+
+                val response: Response = client.newCall(req).execute()
+                var jsonObject = JSONObject(response.body?.string() ?: "null")
+
+                if (jsonObject.getBoolean("isSuccess")) {
+                    var commentData = jsonObject.getJSONArray("result")
+
+                    for (i in 0 until commentData.length()) {
+
+                        val entry: JSONObject = commentData.getJSONObject(i)
+                        var Tmp = CommentData(
+                            entry.get("commentIdx") as Int,
+                            entry.get("content") as String,
+                            entry.get("userIdx") as Int,
+                            entry.get("nickname") as String,
+                            entry.get("postIdx") as Int,
+                            entry.get("parentCommentIdx") as Int,
+                            entry.get("seq") as Int,
+                            entry.get("createdAt") as String,
+                            entry.get("status") as Int
+
+                        )
+
+                        //답글 이라면
+                        if(Tmp.parentCommentIdx != 0){
+                            //답글 리스트에 저장
+                            RecommentList.add(Tmp)
+                        }else{
+                            //댓글 리스트에 저장
+                            RequestedCommentList.add(Tmp)
+                        }
+
+
+                    }
+
+
+
+                } else {
+                    //작업 실패 했을때
+                    Log.d("리스트 ", jsonObject.get("code").toString())
+                    Log.d("리스트 ", jsonObject.get("message").toString())
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT ).show()
+                    }
+                }
+
+            }.await()
+
+
+//            Log.d("댓글", RecommentList.toString())
+            //답글을 골라서 parent코멘트 밑에다가 끼워넣기
+            var acc = 0
+            for (i in 0..RequestedCommentList.size-1) {
+                FinalCommentData.add(RequestedCommentList[i])
+                for (j in 0..RecommentList.size-1) {
+                    if(RequestedCommentList[i].commentIdx == RecommentList[j].parentCommentIdx){
+                        acc += 1
+                        Log.d("댓글", i.toString() + ", " + j.toString())
+                        Log.d("댓글", acc.toString())
+                        FinalCommentData.add(RecommentList[j])
+                    }
+                }
+                acc = 0
             }
 
-        }else if(contentNum == 1){
-            //모임장 버전
-            val manageBtn = findViewById<Button>(R.id.ManageBtn)
-            val attendBtn = findViewById<Button>(R.id.AttendCheckBtn)
-            val optionBtn = findViewById<Button>(R.id.OptionBtn)
+            Log.d("댓글", RequestedCommentList.toString())
 
-            findViewById<TextView>(R.id.NameText).text = Data.name
-            findViewById<TextView>(R.id.SubNameText).text = Data.description
-            findViewById<TextView>(R.id.ContentText).text = Data.detailDescription
-            findViewById<TextView>(R.id.CountText).text = Data.memberCount.toString()
-
-            //모임원 관리 버튼
-            manageBtn.setOnClickListener {
-                val nextIntent = Intent(this,ManageMember::class.java)
-                intent.putExtra("userData", userData)
-                startActivity(nextIntent)
-            }
-
-            //출석 확인 버튼
-            attendBtn.setOnClickListener {
-                val nextIntent = Intent(this,AttendCheckMng::class.java)
-                intent.putExtra("userData", userData)
-                startActivity(nextIntent)
-            }
-
-            //모임 수정 버튼
-            optionBtn.setOnClickListener {
-                val nextIntent = Intent(this,EditClub::class.java)
-                intent.putExtra("userData", userData)
-                startActivity(nextIntent)
-            }
-
-        }else if(contentNum == 2){
-            //모임원 버전
-            val communityBtn = findViewById<Button>(R.id.MyClub_Community_Btn)
-            val attendBtn = findViewById<Button>(R.id.MyClub_AttendCheck_Btn)
-            val withdrawBtn = findViewById<Button>(R.id.withdrawClub_Bttn)
-
-            findViewById<TextView>(R.id.DetailName_TextView).text = Data.name
-            findViewById<TextView>(R.id.DetailExplain_TextView).text = Data.description
-            findViewById<TextView>(R.id.DetailLongExplain_TextView).text = Data.detailDescription
-            findViewById<TextView>(R.id.DetailMemberNum_TextView).text = Data.memberCount.toString()
-
-            //커뮤니티 버튼
-            communityBtn.setOnClickListener {
-                //커뮤니티 액티비티로 이동하기
-                val intent = Intent(this, PostingListActivity::class.java)
-                intent.putExtra("userData", userData)
-                intent.putExtra("clubIdx", Data.clubIdx)
-                startActivity(intent)
-            }
-
-            //출석 체크 버튼
-            attendBtn.setOnClickListener {
-                val nextIntent = Intent(this,AttendCheckMng::class.java)
-                intent.putExtra("userData", userData)
-                startActivity(nextIntent)
-            }
-            
-            //모임 탈퇴 버튼
-            withdrawBtn.setOnClickListener{
-                
+            //리사이클러뷰 선언
+            viewAdapter = CommentListRecyclerViewAdapter(FinalCommentData, applicationContext, userData, this@PostingDetailActivity)
+            viewManager = LinearLayoutManager(applicationContext)
+            recyclerView = findViewById<RecyclerView>(R.id.CommentList_RecyclerView).apply {
+                setHasFixedSize(true)
+                layoutManager = viewManager
+                adapter = viewAdapter
             }
         }
+
     }
 
+    fun PostComment(jwt: String, clubIdx: Int, postIdx: Int, commentEditText: EditText){
 
-    fun applyClub(jwt: String, clubIdx: Int, motive: String){
+
         //1.클라이언트 만들기
         val client = OkHttpClient.Builder().build()
 
+        val formBody: FormBody
 
-        //2.요청
-        val formBody: FormBody = FormBody.Builder()
-            .add("x-access-token", jwt)
-            .add("motive", motive)
+        formBody = FormBody.Builder()
+            .add("content", commentEditText.text.toString())
+            .add("parentCommentIdx", toRecommentIdx.toString())
             .build()
-        val req = Request.Builder().url("https://moyeo.shop/clubs/$clubIdx").post(formBody).build()
 
+        val req = Request.Builder().url("https://moyeo.shop/clubs/$clubIdx/posts/$postIdx/comments")
+            .addHeader("x-access-token", jwt)
+            .post(formBody)
+            .build()
 
 
         //3.응답
@@ -244,35 +278,52 @@ class PostingDetailActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "서버에 접근할 수 없습니다.", Toast.LENGTH_SHORT).show()
                     Toast.makeText(applicationContext, "다시 시도하세요.", Toast.LENGTH_SHORT).show()
                 }
-                Log.d("로그인 에러", e.toString())
+                Log.d("댓글 작성", e.toString())
             }
 
             override fun onResponse(call: Call, response: Response) {
-                var jsonObject: JSONObject
-                var jsonString: String
 
                 try {
                     //주의* response.body!!.string() 값은 한번밖에 호출 못함.
-                    jsonString = response.body!!.string()
-                    jsonObject = JSONObject(jsonString)
+                    var jsonString = response.body!!.string()
+                    var jsonObject = JSONObject(jsonString)
 
                     if(jsonObject.getBoolean("isSuccess")){
+                        getCommentData(jwt, clubIdx, postIdx)
+                        getPostingData(jwt, clubIdx, postIdx)
                         CoroutineScope(Dispatchers.Main).launch {
-                            Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
-                        }
-                    }else{
-                        //작업 실패 했을때
-                        Log.d("지원하기", jsonObject.get("code").toString())
-                        Log.d("지원하기", jsonObject.get("message").toString())
-                    }
 
+                            //댓글이 게시되면 입력창을 초기화하고 키보드 숨긴다.
+                            commentEditText.setText(null)
+                            commentEditText.clearFocus()
+                            imm?.hideSoftInputFromWindow(commentEditText.windowToken, 0)
+
+
+//                            findViewById<ImageView>(R.id.Posting_Photo_imgView)
+                            //포스팅 새로고침
+                            findViewById<TextView>(R.id.Posting_NickName).text = Data.nickname
+                            findViewById<TextView>(R.id.Posting_Date).text = Data.createdAt
+                            findViewById<TextView>(R.id.Posting_Content_TextView).text = Data.content
+                            findViewById<TextView>(R.id.PostingDetail_CommentCount_TextView).text = Data.commentsCount.toString()
+                        }
+
+                    }else{
+
+                        //작업 실패 했을때
+                        Log.d("댓글 작성 ", jsonObject.get("code").toString())
+                        Log.d("댓글 작성 ", jsonObject.get("message").toString())
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT ).show()
+                        }
+                    }
+                    
+                    //답글을 달 코멘트 초기화 -> 그냥 댓글
+                    toRecommentIdx = 0
 
 
                 }catch (e : JSONException){
-                    Log.d("지원하기", "JSON 오류")
-
+                    Log.d("댓글 작성 ", "JSON 오류")
                 }
-
 
 
             }
@@ -281,35 +332,17 @@ class PostingDetailActivity : AppCompatActivity() {
     }
 
 
-    fun ApplyDialogBuilder(){
-        var dilaog = Dialog(this)       // Dialog 초기화
-        dilaog.setTitle("지원 동기")
-        dilaog.setContentView(R.layout.apply_dialog);             // xml 레이아웃 파일과 연결
-        dilaog.show()
 
+    fun setRecommentData(CommentIdx: Int){
+        //에딧 텍스트에 포커스 주고
+        var commentEditText = findViewById<EditText>(R.id.EditComment_EditText)
+        commentEditText.hint = "답글을 작성해 주세요."
+        commentEditText.requestFocus()
+        imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
 
-        var okBttn = dilaog.findViewById<Button>(R.id.applySend_Bttn)
-        var cancelBttn = dilaog.findViewById<Button>(R.id.applyCancel_Bttn)
-        var motive = dilaog.findViewById<EditText>(R.id.motive_EditText)
-
-        okBttn.setOnClickListener {
-            if(motive.text.toString() == null){
-                Toast.makeText(this, "지원 동기를 반드시 입력해 주세요.", Toast.LENGTH_SHORT).show()
-            }else{
-                CoroutineScope(Dispatchers.IO).async {
-                    applyClub(userData.jwt, Data.clubIdx, motive.text.toString())
-                }
-                dilaog.dismiss()
-            }
-
-        }
-
-        cancelBttn.setOnClickListener {
-
-            dilaog.dismiss()
-
-
-        }
+        //답글을 달 코멘트의 인덱스값을 저장한다.
+        toRecommentIdx = CommentIdx
     }
+
 
 }

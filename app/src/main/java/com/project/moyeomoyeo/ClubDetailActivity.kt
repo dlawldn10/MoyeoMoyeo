@@ -21,7 +21,7 @@ class ClubDetailActivity : AppCompatActivity() {
 
 
     var Data = ClubData(0,0,"","","",
-        "","",0, 0, 0, 0, 0, 0)
+        "","",0, 0, 0, 0, 0, 0,0)
 
     var userData = UserData("", 0, "")
 
@@ -40,6 +40,7 @@ class ClubDetailActivity : AppCompatActivity() {
                 if(intent.getSerializableExtra("userData") != null){
                     userData = intent.getSerializableExtra("userData") as UserData
                     getClubData(userData.jwt, intent.getIntExtra("clubIdx", 0))
+                    Log.d("리스트 ", Data.toString())
 
 
                 }else{
@@ -57,7 +58,7 @@ class ClubDetailActivity : AppCompatActivity() {
                 //동아리원 일때
                 setContentView(contentViewList[2])
                 setContent(2)
-            }else{
+            }else if(Data.isOrganizer == 0 && Data.isMember == 0){
                 //외부인 일때
                 setContentView(contentViewList[0])
                 setContent(0)
@@ -65,7 +66,6 @@ class ClubDetailActivity : AppCompatActivity() {
 
 
         }
-
 
     }
 
@@ -120,6 +120,7 @@ class ClubDetailActivity : AppCompatActivity() {
                     entry?.get("fieldIdx") as Int,
                     entry?.get("userIdx") as Int,
                     entry?.get("memberCount") as Int,
+                    entry?.get("isLike") as Int,
                     entry?.get("isMember") as Int,
                     entry?.get("isOrganizer") as Int
                 )
@@ -147,14 +148,27 @@ class ClubDetailActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.DetailLongExplain_TextView).text = Data.detailDescription
             findViewById<TextView>(R.id.DetailMemberNum_TextView).text = Data.memberCount.toString()
 
+            if(Data.isLike == 1){
+                //스크랩한 모임
+                findViewById<CheckBox>(R.id.Detail_Scrap_Bttn).isChecked = true
+            }else{
+                //안한 모임
+                findViewById<CheckBox>(R.id.Detail_Scrap_Bttn).isChecked = false
+            }
+
+
+
             //지원하기 버튼
             findViewById<Button>(R.id.ApplyClub_Bttn).setOnClickListener {
                 ApplyDialogBuilder()
             }
 
+
             //스크랩 버튼
-            findViewById<ImageButton>(R.id.Detail_Scrap_Bttn).setOnClickListener {
-                addScrapList()
+            findViewById<CheckBox>(R.id.Detail_Scrap_Bttn).setOnClickListener {
+                CoroutineScope(Dispatchers.IO).async {
+                    Scrap()
+                }
             }
 
         }else if(contentNum == 1){
@@ -174,9 +188,9 @@ class ClubDetailActivity : AppCompatActivity() {
 
             //모임원 관리 버튼
             manageBtn.setOnClickListener {
-                val nextIntent = Intent(this,ManageMember::class.java)
+                val nextIntent = Intent(this,ManageMemberActivity::class.java)
                 nextIntent.putExtra("userData", userData)
-                nextIntent.putExtra("clubIdx", Data.clubIdx)
+                nextIntent.putExtra("clubData", Data)
                 startActivity(nextIntent)
             }
 
@@ -189,7 +203,7 @@ class ClubDetailActivity : AppCompatActivity() {
 
             //모임 수정 버튼
             optionBtn.setOnClickListener {
-                val nextIntent = Intent(this,EditClub::class.java)
+                val nextIntent = Intent(this,EditClubActivity::class.java)
                 nextIntent.putExtra("userData", userData)
                 startActivity(nextIntent)
             }
@@ -301,7 +315,7 @@ class ClubDetailActivity : AppCompatActivity() {
     fun ApplyDialogBuilder(){
         var dilaog = Dialog(this)       // Dialog 초기화
         dilaog.setTitle("지원 동기")
-        dilaog.setContentView(R.layout.apply_dialog);             // xml 레이아웃 파일과 연결
+        dilaog.setContentView(R.layout.dialog_apply);             // xml 레이아웃 파일과 연결
         dilaog.show()
 
 
@@ -330,8 +344,63 @@ class ClubDetailActivity : AppCompatActivity() {
     }
 
 
-    fun addScrapList(){
+    fun Scrap(){
         //스크랩 버튼을 눌렀을때.
+
+        //1.클라이언트 만들기
+        val client = OkHttpClient.Builder().build()
+
+
+        //2.요청
+        val formBody: FormBody = FormBody.Builder().build()
+        val req = Request.Builder().url("https://moyeo.shop/like/clubs/${Data.clubIdx}")
+            .addHeader("x-access-token", userData.jwt)
+            .put(formBody)
+            .build()
+
+
+        //3.응답
+        client.newCall(req).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    Toast.makeText(applicationContext, "서버에 접근할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "다시 시도하세요.", Toast.LENGTH_SHORT).show()
+                }
+                Log.d("스크랩 실패", e.toString())
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                var jsonObject: JSONObject
+                var jsonString: String
+
+                try {
+                    //주의* response.body!!.string() 값은 한번밖에 호출 못함.
+                    jsonString = response.body!!.string()
+                    jsonObject = JSONObject(jsonString)
+
+                    if(jsonObject.getBoolean("isSuccess")){
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
+
+                        }
+                    }else{
+                        //작업 실패 했을때
+                        Log.d("스크랩", jsonObject.get("code").toString())
+                        Log.d("스크랩", jsonObject.get("message").toString())
+                    }
+
+
+
+                }catch (e : JSONException){
+                    Log.d("스크랩", "JSON 오류")
+
+                }
+
+
+
+            }
+
+        })
     }
 
     fun setToolbar(){

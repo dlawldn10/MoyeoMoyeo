@@ -18,6 +18,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
+import com.project.moyeomoyeo.DataClass.UserData
 
 class CreateClub : AppCompatActivity() {
 
@@ -35,6 +36,8 @@ class CreateClub : AppCompatActivity() {
     var area = 0
     var field = 0
 
+    var userData = UserData("",0,"")
+
     val TAG = "모임생성"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +51,9 @@ class CreateClub : AppCompatActivity() {
 
         var jwt = "null"
 
-        if(intent.getStringExtra("jwt") != null){
-            jwt = intent.getStringExtra("jwt")!!
+        if(intent.getSerializableExtra("userData") != null){
+            userData = intent.getSerializableExtra("userData") as UserData
+            jwt = userData.jwt
 
         }else{
             Log.d(TAG, "jwt 토큰이 없습니다")

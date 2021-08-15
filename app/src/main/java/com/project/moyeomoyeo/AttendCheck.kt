@@ -21,10 +21,7 @@ class AttendCheck : AppCompatActivity() {
         actionBar?.setDisplayShowCustomEnabled(true)    //커스텀 허용
         actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
 
-        var createQR = findViewById<Button>(R.id.QRBtn).setOnClickListener {
-            val intent = Intent(this, CreateQRActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 
     //액션바 옵션 반영하기

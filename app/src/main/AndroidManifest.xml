@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.project.moyeomoyeo" >
+    package="com.project.moyeomoyeo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,10 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoyeoMoyeo"
-        android:usesCleartextTraffic="true" >
-        <activity android:name=".QnAActivity" >
-        </activity>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".BasicActivity"></activity>
+        <activity android:name=".QnAActivity" />
         <activity android:name=".PostingListActivity" />
+        <activity
+            android:name=".PostingDetailActivity"
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="com.google.android.actions"
@@ -30,7 +33,7 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="08bbd9429cd88ac8922553576fae5eaa" />
 
-        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity" >
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -44,12 +47,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateClub" />
-        <activity android:name=".EditClub" />
-        <activity android:name=".ManageMember" />
+        <activity android:name=".EditClubActivity" />
+        <activity android:name=".ManageMemberActivity" />
         <activity android:name=".AttendCheckMng" />
         <activity android:name=".AttendCheck" />
         <activity android:name=".MyClubMng" />
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,9 +62,6 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".ClubDetailActivity" />
         <activity android:name=".MyClubDetailActivity" />
-        <activity android:name=".EtcActivity" />
-        <activity android:name=".StudyListActivity" />
-        <activity android:name=".SpecActivity" />
         <activity android:name=".ClubListActivity" />
         <activity android:name=".HomeActivity" />
     </application>

@@ -236,13 +236,13 @@ class ClubListActivity : AppCompatActivity() {
 
         var dilaog01 = Dialog(this)       // Dialog 초기화
         dilaog01.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
-        dilaog01.setContentView(R.layout.filter_dialog);             // xml 레이아웃 파일과 연결
+        dilaog01.setContentView(R.layout.dialog_filter);             // xml 레이아웃 파일과 연결
         dilaog01.show()
 
 
         var fieldFilterRadioGroup = dilaog01.findViewById<GridRadioGroup>(R.id.fieldFilter_RadioGroup)
         var areaFilterRadioGroup = dilaog01.findViewById<GridRadioGroup>(R.id.areaFilter_RadioGroup)
-        var okBttn = dilaog01.findViewById<Button>(R.id.applyCancel_Bttn)
+        var okBttn = dilaog01.findViewById<Button>(R.id.filter_ok_Btn)
 
 
         fieldFilterRadioGroup.findViewById<RadioButton>(selectedItems_id[0]).isChecked = true

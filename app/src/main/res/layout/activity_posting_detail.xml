@@ -109,7 +109,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/Posting_Content_editText"
+            android:id="@+id/Posting_Content_TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/Timestamp_layout"
@@ -125,7 +125,7 @@
             android:id="@+id/CommentInfo_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Posting_Content_editText"
+            android:layout_below="@id/Posting_Content_TextView"
             android:layout_marginTop="5dp"
             android:gravity="right"
             android:orientation="horizontal">
@@ -139,9 +139,9 @@
                 app:tint="#9F9F9F" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/PostingDetail_CommentCount_TextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="1" />
         </LinearLayout>
 
@@ -173,10 +173,40 @@
             android:background="#CCCCCC"
             android:ems="10"
             android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:hint="댓글을 작성해 주세요"/>
 
         <Button
             android:id="@+id/SendComment_Bttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="등록" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/EditRecomment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/EditRecomment_EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="#CCCCCC"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="대댓글을 작성해주세요."
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/SendRecomment_Bttn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="등록" />
