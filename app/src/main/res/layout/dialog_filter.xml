@@ -48,7 +48,7 @@
                 android:id="@+id/radioButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="봉사/사회활동"
+                android:text="학술/교양"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"/>
 
@@ -59,15 +59,16 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="학술/교양" />
+                android:text="어학" />
 
             <RadioButton
                 android:id="@+id/radioButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="창업/취업"
+                android:text="친목"
                 android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
+                android:layout_rowWeight="1"
+                />
 
             <RadioButton
                 android:id="@+id/radioButton5"
@@ -76,13 +77,13 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="어학" />
+                android:text="봉사/사회활동" />
 
             <RadioButton
                 android:id="@+id/radioButton6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="운동"
+                android:text="창업/취업"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"/>
 
@@ -93,7 +94,7 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="친목" />
+                android:text="운동" />
 
             <RadioButton
                 android:id="@+id/radioButton8"
@@ -232,7 +233,7 @@
         android:text="선택"
         android:textColor="#303030"
         app:iconTint="#2C2C2C"
-        android:id="@+id/filter_ok"/>
+        android:id="@+id/filter_ok_Btn"/>
 
 
 </LinearLayout>

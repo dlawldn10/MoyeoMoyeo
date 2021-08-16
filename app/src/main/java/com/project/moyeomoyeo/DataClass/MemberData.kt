@@ -2,5 +2,8 @@ package com.project.moyeomoyeo.DataClass
 
 import java.io.Serializable
 
-class MemberData(val userIdx : Int, val nickName: String) : Serializable {
+//프사 추가해야함
+class MemberData(val userIdx : Int,
+                 val nickname: String,
+                 val profileImage: String) : Serializable {
 }

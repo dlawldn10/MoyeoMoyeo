@@ -120,58 +120,31 @@ class AttendCheckMng : AppCompatActivity() {
 
     private fun QRDate(date : String) {
         CoroutineScope(Dispatchers.Main).launch {
-           CoroutineScope(Dispatchers.IO).async {
+            CoroutineScope(Dispatchers.IO).async {
 
-               val url = HttpUrl.Builder()
-                   .scheme("https")
-                   .host("moyeo.shop")
-                   .addPathSegment("clubs")
-                   .addPathSegment(clubIdx)
-                   .addPathSegment("attendance")
-                   .addPathSegment("qr")
-                   .addQueryParameter("qrDate", date)
-                   .build()
+                val url = HttpUrl.Builder()
+                    .scheme("https")
+                    .host("moyeo.shop")
+                    .addPathSegment("clubs")
+                    .addPathSegment(clubIdx)
+                    .addPathSegment("attendance")
+                    .addPathSegment("qr")
+                    .addQueryParameter("qrDate", date)
+                    .build()
 
-               Log.d(TAG, "url : $url")
+                Log.d(TAG, "url : $url")
 
-               val formbody = FormBody.Builder()
-                   .build()
-               val client = OkHttpClient.Builder().build()
-               val req = Request.Builder()
-                   .url(url)
-                   .addHeader("x-access-token", jwt)
-                   .post(formbody)
-                   .build()
-               val response = client.newCall(req).enqueue(object : Callback{
-                   override fun onFailure(call: Call, e: IOException) {
-                       Log.d(TAG, "FAIL")
-                   }
-
-                   override fun onResponse(call: Call, response: Response) {
-                       var jsonObject = JSONObject(response.body?.string())
-                       Log.d(TAG, jsonObject.getString("message"))
-                       Log.d(TAG, jsonObject.getString("code"))
-                       if(jsonObject.getBoolean("isSuccess")){
-                       }
-                   }
-
-               })
-
-
-           }.await()
-        }
-    }
-
-    private fun getMemberList(){
-
+                val formbody = FormBody.Builder()
+                    .build()
                 val client = OkHttpClient.Builder().build()
                 val req = Request.Builder()
-                    .url("https://moyeo.shop/clubs/$clubIdx/attendance")
+                    .url(url)
                     .addHeader("x-access-token", jwt)
+                    .post(formbody)
                     .build()
                 val response = client.newCall(req).enqueue(object : Callback{
                     override fun onFailure(call: Call, e: IOException) {
-                        Log.d(TAG, "출석 조회 요청 실패")
+                        Log.d(TAG, "FAIL")
                     }
 
                     override fun onResponse(call: Call, response: Response) {
@@ -179,36 +152,63 @@ class AttendCheckMng : AppCompatActivity() {
                         Log.d(TAG, jsonObject.getString("message"))
                         Log.d(TAG, jsonObject.getString("code"))
                         if(jsonObject.getBoolean("isSuccess")){
-                            var resultArray = jsonObject.getJSONArray("result")
-                            var userArray = jsonObject.getJSONArray("userInfo")
-                            for(i in 0 until userArray.length()){
-                                val entryResult: JSONObject = resultArray.getJSONObject(i)
-                                val entryUser: JSONObject = userArray.getJSONObject(i)
-                                var tmp : UserAttendData = UserAttendData(
-                                    entryUser.get("nickname") as String,
-                                    entryUser.get("profileImage") as String,
-                                    entryResult.get("isAttended") as Int
-                                )
-                                MemberList.add(tmp)
-                                if(tmp.isAttended == 1){
-                                    memberSize_attend++
-                                }
-                            }
-
-                            memberSize = resultArray.length()
                         }
-                        memberNumText.text = "$memberSize_attend / $memberSize"
                     }
 
                 })
 
 
-            viewAdapter = AttendMemberRecyclerViewAdapter(MemberList, applicationContext)
-            viewManager = LinearLayoutManager(applicationContext)
-            recyclerView.apply {
-                setHasFixedSize(true)
-                layoutManager = viewManager
-                adapter = viewAdapter
+            }.await()
+        }
+    }
+
+    private fun getMemberList(){
+
+        val client = OkHttpClient.Builder().build()
+        val req = Request.Builder()
+            .url("https://moyeo.shop/clubs/$clubIdx/attendance")
+            .addHeader("x-access-token", jwt)
+            .build()
+        val response = client.newCall(req).enqueue(object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                Log.d(TAG, "출석 조회 요청 실패")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                var jsonObject = JSONObject(response.body?.string())
+                Log.d(TAG, jsonObject.getString("message"))
+                Log.d(TAG, jsonObject.getString("code"))
+                if(jsonObject.getBoolean("isSuccess")){
+                    var resultArray = jsonObject.getJSONArray("result")
+                    var userArray = jsonObject.getJSONArray("userInfo")
+                    for(i in 0 until userArray.length()){
+                        val entryResult: JSONObject = resultArray.getJSONObject(i)
+                        val entryUser: JSONObject = userArray.getJSONObject(i)
+                        var tmp : UserAttendData = UserAttendData(
+                            entryUser.get("nickname") as String,
+                            entryUser.get("profileImage") as String,
+                            entryResult.get("isAttended") as Int
+                        )
+                        MemberList.add(tmp)
+                        if(tmp.isAttended == 1){
+                            memberSize_attend++
+                        }
+                    }
+
+                    memberSize = resultArray.length()
+                }
+                memberNumText.text = "$memberSize_attend / $memberSize"
+            }
+
+        })
+
+
+        viewAdapter = AttendMemberRecyclerViewAdapter(MemberList, applicationContext)
+        viewManager = LinearLayoutManager(applicationContext)
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
 
         }
     }

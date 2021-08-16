@@ -13,7 +13,8 @@ data class ClubData(val clubIdx: Int,
                     val fieldIdx:Int,
                     val userIdx: Int,
                     val memberCount: Int,
+                    val isLike: Int,
                     val isMember: Int,
-                    val isOrganizer:Int ) : Serializable{
+                    val isOrganizer:Int) : Serializable{
 
                     }

@@ -333,12 +333,15 @@ class CreateClub : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.Close->
+        when (item.itemId) {
+            R.id.Close ->
                 finish()
 
         }
         return super.onOptionsItemSelected(item)
 
     }
+
+
 }
+

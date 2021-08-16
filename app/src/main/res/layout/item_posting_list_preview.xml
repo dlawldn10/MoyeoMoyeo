@@ -83,8 +83,8 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/Posting_Content_editText"
+    <TextView
+        android:id="@+id/Posting_Content_TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Timestamp_layout"
@@ -100,7 +100,7 @@
         android:id="@+id/CommentInfo_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Posting_Content_editText"
+        android:layout_below="@id/Posting_Content_TextView"
         android:layout_marginTop="5dp"
         android:gravity="right"
         android:orientation="horizontal">
@@ -114,7 +114,7 @@
             app:tint="#9F9F9F" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/PostingPreview_CommentCount_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1" />

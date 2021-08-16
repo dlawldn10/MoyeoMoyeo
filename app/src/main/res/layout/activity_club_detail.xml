@@ -38,7 +38,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingLeft="18dp"
             android:paddingRight="18dp">
@@ -103,13 +103,14 @@
                     android:layout_centerVertical="true"
                     android:orientation="horizontal">
 
-                    <ImageButton
+                    <CheckBox
                         android:id="@+id/Detail_Scrap_Bttn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
-                        app:srcCompat="@android:drawable/btn_star"
+                        android:button="@android:drawable/btn_star"
+                        android:checked="false"
                         tools:ignore="VectorDrawableCompat" />
 
                 </LinearLayout>
@@ -169,16 +170,6 @@
                 android:text="매주 수요일 6시 정기모임 \n*불참자는 최소 전날 미리 연락하기 \n\n동아리 SNS 링크 인스타그램 : http://www.swu.ac.kr \n페이스북 : http://www.swu.ac.kr"
                 android:textColor="#000000" />
 
-            <Button
-                android:id="@+id/ApplyClub_Bttn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/DetailLongExplain_TextView"
-                android:layout_alignParentBottom="true"
-                android:text="지원하기"
-                android:textColor="#000000"
-                app:backgroundTint="#DBDBDB" />
-
         </RelativeLayout>
 
 
@@ -187,7 +178,30 @@
 
     </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
+        <Button
+            android:id="@+id/ApplyClub_Bttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="지원하기"
+            android:textColor="#000000"
+            app:backgroundTint="#DBDBDB" />
+
+        <Button
+            android:id="@+id/Q_Bttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="질문하기"
+            android:textColor="#000000"
+            app:backgroundTint="#DBDBDB" />
+    </LinearLayout>
 
 
 </RelativeLayout>

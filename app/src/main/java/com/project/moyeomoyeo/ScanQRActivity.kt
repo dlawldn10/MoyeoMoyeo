@@ -6,7 +6,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.google.zxing.integration.android.IntentIntegrator
@@ -15,12 +14,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 class ScanQRActivity : AppCompatActivity() {
@@ -95,7 +92,7 @@ class ScanQRActivity : AppCompatActivity() {
 
         if(result != null){
             if(result.contents == null){
-               // finish()
+
             }
             else {
 

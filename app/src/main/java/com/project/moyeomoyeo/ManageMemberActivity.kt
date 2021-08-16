@@ -17,11 +17,12 @@ import com.project.moyeomoyeo.DataClass.ClubData
 import com.project.moyeomoyeo.DataClass.UserData
 
 
-class ManageMember : AppCompatActivity() {
+class ManageMemberActivity : AppCompatActivity() {
 
 
     var userData = UserData("", 0, "")
-    var clubIdx = 0
+    var Data = ClubData(0,0,"","","",
+        "","",0, 0, 0, 0, 0, 0, 0)
 
 
 
@@ -31,7 +32,7 @@ class ManageMember : AppCompatActivity() {
 
         if(intent.getSerializableExtra("userData") != null){
             userData = intent.getSerializableExtra("userData") as UserData
-            clubIdx = intent.getIntExtra("clubIdx", 0)
+            Data = intent.getSerializableExtra("clubData") as ClubData
 
             Log.d("멤버조회", "프래그먼트로 값 전달")
 
@@ -45,13 +46,13 @@ class ManageMember : AppCompatActivity() {
         val tabLayout=findViewById<TabLayout>(R.id.tab_layout)
         val viewPager2=findViewById<ViewPager2>(R.id.viewPager)
 
-        val adapter=ManageMemberViewPagerAdapter(supportFragmentManager,lifecycle, userData, clubIdx)
+        val adapter=ManageMemberViewPagerAdapter(supportFragmentManager,lifecycle, userData, Data)
 
         viewPager2.adapter = adapter
-
         TabLayoutMediator(tabLayout,viewPager2){tab,position->
             when(position){
                 0->{
+
                     tab.text = "전체"
                 }
                 1->{
@@ -90,4 +91,6 @@ class ManageMember : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
 
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.project.moyeomoyeo
+package com.project.moyeomoyeo.NotUsed
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.moyeomoyeo.DataClass.ClubData
+import com.project.moyeomoyeo.R
 
+//삭제
 class MyClubRecyclerViewAdapter(private val items : ArrayList<ClubData>, val context : Context)
     : RecyclerView.Adapter<MyClubRecyclerViewAdapter.ViewHolder>(){
 

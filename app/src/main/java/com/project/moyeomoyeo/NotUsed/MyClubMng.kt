@@ -1,4 +1,4 @@
-package com.project.moyeomoyeo
+package com.project.moyeomoyeo.NotUsed
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import com.project.moyeomoyeo.DataClass.ClubData
+import com.project.moyeomoyeo.AttendCheckMng
+import com.project.moyeomoyeo.MyPageActivity
+import com.project.moyeomoyeo.R
 
-//이 액티비티 사용 안함. 추후 삭제
-//나의 모임 - 모임장 버전
+//ClubListActivity로 합쳐지면서 필요없게됨. 삭제.
 class MyClubMng : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,25 +21,18 @@ class MyClubMng : AppCompatActivity() {
         val attendBtn = findViewById<Button>(R.id.AttendCheckBtn)
         val optionBtn = findViewById<Button>(R.id.OptionBtn)
 
-        val Data : ClubData = intent.getSerializableExtra("clubOwner") as ClubData
-
-        findViewById<TextView>(R.id.NameText).text = Data.name
-        findViewById<TextView>(R.id.SubNameText).text = Data.description
-        findViewById<TextView>(R.id.ContentText).text = Data.detailDescription
-        findViewById<TextView>(R.id.CountText).text = Data.memberCount.toString()
-
         manageBtn.setOnClickListener {
-            val nextIntent = Intent(this,ManageMember::class.java)
+            val nextIntent = Intent(this, ManageMember::class.java)
             startActivity(nextIntent)
         }
 
         attendBtn.setOnClickListener {
-            val nextIntent = Intent(this,AttendCheckMng::class.java)
+            val nextIntent = Intent(this, AttendCheckMng::class.java)
             startActivity(nextIntent)
         }
 
         optionBtn.setOnClickListener {
-            val nextIntent = Intent(this,EditClub::class.java)
+            val nextIntent = Intent(this, EditClub::class.java)
             startActivity(nextIntent)
         }
 
@@ -61,7 +54,7 @@ class MyClubMng : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.MyPage->{
+            R.id.MyPage ->{
                 Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MyPageActivity::class.java)
                 startActivity(intent)

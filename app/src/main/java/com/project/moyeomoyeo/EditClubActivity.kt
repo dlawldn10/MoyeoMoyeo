@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 
-class EditClub : AppCompatActivity() {
+class EditClubActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_club)
@@ -37,4 +37,7 @@ class EditClub : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
 
     }
+
+
+
 }

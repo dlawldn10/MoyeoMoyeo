@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/cardview_light_background"
+    android:backgroundTint="#FFFFFF"
+    android:paddingLeft="25dp"
+    android:paddingTop="10dp"
+    android:paddingRight="25dp">
+
+    <LinearLayout
+        android:id="@+id/Apply_PhotoNick_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/Apply_left"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:cardCornerRadius="100dp">
+
+            <ImageView
+                android:id="@+id/apply_photo_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#EBEBEB"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/Apply_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/apply_nickName_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/apply_motive_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Apply_PhotoNick_layout"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:background="#00FFFFFF"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="뽑아주시면 열심히 하겠습니다."
+        android:textSize="12sp" />
+
+    <ImageButton
+        android:id="@+id/applyDelete_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="25dp"
+        android:layout_toLeftOf="@id/applyAccept_imageButton"
+        android:background="#00FFFFFF"
+        app:srcCompat="@android:drawable/ic_delete" />
+
+    <ImageButton
+        android:id="@+id/applyAccept_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="#00FFFFFF"
+        android:tint="#4CAF50"
+        app:srcCompat="?android:attr/textCheckMark" />
+
+
+</RelativeLayout>
