@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "760302810684",
+    "project_id": "wementor-96e0f",
+    "storage_bucket": "wementor-96e0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760302810684:android:972d3d7be654f9b2b63539",
+        "android_client_info": {
+          "package_name": "com.project.moyeomoyeo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760302810684-j64agrh92eoh8lllrpaki87e92pouvb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8pAjLxvPkCYdeBCG8tXrIfkacFmj-a7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760302810684-j64agrh92eoh8lllrpaki87e92pouvb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

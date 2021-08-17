@@ -171,7 +171,7 @@ class AttendCheckMng : AppCompatActivity() {
             .build()
         val response = client.newCall(req).enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {
-                Log.d(TAG, "출석 조회 요청 실패")
+                Log.d(TAG, "멤버조회 요청 실패")
             }
 
             override fun onResponse(call: Call, response: Response) {

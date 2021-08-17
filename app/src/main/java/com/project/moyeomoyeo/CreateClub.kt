@@ -1,6 +1,7 @@
 package com.project.moyeomoyeo
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.res.Resources
 import android.database.Cursor
@@ -19,16 +20,24 @@ import android.view.MenuItem
 import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.Dispatchers.Main
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CreateClub : AppCompatActivity() {
 
@@ -39,14 +48,27 @@ class CreateClub : AppCompatActivity() {
     var logoPath = ""
     var ImagePath = ""
 
-    var logoImage = ""
+    lateinit var logoUri : Uri
+    lateinit var imageUri : Uri
+
+    var logoURL  = ""
+    var imageURL = ""
 
     lateinit var areaRadio1 : RadioGroup
     lateinit var areaRadio2 : RadioGroup
     lateinit var fieldRadio1 : RadioGroup
     lateinit var fieldRadio2 : RadioGroup
+
+    lateinit var nameText : TextView
+    lateinit var sortRadio : RadioGroup
+    lateinit var description : TextView
+    lateinit var detailDescription : TextView
+
+    var jwt = "null"
+
     var area = 0
     var field = 0
+    var sort = 0
 
     val TAG = "모임생성"
 
@@ -59,7 +81,7 @@ class CreateClub : AppCompatActivity() {
         fieldRadio1 = findViewById<RadioGroup>(R.id.Field_RadioGroup1)
         fieldRadio2 = findViewById<RadioGroup>(R.id.Field_RadioGroup2)
 
-        var jwt = "null"
+
 
         if(intent.getStringExtra("jwt") != null){
             jwt = intent.getStringExtra("jwt")!!
@@ -68,16 +90,16 @@ class CreateClub : AppCompatActivity() {
             Log.d(TAG, "jwt 토큰이 없습니다")
         }
 
-        var sort = 0
+
 
         val createBttn = findViewById<Button>(R.id.CreateClub_Bttn)
-        val sortRadio = findViewById<RadioGroup>(R.id.Sort_radioGroup)
-        val nameText = findViewById<EditText>(R.id.Name_EditText)
-        val description = findViewById<EditText>(R.id.Description_EditText)
+        sortRadio = findViewById<RadioGroup>(R.id.Sort_radioGroup)
+        nameText = findViewById<EditText>(R.id.Name_EditText)
+        description = findViewById<EditText>(R.id.Description_EditText)
         val logoBttn = findViewById<Button>(R.id.LogoBtn)
         val imageBttn = findViewById<Button>(R.id.ImageBtn)
 
-        val detailDescription = findViewById<EditText>(R.id.detailDescription_EditText)
+        detailDescription = findViewById<EditText>(R.id.detailDescription_EditText)
 
         //종류 라디오 버튼
         sortRadio.setOnCheckedChangeListener{ group, checkId ->
@@ -101,54 +123,21 @@ class CreateClub : AppCompatActivity() {
 
         //모임 만들기 버튼
         createBttn.setOnClickListener {
-
-            val client = OkHttpClient()
-
-            val json = JSONObject()
-            json.put("sortIdx",sort.toString())
-            json.put("name",nameText.text)
-            json.put("description",description.text)
-            json.put("detailDescription",detailDescription.text)
-            json.put("clubImage",ImagePath)
-            json.put("areaIdx",area.toString())
-            json.put("fieldIdx",field.toString())
-            json.put("logoImage",logoPath)
-
-            val body = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
-
-            var url = "https://moyeo.shop/clubs"
-
-            val request = Request.Builder()
-                .header("x-access-token",jwt)
-                .url(url)
-                .post(body)
-                .build()
-
-            client.newCall(request).enqueue(object:Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    e.printStackTrace()
-                    Log.d(TAG, "Fail")
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    Log.d(TAG, "Success")
-
-                    val result: String = response.body?.string() ?: "null"
-                    var jsonObject = JSONObject(result)
-
-                    Log.d(TAG, jsonObject.get("code").toString())
-                    Log.d(TAG, jsonObject.get("message").toString())
-
-                    if(jsonObject.getBoolean("isSuccess")){
-                        showMessage("모임이 성공적으로 추가되었습니다")
-                        finish()
-                    }
-                    else {
-                        showMessage(jsonObject.get("message").toString())
-                    }
-
-                }
-            })
+            if(nameText.text.trim() == ""){
+                Toast.makeText(this, "이름을 입력해주세요",Toast.LENGTH_SHORT).show()
+            }
+            else if(sort == 0){
+                Toast.makeText(this, "카테고리를 선택해주세요",Toast.LENGTH_SHORT).show()
+            }
+            else if(description.text.trim() == ""){
+                Toast.makeText(this, "설명을 입력해주세요",Toast.LENGTH_SHORT).show()
+            }
+            else if(detailDescription.text.trim() == ""){
+                Toast.makeText(this, "상세 설명을 입력해주세요",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                UploadLogoFirebase()
+            }
 
 
         }
@@ -248,8 +237,9 @@ class CreateClub : AppCompatActivity() {
     //갤러리 열기
     private fun openGallary(requestCode : Int) {
 
-        val intent = Intent(Intent.ACTION_PICK)
+        val intent = Intent()
         intent.type = "image/*"
+        intent.action = Intent.ACTION_PICK
         startActivityForResult(intent, requestCode)
     }
 
@@ -266,6 +256,112 @@ class CreateClub : AppCompatActivity() {
         return result
     }
 
+    //Firebase에 로고 업로드 후 url 받아오기
+    private fun UploadLogoFirebase(){
+
+            var pd = ProgressDialog(this@CreateClub)
+            pd.setTitle("저장중 1/2")
+            pd.show()
+
+            val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
+            val now = Date()
+            val fileName = formatter.format(now)
+            val storageReference =
+                FirebaseStorage.getInstance().reference.child("logos/$fileName .jpg")
+
+            storageReference.putFile(logoUri).addOnSuccessListener {
+                //Toast.makeText(this@CreateClub, "사진 저장 성공", Toast.LENGTH_SHORT).show()
+                storageReference.downloadUrl.addOnSuccessListener {
+                    pd.dismiss()
+                    logoURL = it.toString()
+                    UploadImageFirebase()
+                    Log.d(TAG, "logo URL : $logoURL")
+                }
+            }
+                .addOnFailureListener { p0 ->
+                    pd.dismiss()
+                    Toast.makeText(this@CreateClub, p0.message, Toast.LENGTH_LONG).show()
+                }
+    }
+
+    private fun UploadImageFirebase(){
+
+        var pd = ProgressDialog(this@CreateClub)
+        pd.setTitle("저장중 2/2")
+        pd.show()
+
+        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
+        val now = Date()
+        val fileName = formatter.format(now)
+        val storageReference =
+            FirebaseStorage.getInstance().reference.child("images/$fileName .jpg")
+
+        storageReference.putFile(imageUri).addOnSuccessListener {
+            //Toast.makeText(this@CreateClub, "사진 저장 성공", Toast.LENGTH_SHORT).show()
+            storageReference.downloadUrl.addOnSuccessListener {
+                pd.dismiss()
+                imageURL = it.toString()
+                CreatClub()
+                Log.d(TAG, "image URL : $imageURL")
+            }
+        }
+            .addOnFailureListener { p0 ->
+                pd.dismiss()
+                Toast.makeText(this@CreateClub, p0.message, Toast.LENGTH_LONG).show()
+            }
+    }
+
+    private fun CreatClub(){
+
+        val client = OkHttpClient()
+
+        val json = JSONObject()
+        json.put("sortIdx",sort.toString())
+        json.put("name",nameText.text)
+        json.put("description",description.text)
+        json.put("detailDescription",detailDescription.text)
+        json.put("clubImage",imageURL)
+        json.put("areaIdx",area.toString())
+        json.put("fieldIdx",field.toString())
+        json.put("logoImage",logoURL)
+
+        val body = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
+
+        var url = "https://moyeo.shop/clubs"
+
+        val request = Request.Builder()
+            .header("x-access-token",jwt)
+            .url(url)
+            .post(body)
+            .build()
+
+        client.newCall(request).enqueue(object:Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                Log.d(TAG, "Fail")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                Log.d(TAG, "Success")
+
+                val result: String = response.body?.string() ?: "null"
+                var jsonObject = JSONObject(result)
+
+                Log.d(TAG, jsonObject.get("code").toString())
+                Log.d(TAG, jsonObject.get("message").toString())
+
+                if(jsonObject.getBoolean("isSuccess")){
+                    showMessage("모임이 성공적으로 추가되었습니다")
+                    finish()
+                }
+                else {
+                    showMessage(jsonObject.get("message").toString())
+                }
+
+            }
+        })
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -277,7 +373,8 @@ class CreateClub : AppCompatActivity() {
 
                     Log.d(TAG, data?.data.toString())
 
-                    val uri = data?.data
+                    logoUri = data?.data!!
+
                     logoPath = absolutelyPath(data?.data!!)
 
                     //Base 64 인코딩
@@ -301,9 +398,6 @@ class CreateClub : AppCompatActivity() {
 
  */
 
-
-                    Log.d(TAG, "로고 bitmap : $logoImage")
-
                     //textview에 로고 절대 경로 표시
                     findViewById<TextView>(R.id.Logo_text).text = logoPath
 
@@ -316,6 +410,9 @@ class CreateClub : AppCompatActivity() {
             2 -> {
                 if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_GALLARY_IMAGE){
                     Log.d(TAG, data?.data.toString())
+
+                    imageUri = data?.data!!
+
                     ImagePath = absolutelyPath(data?.data!!)
                     findViewById<TextView>(R.id.Image_text).text = ImagePath
                 }
