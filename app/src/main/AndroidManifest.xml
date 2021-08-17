@@ -60,6 +60,7 @@
         <activity android:name=".EditClubActivity" />
         <activity android:name=".ManageMemberActivity" />
         <activity android:name=".AttendCheckMng" />
+        <activity android:name=".AttendCheckForMng" />
         <activity android:name=".AttendCheck" />
 <activity android:name=".NotUsed.MyClubMng" />
         <activity android:name=".LoginActivity">

@@ -39,6 +39,11 @@ class AttendMemberRecyclerViewAdapter(private val items : ArrayList<UserAttendDa
         }
 
         holder.MemberList.setOnClickListener {
+            val intent = Intent(context, AttendCheckForMng::class.java)
+            intent.putExtra("clubIdx", items[position].clubIdx.toString())
+            intent.putExtra("userIdx", items[position].userIdx.toString())
+            intent.putExtra("jwt", items[position].jwt)
+            context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
     }
 

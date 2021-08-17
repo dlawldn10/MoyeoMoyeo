@@ -17,13 +17,14 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class AttendCheck : AppCompatActivity() {
+class AttendCheckForMng : AppCompatActivity() {
 
     lateinit var userData : UserData
     lateinit var jwt : String
+    lateinit var userIdxStr : String
     var userIdx = 0
     lateinit var clubIdx : String
-    val TAG = "출석체크(모임원)"
+    val TAG = "출석체크(모임장입장모임원)"
 
     var attendCount : Int = 0
     var allCount = 0
@@ -35,27 +36,32 @@ class AttendCheck : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_attend_check)
+        setContentView(R.layout.activity_attend_check_for_mng)
 
         attendCountText = findViewById(R.id.attendCount_text)
         allCountText = findViewById(R.id.allCount_text)
         progressCountText = findViewById(R.id.progressCount_text)
-
-        if(intent.getSerializableExtra("userData") != null){
-            userData = intent.getSerializableExtra("userData") as UserData
-
-            jwt = userData.jwt
-            userIdx = userData.userIdx
-        }
-        else{
-            Log.d(TAG, "UserData가 없습니다")
-        }
 
         if(intent.getStringExtra("clubIdx") != null){
             clubIdx = intent.getStringExtra("clubIdx")!!
         }
         else{
             Log.d(TAG, "clubIdx 값이 없습니다")
+        }
+
+        if(intent.getStringExtra("userIdx") != null){
+            userIdxStr = intent.getStringExtra("userIdx")!!
+            userIdx = userIdxStr.toInt()
+        }
+        else{
+            Log.d(TAG, "userIdx 값이 없습니다")
+        }
+
+        if(intent.getStringExtra("jwt") != null){
+            jwt = intent.getStringExtra("jwt")!!
+        }
+        else{
+            Log.d(TAG, "jwt 값이 없습니다")
         }
 
         LoadAttendCount()
@@ -67,12 +73,6 @@ class AttendCheck : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)      //뒤로가기 버튼 활성화
         actionBar?.setDisplayShowCustomEnabled(true)    //커스텀 허용
         actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
-
-
-        var createQR = findViewById<Button>(R.id.QRBtn).setOnClickListener {
-            val intent = Intent(this, ScanQRActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     //액션바 옵션 반영하기
@@ -101,7 +101,7 @@ class AttendCheck : AppCompatActivity() {
 
         val client = OkHttpClient.Builder().build()
         val req = Request.Builder()
-            .url("https://moyeo.shop/clubs/$clubIdx/attendance")
+            .url("https://moyeo.shop/clubs/$clubIdx/attendance?targetIdx=$userIdx")
             .addHeader("x-access-token", jwt)
             .build()
         val response = client.newCall(req).enqueue(object : Callback {

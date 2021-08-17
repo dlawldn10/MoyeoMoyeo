@@ -17,16 +17,13 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import com.project.moyeomoyeo.DataClass.ClubPreviewData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import com.project.moyeomoyeo.DataClass.UserAttendData
+import kotlinx.coroutines.*
 
 class AttendCheckMng : AppCompatActivity() {
 
@@ -47,6 +44,8 @@ class AttendCheckMng : AppCompatActivity() {
     var memberSize_attend = 0
 
     var MemberList = ArrayList<UserAttendData>()
+
+    var temp = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,8 +118,6 @@ class AttendCheckMng : AppCompatActivity() {
     }
 
     private fun QRDate(date : String) {
-        CoroutineScope(Dispatchers.Main).launch {
-            CoroutineScope(Dispatchers.IO).async {
 
                 val url = HttpUrl.Builder()
                     .scheme("https")
@@ -158,50 +155,60 @@ class AttendCheckMng : AppCompatActivity() {
                 })
 
 
-            }.await()
-        }
+
+
     }
 
     private fun getMemberList(){
 
-        val client = OkHttpClient.Builder().build()
-        val req = Request.Builder()
-            .url("https://moyeo.shop/clubs/$clubIdx/attendance")
-            .addHeader("x-access-token", jwt)
-            .build()
-        val response = client.newCall(req).enqueue(object : Callback{
-            override fun onFailure(call: Call, e: IOException) {
-                Log.d(TAG, "멤버조회 요청 실패")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                var jsonObject = JSONObject(response.body?.string())
-                Log.d(TAG, jsonObject.getString("message"))
-                Log.d(TAG, jsonObject.getString("code"))
-                if(jsonObject.getBoolean("isSuccess")){
-                    var resultArray = jsonObject.getJSONArray("result")
-                    var userArray = jsonObject.getJSONArray("userInfo")
-                    for(i in 0 until userArray.length()){
-                        val entryResult: JSONObject = resultArray.getJSONObject(i)
-                        val entryUser: JSONObject = userArray.getJSONObject(i)
-                        var tmp : UserAttendData = UserAttendData(
-                            entryUser.get("nickname") as String,
-                            entryUser.get("profileImage") as String,
-                            entryResult.get("isAttended") as Int
-                        )
-                        MemberList.add(tmp)
-                        if(tmp.isAttended == 1){
-                            memberSize_attend++
-                        }
+                val client = OkHttpClient.Builder().build()
+                val req = Request.Builder()
+                    .url("https://moyeo.shop/clubs/$clubIdx/members")
+                    .addHeader("x-access-token", jwt)
+                    .build()
+                val response = client.newCall(req).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        Log.d(TAG, "멤버조회 요청 실패")
                     }
 
-                    memberSize = resultArray.length()
+                    override fun onResponse(call: Call, response: Response) {
+                        var jsonObject = JSONObject(response.body?.string())
+                        Log.d(TAG, jsonObject.getString("message"))
+                        Log.d(TAG, jsonObject.getString("code"))
+                        if (jsonObject.getBoolean("isSuccess")) {
+                            var resultArray = jsonObject.getJSONArray("result")
+                            for (i in 0 until resultArray.length()) {
+                                val entryResult: JSONObject = resultArray.getJSONObject(i)
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    CoroutineScope(Dispatchers.IO).async {
+                                        CheckAttend(entryResult.get("userIdx") as Int)
+                                    }.await()
+                                }
+                                val isAttend = temp
+                                var tmp: UserAttendData = UserAttendData(
+                                    jwt,
+                                    clubIdx.toInt(),
+                                    entryResult.get("userIdx") as Int,
+                                    entryResult.get("nickname") as String,
+                                    entryResult.get("profileImage") as String,
+                                    isAttend
+                                )
+                                MemberList.add(tmp)
+                                if (isAttend == 1) {
+                                    memberSize_attend++
+                                }
+                            }
+
+                            memberSize = resultArray.length()
+                        }
+                        memberNumText.text = "$memberSize_attend / $memberSize"
+
+
+                    }
                 }
-                memberNumText.text = "$memberSize_attend / $memberSize"
-            }
 
-        })
 
+                )
 
         viewAdapter = AttendMemberRecyclerViewAdapter(MemberList, applicationContext)
         viewManager = LinearLayoutManager(applicationContext)
@@ -210,7 +217,43 @@ class AttendCheckMng : AppCompatActivity() {
             layoutManager = viewManager
             adapter = viewAdapter
 
-        }
+
+    }
+}
+
+    suspend fun CheckAttend(targetIdx : Int){
+
+        val url = HttpUrl.Builder()
+            .scheme("https")
+            .host("moyeo.shop")
+            .addPathSegment("clubs")
+            .addPathSegment(clubIdx)
+            .addPathSegment("attendance")
+            .addQueryParameter("targetIdx", targetIdx.toString())
+            .build()
+
+        val client = OkHttpClient.Builder().build()
+        val req = Request.Builder()
+            .url(url)
+            .addHeader("x-access-token", jwt)
+            .build()
+        val response = client.newCall(req).enqueue(object : Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                Log.d(TAG, "출석 상황 조회 요청 실패")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                var jsonObject = JSONObject(response.body?.string())
+                Log.d(TAG, jsonObject.getString("message"))
+                Log.d(TAG, jsonObject.getString("code"))
+
+                if(jsonObject.getBoolean("isSuccess")){
+                    var resultArray = jsonObject.getJSONArray("result")
+                    temp = resultArray.getJSONObject(0).get("isAttended") as Int
+                }
+            }
+
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
