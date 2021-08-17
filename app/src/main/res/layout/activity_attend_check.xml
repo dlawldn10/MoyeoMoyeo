@@ -77,13 +77,12 @@
                     android:text="진행 모임 횟수"
                     android:gravity="center"
                     />
+
                 <TextView
                     android:id="@+id/progressCount_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0회"
-                    android:layout_gravity="center"
-                    />
+                    android:layout_gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -97,13 +96,12 @@
                     android:text="출석 횟수"
                     android:gravity="center"
                     />
+
                 <TextView
                     android:id="@+id/attendCount_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0회"
-                    android:layout_gravity="center"
-                    />
+                    android:layout_gravity="center" />
             </LinearLayout>
         </LinearLayout>
 

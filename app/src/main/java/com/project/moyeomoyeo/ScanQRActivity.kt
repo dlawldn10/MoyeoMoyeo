@@ -6,7 +6,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
@@ -14,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
@@ -79,7 +79,6 @@ class ScanQRActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result : IntentResult =
             IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
@@ -92,7 +91,7 @@ class ScanQRActivity : AppCompatActivity() {
 
         if(result != null){
             if(result.contents == null){
-
+                finish()
             }
             else {
 
@@ -107,6 +106,19 @@ class ScanQRActivity : AppCompatActivity() {
                     }
                     builder.setNegativeButton("취소"){dialog:DialogInterface, i: Int->
 
+                    }
+                    builder.show()
+                }
+                else if(result.contents == "test"){
+                    val builder = AlertDialog.Builder(this)
+                    val message = "test success"
+                    builder.setTitle("출석체크")
+                    builder.setMessage(message)
+                    builder.setPositiveButton("확인"){dialog:DialogInterface, i: Int->
+                        finish()
+                    }
+                    builder.setNegativeButton("취소"){dialog:DialogInterface, i: Int->
+                        finish()
                     }
                     builder.show()
                 }

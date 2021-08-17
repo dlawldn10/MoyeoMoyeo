@@ -23,9 +23,9 @@ class AttendCheck : AppCompatActivity() {
     lateinit var clubIdx : String
     val TAG = "출석체크(모임원)"
 
-    var attendCount = 0
+    var attendCount : Int = 0
     var allCount = 0
-    var progressCount = 0
+    var progressCount : Int = 0
 
     lateinit var attendCountText : TextView
     lateinit var allCountText : TextView
@@ -114,18 +114,15 @@ class AttendCheck : AppCompatActivity() {
                 Log.d(TAG, jsonObject.getString("code"))
 
                 if(jsonObject.getBoolean("isSuccess")){
-                    var resultArray = jsonObject.getJSONArray("result")
-                    var userArray = jsonObject.getJSONArray("userInfo")
 
-                    for(i in 0 until userArray.length()){
-                        val entryResult: JSONObject = resultArray.getJSONObject(i)
-                        val entryUser: JSONObject = userArray.getJSONObject(i)
-                        if(entryResult.get("isAttended") == 1 && entryUser.get("userIdx") == userIdx){
-                            attendCount++
-                        }
-                    }
-                    attendCountText.text = attendCount.toString()
+                    progressCount = jsonObject.getInt("meetingCount")
+                    attendCount = jsonObject.getInt("attendanceCount")
+
+                    progressCountText.text = "$progressCount 회"
+                    attendCountText.text = "$attendCount 회"
+
                     Log.d(TAG, "attendCount : $attendCount")
+                    Log.d(TAG, "progressCount : $progressCount")
                 }
             }
 

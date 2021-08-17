@@ -16,15 +16,19 @@ import android.util.Base64.NO_WRAP
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
 import java.io.InputStream
+import java.net.URL
 
 class CreateClub : AppCompatActivity() {
 
@@ -114,15 +118,10 @@ class CreateClub : AppCompatActivity() {
 
             var url = "https://moyeo.shop/clubs"
 
-            val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("logoImage","logo",RequestBody.create("image/png".toMediaTypeOrNull(), logoImage))
-                .build()
-
             val request = Request.Builder()
                 .header("x-access-token",jwt)
                 .url(url)
                 .post(body)
-                //.post(requestBody)
                 .build()
 
             client.newCall(request).enqueue(object:Callback {
@@ -276,13 +275,14 @@ class CreateClub : AppCompatActivity() {
             1 -> {
                 if(resultCode == Activity.RESULT_OK && requestCode == REQUEST_GALLARY_LOGO){
 
-
                     Log.d(TAG, data?.data.toString())
 
+                    val uri = data?.data
+                    logoPath = absolutelyPath(data?.data!!)
 
-                    val currentImageURL = data?.data
                     //Base 64 인코딩
-                    val ins : InputStream? = currentImageURL?.let{
+/*
+                    val ins : InputStream? = uri?.let{
                         applicationContext.contentResolver.openInputStream(
                             it
                         )
@@ -297,13 +297,14 @@ class CreateClub : AppCompatActivity() {
                     val outStream = ByteArrayOutputStream()
                     val res : Resources = resources
                     logoImage = Base64.encodeToString(byteArray, NO_WRAP)
-                    val logoURL = Base64.decode(logoImage, NO_WRAP)
+
+
+ */
+
 
                     Log.d(TAG, "로고 bitmap : $logoImage")
-                    Log.d(TAG, "로고 bitmap decode : $logoURL")
 
                     //textview에 로고 절대 경로 표시
-                    logoPath = absolutelyPath(data?.data!!)
                     findViewById<TextView>(R.id.Logo_text).text = logoPath
 
                 }
@@ -324,6 +325,17 @@ class CreateClub : AppCompatActivity() {
             }
         }
     }
+
+    fun getMimeType(file: File): String? {
+        var type: String? = null
+        val extension = MimeTypeMap.getFileExtensionFromUrl(file.path)
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+        }
+        return type
+    }
+
+
 
     //액션바 옵션 반영하기
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
