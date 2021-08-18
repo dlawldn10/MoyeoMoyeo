@@ -7,10 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.project.moyeomoyeo.DataClass.UserAttendData
 
 class AttendMemberRecyclerViewAdapter(private val items : ArrayList<UserAttendData>,
@@ -26,6 +28,13 @@ class AttendMemberRecyclerViewAdapter(private val items : ArrayList<UserAttendDa
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var nickname = holder.MemberList.findViewById<TextView>(R.id.nickname_text)
+        val profileImage = holder.MemberList.findViewById<ImageView>(R.id.profile_imageview)
+
+        if(URLUtil.isValidUrl(items[position].profile)){
+            Glide.with(context)
+                .load(items[position].profile)
+                .into(profileImage)
+        }
 
         nickname.text = items[position].nickname
         if(items[position].isAttended == 1){

@@ -7,10 +7,12 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.project.moyeomoyeo.DataClass.ClubData
 import com.project.moyeomoyeo.DataClass.ClubPreviewData
 import com.project.moyeomoyeo.DataClass.UserData
@@ -32,7 +34,12 @@ class ClubListRecyclerViewAdapter(private val items : ArrayList<ClubPreviewData>
         var GroupExplain = holder.PreviewList.findViewById<TextView>(R.id.Preview_Explain)
 
         //프사 uri or url 넣기
-        //GroupPhoto <- items[position].ProfilePhoto
+        if(URLUtil.isValidUrl(items[position].logoImage)){
+            Glide.with(context)
+                .load(items[position].logoImage)
+                .into(GroupPhoto)
+        }
+
         GroupName.text = items[position].name
         GroupExplain.text = items[position].description
 

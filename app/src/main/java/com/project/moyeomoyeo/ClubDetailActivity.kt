@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.URLUtil
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.project.moyeomoyeo.DataClass.ClubData
 import com.project.moyeomoyeo.DataClass.UserData
 import kotlinx.coroutines.*
@@ -148,6 +150,19 @@ class ClubDetailActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.DetailLongExplain_TextView).text = Data.detailDescription
             findViewById<TextView>(R.id.DetailMemberNum_TextView).text = Data.memberCount.toString()
 
+            if(URLUtil.isValidUrl(Data.logoImage)){
+                Glide.with(this)
+                    .load(Data.logoImage)
+                    .into(findViewById<ImageView>(R.id.Detail_Photo_imgView))
+            }
+
+            if(URLUtil.isValidUrl(Data.clubImage)){
+                Glide.with(this)
+                    .load(Data.clubImage)
+                    .fitCenter()
+                    .into(findViewById<ImageView>(R.id.detail_image))
+            }
+
             if(Data.isLike == 1){
                 //스크랩한 모임
                 findViewById<CheckBox>(R.id.Detail_Scrap_Bttn).isChecked = true
@@ -185,6 +200,19 @@ class ClubDetailActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.SubNameText).text = Data.description
             findViewById<TextView>(R.id.ContentText).text = Data.detailDescription
             findViewById<TextView>(R.id.CountText).text = Data.memberCount.toString()
+
+            if(URLUtil.isValidUrl(Data.logoImage)){
+                Glide.with(this)
+                    .load(Data.logoImage)
+                    .into(findViewById<ImageView>(R.id.Detail_Photo_imgView))
+            }
+
+            if(URLUtil.isValidUrl(Data.clubImage)){
+                Glide.with(this)
+                    .load(Data.clubImage)
+                    .fitCenter()
+                    .into(findViewById<ImageView>(R.id.detail_image))
+            }
 
             //모임원 관리 버튼
             manageBtn.setOnClickListener {
@@ -230,6 +258,19 @@ class ClubDetailActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.DetailExplain_TextView).text = Data.description
             findViewById<TextView>(R.id.DetailLongExplain_TextView).text = Data.detailDescription
             findViewById<TextView>(R.id.DetailMemberNum_TextView).text = Data.memberCount.toString()
+
+            if(URLUtil.isValidUrl(Data.logoImage)){
+                Glide.with(this)
+                    .load(Data.logoImage)
+                    .into(findViewById<ImageView>(R.id.Detail_Photo_imgView))
+            }
+
+            if(URLUtil.isValidUrl(Data.clubImage)){
+                Glide.with(this)
+                    .load(Data.clubImage)
+                    .fitCenter()
+                    .into(findViewById<ImageView>(R.id.detail_image))
+            }
 
             //커뮤니티 버튼
             communityBtn.setOnClickListener {
