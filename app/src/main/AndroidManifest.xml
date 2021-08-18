@@ -74,7 +74,8 @@
         <activity android:name=".ClubDetailActivity" />
        <activity android:name=".NotUsed.MyClubDetailActivity" />
         <activity android:name=".ClubListActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity
+            android:name=".HomeActivity"/>
     </application>
 
 </manifest>

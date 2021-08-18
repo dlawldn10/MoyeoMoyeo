@@ -3,17 +3,23 @@
 package com.project.moyeomoyeo
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.moyeomoyeo.DataClass.ClubPreviewData
+import com.project.moyeomoyeo.DataClass.MyData
 import com.project.moyeomoyeo.DataClass.UserData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,19 +41,25 @@ class HomeActivity : AppCompatActivity() {
     lateinit var viewManager: RecyclerView.LayoutManager
 
     var userData = UserData("", 0, "")
+    var myData = MyData(0, "", "")
 
     val MyClubList = ArrayList<ClubPreviewData>()
+    val RecommendList = ArrayList<ClubPreviewData>()
 
     val TAG = "나의 모임"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        window.requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY)
+
         setContentView(R.layout.activity_home)
 
+        getMyData()
 
         //이전 인텐트로 전달받은 jwt가 있다면 저장하고, 추후 다음 액티비티로 넘어갈때 전달한다.
         if(intent.getSerializableExtra("userData") != null){
             userData = intent.getSerializableExtra("userData") as UserData
+
         }else{
             Log.d("리스트 ", "멤버 조회 실패")
         }
@@ -59,16 +71,19 @@ class HomeActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(false)      //뒤로가기 버튼X
         actionBar?.setDisplayShowCustomEnabled(true)    //커스텀 허용
         actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
+        actionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000ff")))
+        actionBar?.setStackedBackgroundDrawable(ColorDrawable(Color.parseColor("#000000ff")))
+
 
         //버튼 선언
-        val CircleBttn = findViewById<Button>(R.id.Circles_Bttn)
-        val StudyGroupBttn = findViewById<Button>(R.id.StudyGroups_Bttn)
-        val ExtraActivityBttn = findViewById<Button>(R.id.ExtraActivies_Bttn)
-        val OtherGroupBttn = findViewById<Button>(R.id.OtherGroups_Bttn)
+        val CircleBttn = findViewById<ImageButton>(R.id.Circles_Bttn)
+        val StudyGroupBttn = findViewById<ImageButton>(R.id.StudyGroups_Bttn)
+        val ExtraActivityBttn = findViewById<ImageButton>(R.id.ExtraActivies_Bttn)
+        val OtherGroupBttn = findViewById<ImageButton>(R.id.OtherGroups_Bttn)
         val CreateBttn = findViewById<FloatingActionButton>(R.id.CreateClub_Bttn)
 
         //각 버튼 씬 전환
-        //동아리 게시판
+        //동아리 게시판x -> 개발
         CircleBttn.setOnClickListener{
             val intent = Intent(this, ClubListActivity::class.java)
             //토큰 정보를 다음 액티비티(동아리 목록 조회 액티비티)로 넘긴다
@@ -77,7 +92,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //스터디 그룹 게시판
+        //스터디 그룹 게시판x -> 디자인
         StudyGroupBttn.setOnClickListener{
             val intent = Intent(this, ClubListActivity::class.java)
             intent.putExtra("userData", userData)
@@ -85,7 +100,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //대외활동 게시판
+        //대외활동 게시판x -> 기획
         ExtraActivityBttn.setOnClickListener{
             val intent = Intent(this, ClubListActivity::class.java)
             intent.putExtra("userData", userData)
@@ -93,7 +108,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //기타 게시판
+        //기타 게시판x -> 마케팅
         OtherGroupBttn.setOnClickListener{
             val intent = Intent(this, ClubListActivity::class.java)
             intent.putExtra("userData", userData)
@@ -108,7 +123,9 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        getRecommendList()
         getMyList()
+
 
     }
 
@@ -144,6 +161,68 @@ class HomeActivity : AppCompatActivity() {
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
             finish()
         }
+
+    }
+
+    private fun getRecommendList(){
+
+        CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.IO).async {
+                //동아리 목록 정보를 받아온다.
+                //리스트 초기화
+                RecommendList.clear()
+
+                val client = OkHttpClient.Builder().build()
+                var url = "https://moyeo.shop/recommends/clubs"
+
+                val req = Request.Builder()
+                    .url(url)
+                    .addHeader("x-access-token", userData.jwt)
+                    .build()
+
+                val response: Response = client.newCall(req).execute()
+
+                val result: String = response.body?.string() ?: "null"
+                var jsonObject = JSONObject(result)
+
+                if(jsonObject.getBoolean("isSuccess")){
+                    var jsonArray = jsonObject.getJSONArray("result")
+                    for (i in 0 until jsonArray.length()) {
+
+                        val entry: JSONObject = jsonArray.getJSONObject(i)
+                        var tmp : ClubPreviewData = ClubPreviewData(
+                            entry.get("clubIdx") as Int,
+                            entry.get("name") as String,
+                            entry.get("description") as String,
+                            null,
+                            1
+                        )
+                        RecommendList.add(tmp)
+                    }
+                    Log.d("추천", jsonArray.toString())
+
+                }else{
+                    //작업 실패 했을때
+                    Log.d(TAG, jsonObject.get("code").toString())
+                    Log.d(TAG, jsonObject.get("message").toString())
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }.await()
+
+            //리사이클러뷰 선언
+            viewAdapter = RecommendClubListRecyclerViewAdapter(RecommendList, applicationContext, userData)
+            viewManager = LinearLayoutManager(applicationContext)
+            (viewManager as LinearLayoutManager).setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView = findViewById<RecyclerView>(R.id.HomeRecommend_RecyclerView).apply {
+                setHasFixedSize(true)
+                layoutManager = viewManager
+                adapter = viewAdapter
+            }
+
+        }
+
 
     }
 
@@ -202,6 +281,56 @@ class HomeActivity : AppCompatActivity() {
                 layoutManager = viewManager
                 adapter = viewAdapter
             }
+
+        }
+
+
+    }
+
+    private fun getMyData(){
+
+        CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.IO).async {
+                //내(사용자) 정보를 불러온다
+
+                val client = OkHttpClient.Builder().build()
+                var url = "https://moyeo.shop/user/info"
+
+                val req = Request.Builder()
+                    .url(url)
+                    .addHeader("x-access-token", userData.jwt)
+                    .build()
+
+                val response: Response = client.newCall(req).execute()
+
+                val result: String = response.body?.string() ?: "null"
+                var jsonObject = JSONObject(result)
+
+                if(jsonObject.getBoolean("isSuccess")){
+                    var jsonArray = jsonObject.getJSONArray("result")
+                    for (i in 0 until jsonArray.length()) {
+
+                        val entry: JSONObject = jsonArray.getJSONObject(i)
+                        var tmp: MyData = MyData(
+                            entry.get("userIdx") as Int,
+                            entry.get("nickname") as String,
+                            entry.get("name") as String
+                        )
+                        myData = tmp
+                    }
+
+
+                }else{
+                    //작업 실패 했을때
+                    Log.d(TAG, jsonObject.get("code").toString())
+                    Log.d(TAG, jsonObject.get("message").toString())
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }.await()
+
+            findViewById<TextView>(R.id.HomeUserNickName_TextView).text = myData.nickname
 
         }
 

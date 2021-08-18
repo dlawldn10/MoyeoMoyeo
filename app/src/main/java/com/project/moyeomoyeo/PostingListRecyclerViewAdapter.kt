@@ -32,6 +32,7 @@ class PostingListRecyclerViewAdapter(private val items : ArrayList<PostingData>,
 
         //프사 uri넣기
 //        ProfilePhoto.setImageURI(items[position].profileImage)
+
         NickName.text = items[position].nickname
         TimeStamp.text = items[position].createdAt
         content.setText(items[position].content)

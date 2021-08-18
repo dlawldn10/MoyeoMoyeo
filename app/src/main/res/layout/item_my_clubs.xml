@@ -1,74 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
-    app:cardCornerRadius="11dp">
+    android:background="#ffffff">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Preview_left"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        app:cardCornerRadius="100dp">
+
+        <ImageView
+            android:id="@+id/MyClub_Photo_imgView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EFF2F9"/>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/MyGroup_left"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#EBEBEB"
-        android:paddingLeft="28dp"
-        android:paddingRight="28dp">
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/Preview_left"
+        android:layout_toRightOf="@+id/Preview_left"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/MyGroup_left"
+        <TextView
+            android:id="@+id/MyGroup_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="false"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical">
+            android:text="멘토링 명"
+            android:textColor="#111111"
+            android:textSize="13dp"
+            android:layout_marginTop="-12dp"
+            android:fontFamily="@font/notosans_medium"/>
 
-            <TextView
-                android:id="@+id/MyGroup_Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="펜타킬"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/MyGroup_Explain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="게임 리그 오브 레전드 동아리"
-                android:textColor="#828282"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/MyGroup_right"
+        <TextView
+            android:id="@+id/MyGroup_Explain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal">
+            android:text="멘토링 설명"
+            android:textColor="#111111"
+            android:layout_marginTop="-5dp"
+            android:textSize="11dp" />
+    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_person_24"
-                tools:ignore="VectorDrawableCompat" />
+    <LinearLayout
+        android:id="@+id/MyGroup_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/MyGroup_PeopleNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="10"
-                android:textColor="#828282"
-                android:textSize="12sp" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="12dp"
+            android:layout_height="14dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/img_num"
+            android:layout_marginTop="1dp"
+            tools:ignore="VectorDrawableCompat" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/MyGroup_PeopleNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="10"
+            android:textColor="#828282"
+            android:textSize="11dp"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</RelativeLayout>

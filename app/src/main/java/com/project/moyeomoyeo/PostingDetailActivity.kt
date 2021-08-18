@@ -79,7 +79,6 @@ class PostingDetailActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.Posting_NickName).text = Data.nickname
             findViewById<TextView>(R.id.Posting_Date).text = Data.createdAt
             findViewById<TextView>(R.id.Posting_Content_TextView).text = Data.content
-            findViewById<TextView>(R.id.PostingDetail_CommentCount_TextView).text = Data.commentsCount.toString()
 
         }
 
@@ -304,7 +303,7 @@ class PostingDetailActivity : AppCompatActivity() {
                             findViewById<TextView>(R.id.Posting_NickName).text = Data.nickname
                             findViewById<TextView>(R.id.Posting_Date).text = Data.createdAt
                             findViewById<TextView>(R.id.Posting_Content_TextView).text = Data.content
-                            findViewById<TextView>(R.id.PostingDetail_CommentCount_TextView).text = Data.commentsCount.toString()
+
                         }
 
                     }else{

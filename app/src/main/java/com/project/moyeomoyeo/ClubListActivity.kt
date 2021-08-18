@@ -27,6 +27,7 @@ import org.json.JSONObject
 
 
 class ClubListActivity : AppCompatActivity() {
+    //리사이클러뷰
     lateinit var recyclerView: RecyclerView
     lateinit var viewAdapter: RecyclerView.Adapter<*>
     lateinit var viewManager: RecyclerView.LayoutManager
@@ -37,10 +38,42 @@ class ClubListActivity : AppCompatActivity() {
     //사용자 토큰
     var userData = UserData("", 0, "")
 
-    var sortIdx = 1     //동아리
+    //1->개발
+    //2->디자인
+    //3->마케팅
+    //4->기획
+    var sortIdx = 1
+
+    //1-> 최신순
+    //2-> 인기순
     var choiceIdx = 1   //최신순
+
+    //전국->0
+    //수도권->1
+    //충북/충남/대전->2
+    //전북->3
+    //전남/광주->4
+    //경북/대구->5
+    //경남/부산/울산->6
+    //강원->7
+    //제주->8
+    //기타->9
     var areaIdx = 0     //전국
-    var fieldIdx = 0    //전체
+
+    //0->전체
+    //1->서버
+    //2->웹
+    //3->iOS
+    //4->안드로이드
+    //5->자료구조/알고리즘
+    //6->게임
+    //7->AI
+    //8->데이터 분석
+    //9->데이터 시각화
+    //10->기타
+    var fieldIdx = 0
+
+    //검색 키워드
     var keyword : String? = null
 
     //필터 선택항목 넣기
@@ -49,12 +82,11 @@ class ClubListActivity : AppCompatActivity() {
 
 
 
-    var fieldFilterValues = arrayListOf<String>("전체", "문화/예술/공연", "학술/교양", "어학", "친목", "봉사/사회활동", "창업/취업", "운동", "기타")
+    var fieldFilterValues = arrayListOf<String>("전체", "서버", "웹", "iOS", "안드로이드", "자료구조/알고리즘", "게임", "AI", "데이터 분석", "데이터 시각화", "기타")
 
-    //서버가 1번부터 시작하므로 0번 비워둠
     var areaFilterValues = arrayListOf<String>("전국", "수도권", "충북/충남/대전", "전북", "전남/광주", "경북/대구", "경남/부산/울산", "강원", "제주", "기타")
 
-    var sortValues = arrayListOf<String>("전체", "동아리", "스터디", "대외활동", "기타")
+    var sortValues = arrayListOf<String>("전체", "개발", "디자인", "마케팅", "기획")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

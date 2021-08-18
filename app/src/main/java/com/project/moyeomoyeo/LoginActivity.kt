@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.auth.model.OAuthToken
@@ -34,8 +35,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
 
-        var loginBttn = findViewById<Button>(R.id.Login_Button)
-        var kakaoLoginBttn = findViewById<Button>(R.id.Kakao_Login_Bttn)
+        var loginBttn = findViewById<ImageButton>(R.id.Login_Button)
+        var kakaoLoginBttn = findViewById<ImageButton>(R.id.Kakao_Login_Bttn)
 
         loginBttn.setOnClickListener {
             //기능만 넣음. 실제 로그인 안됨.
