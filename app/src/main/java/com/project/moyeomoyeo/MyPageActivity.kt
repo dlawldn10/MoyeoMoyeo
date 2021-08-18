@@ -23,7 +23,7 @@ import org.json.JSONObject
 class MyPageActivity : AppCompatActivity() {
 
     var userData = UserData("", 0, "")
-    var myData = MyData(0, "", "")
+    var myData = MyData(0, "", "", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +87,8 @@ class MyPageActivity : AppCompatActivity() {
                         var tmp: MyData = MyData(
                             entry.get("userIdx") as Int,
                             entry.get("nickname") as String,
-                            entry.get("name") as String
+                            entry.get("name") as String,
+                            entry.get("profileImage") as String
                         )
                         myData = tmp
                     }
@@ -104,8 +105,7 @@ class MyPageActivity : AppCompatActivity() {
             }.await()
 
             findViewById<TextView>(R.id.MyPageNickname_TextView).text = myData.nickname
-            //url받기
-//            Glide.with(this@MyPageActivity).load(myData.name).into(findViewById<ImageView>(R.id.MyPageProfilePhoto_ImageView))
+            Glide.with(this@MyPageActivity).load(myData.profileImage).into(findViewById<ImageView>(R.id.MyPageProfilePhoto_ImageView))
 
 
         }
