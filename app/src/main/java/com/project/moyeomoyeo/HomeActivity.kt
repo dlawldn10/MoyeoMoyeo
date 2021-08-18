@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var viewManager: RecyclerView.LayoutManager
 
     var userData = UserData("", 0, "")
-    var myData = MyData(0, "", "")
+    var myData = MyData(0, "", "", "")
 
     val MyClubList = ArrayList<ClubPreviewData>()
     val RecommendList = ArrayList<ClubPreviewData>()
@@ -139,7 +139,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.MyPage->{
-                Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MyPageActivity::class.java)
                 intent.putExtra("userData", userData)
                 startActivity(intent)
@@ -314,7 +313,8 @@ class HomeActivity : AppCompatActivity() {
                         var tmp: MyData = MyData(
                             entry.get("userIdx") as Int,
                             entry.get("nickname") as String,
-                            entry.get("name") as String
+                            entry.get("name") as String,
+                            entry.get("profileImage") as String
                         )
                         myData = tmp
                     }

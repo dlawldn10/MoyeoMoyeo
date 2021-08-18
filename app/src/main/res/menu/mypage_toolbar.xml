@@ -5,6 +5,7 @@
     <item
         android:id="@+id/MyPage"
         android:icon="@drawable/ic_baseline_person_24"
+        android:iconTint="@color/white"
         app:showAsAction="always"
         android:title="모여모여" />
 

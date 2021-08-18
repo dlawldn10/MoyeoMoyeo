@@ -43,6 +43,7 @@ class ClubListRecyclerViewAdapter(private val items : ArrayList<ClubPreviewData>
         GroupName.text = items[position].name
         GroupExplain.text = items[position].description
 
+
         holder.PreviewList.setOnClickListener {
             Toast.makeText(it.context, GroupName.text, Toast.LENGTH_SHORT).show()
             val intent = Intent(context, ClubDetailActivity::class.java)

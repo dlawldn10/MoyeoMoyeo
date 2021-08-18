@@ -303,14 +303,17 @@ class ClubListActivity : AppCompatActivity() {
         when(selectedItems_id[0]){
             //분야
             R.id.radioButton0 -> selectedItems_index[0] = 0   //전체
-            R.id.radioButton1 -> selectedItems_index[0] = 1   //문화/예술/공연
-            R.id.radioButton2 -> selectedItems_index[0] = 2   //학술/교양
-            R.id.radioButton3 -> selectedItems_index[0] = 3   //어학
-            R.id.radioButton4 -> selectedItems_index[0] = 4   //친목
-            R.id.radioButton5 -> selectedItems_index[0] = 5   //봉사/사회활동
-            R.id.radioButton6 -> selectedItems_index[0] = 6   //창업/취업
-            R.id.radioButton7 -> selectedItems_index[0] = 7   //운동
-            R.id.radioButton8 -> selectedItems_index[0] = 8   //기타
+            R.id.radioButton1 -> selectedItems_index[0] = 1   //서버
+            R.id.radioButton2 -> selectedItems_index[0] = 2   //웹
+            R.id.radioButton3 -> selectedItems_index[0] = 3   //ios
+            R.id.radioButton4 -> selectedItems_index[0] = 4   //안드로이드
+            R.id.radioButton5 -> selectedItems_index[0] = 5   //자료구조/알고리즘
+            R.id.radioButton6 -> selectedItems_index[0] = 6   //게임
+            R.id.radioButton7 -> selectedItems_index[0] = 7   //AI
+            R.id.radioButton8 -> selectedItems_index[0] = 8   //데이터분석
+            R.id.radioButton8 -> selectedItems_index[0] = 9   //데이터시각화
+            R.id.radioButton8 -> selectedItems_index[0] = 10   //기타
+            
 
 
         }

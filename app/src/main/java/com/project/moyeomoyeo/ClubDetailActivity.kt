@@ -174,7 +174,7 @@ class ClubDetailActivity : AppCompatActivity() {
 
 
             //지원하기 버튼
-            findViewById<Button>(R.id.ApplyClub_Bttn).setOnClickListener {
+            findViewById<ImageButton>(R.id.ApplyClub_Bttn).setOnClickListener {
                 ApplyDialogBuilder()
             }
 

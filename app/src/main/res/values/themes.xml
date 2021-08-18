@@ -16,5 +16,14 @@
 <!--        <item name="android:elevation">4dp</item>-->
 
 
+
+    </style>
+
+    <style name="Ripple">
+        <item name="colorControlHighlight">#054EBF</item>
+    </style>
+
+    <style name="KakaoRipple">
+        <item name="colorControlHighlight">#CEB900</item>
     </style>
 </resources>

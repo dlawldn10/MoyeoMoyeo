@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
-            android:text="분야"
+            android:text="상세 분야"
             android:textColor="#000000"
             android:textStyle="bold" />
 
@@ -42,13 +42,13 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="문화/예술/공연" />
+                android:text="서버" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="봉사/사회활동"
+                android:text="웹"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"/>
 
@@ -59,13 +59,13 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="학술/교양" />
+                android:text="ios" />
 
             <RadioButton
                 android:id="@+id/radioButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="창업/취업"
+                android:text="안드로이드"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"/>
 
@@ -76,13 +76,13 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="어학" />
+                android:text="자료구조/알고리즘" />
 
             <RadioButton
                 android:id="@+id/radioButton6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="운동"
+                android:text="게임"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"/>
 
@@ -93,10 +93,26 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="친목" />
+                android:text="AI" />
 
             <RadioButton
                 android:id="@+id/radioButton8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="데이터 분석"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"/>
+
+            <RadioButton
+                android:id="@+id/radioButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="데이터 시각화"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"/>
+
+            <RadioButton
+                android:id="@+id/radioButton10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="기타"
@@ -119,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
-            android:text="활동지역"
+            android:text="활동 지역"
             android:textColor="#000000"
             android:textStyle="bold" />
 
@@ -131,7 +147,7 @@
 
 
             <RadioButton
-                android:id="@+id/radioButton9"
+                android:id="@+id/radioButton11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -140,27 +156,10 @@
                 android:text="전국" />
 
             <RadioButton
-                android:id="@+id/radioButton10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수도권"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
-
-            <RadioButton
-                android:id="@+id/radioButton11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="충북/충남/대전" />
-
-            <RadioButton
                 android:id="@+id/radioButton12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전북"
+                android:text="수도권"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"/>
 
@@ -171,13 +170,13 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="전남/광주" />
+                android:text="충북/충남/대전" />
 
             <RadioButton
                 android:id="@+id/radioButton14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="경북/대구"
+                android:text="전북"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"/>
 
@@ -188,13 +187,13 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="경남/부산/울산" />
+                android:text="전남/광주" />
 
             <RadioButton
                 android:id="@+id/radioButton16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="강원"
+                android:text="경북/대구"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"/>
 
@@ -205,10 +204,27 @@
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginRight="20dp"
-                android:text="제주" />
+                android:text="경남/부산/울산" />
 
             <RadioButton
                 android:id="@+id/radioButton18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="강원"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"/>
+
+            <RadioButton
+                android:id="@+id/radioButton19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginRight="20dp"
+                android:text="제주" />
+
+            <RadioButton
+                android:id="@+id/radioButton20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="기타"
