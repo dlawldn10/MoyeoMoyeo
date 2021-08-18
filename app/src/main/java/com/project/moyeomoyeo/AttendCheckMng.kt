@@ -71,6 +71,7 @@ class AttendCheckMng : AppCompatActivity() {
             Log.d(TAG, "clubIdx 값이 없습니다")
         }
 
+        //오늘 날짜 표시
         val now = System.currentTimeMillis()
         val date = SimpleDateFormat("MM월 dd일", Locale.KOREAN).format(now)
         dateText.text = date
@@ -161,6 +162,8 @@ class AttendCheckMng : AppCompatActivity() {
 
     private fun getMemberList(){
 
+        CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.IO).async {
                 val client = OkHttpClient.Builder().build()
                 val req = Request.Builder()
                     .url("https://moyeo.shop/clubs/$clubIdx/members")
@@ -177,26 +180,77 @@ class AttendCheckMng : AppCompatActivity() {
                         Log.d(TAG, jsonObject.getString("code"))
                         if (jsonObject.getBoolean("isSuccess")) {
                             var resultArray = jsonObject.getJSONArray("result")
+
                             for (i in 0 until resultArray.length()) {
+
                                 val entryResult: JSONObject = resultArray.getJSONObject(i)
-                                CoroutineScope(Dispatchers.Main).launch {
-                                    CoroutineScope(Dispatchers.IO).async {
-                                        CheckAttend(entryResult.get("userIdx") as Int)
-                                    }.await()
-                                }
-                                val isAttend = temp
-                                var tmp: UserAttendData = UserAttendData(
-                                    jwt,
-                                    clubIdx.toInt(),
-                                    entryResult.get("userIdx") as Int,
-                                    entryResult.get("nickname") as String,
-                                    entryResult.get("profileImage") as String,
-                                    isAttend
-                                )
-                                MemberList.add(tmp)
-                                if (isAttend == 1) {
-                                    memberSize_attend++
-                                }
+
+                                //모임원의 isAttended 조회
+                                val url = HttpUrl.Builder()
+                                    .scheme("https")
+                                    .host("moyeo.shop")
+                                    .addPathSegment("clubs")
+                                    .addPathSegment(clubIdx)
+                                    .addPathSegment("attendance")
+                                    .addQueryParameter(
+                                        "targetIdx",
+                                        (entryResult.get("userIdx") as Int).toString()
+                                    )
+                                    .build()
+
+                                val client = OkHttpClient.Builder().build()
+                                val req = Request.Builder()
+                                    .url(url)
+                                    .addHeader("x-access-token", jwt)
+                                    .build()
+                                val response = client.newCall(req).enqueue(object : Callback {
+                                    override fun onFailure(call: Call, e: IOException) {
+                                        Log.d(TAG, "출석 상황 조회 요청 실패")
+                                    }
+
+                                    override fun onResponse(call: Call, response: Response) {
+                                        var jsonObject = JSONObject(response.body?.string())
+                                        Log.d(TAG, jsonObject.getString("message"))
+                                        Log.d(TAG, jsonObject.getString("code"))
+
+                                        if (jsonObject.getBoolean("isSuccess")) {
+                                            var resultArray2 = jsonObject.getJSONArray("result")
+                                            val today = SimpleDateFormat(
+                                                "yyyy-MM-dd",
+                                                Locale.KOREAN
+                                            ).format(System.currentTimeMillis())
+                                            for (i in 0 until resultArray2.length()) {
+                                                val entryResult2: JSONObject =
+                                                    resultArray2.getJSONObject(i)
+                                                val QRday =
+                                                    (entryResult2.get("createdAt") as String).substring(
+                                                        0,
+                                                        10
+                                                    )
+
+                                                if (QRday == today) {
+                                                    temp = resultArray2.getJSONObject(i)
+                                                        .get("isAttended") as Int
+                                                }
+                                            }
+                                            val isAttend = temp
+                                            var tmp: UserAttendData = UserAttendData(
+                                                jwt,
+                                                clubIdx.toInt(),
+                                                entryResult.get("userIdx") as Int,
+                                                entryResult.get("nickname") as String,
+                                                entryResult.get("profileImage") as String,
+                                                isAttend
+                                            )
+                                            MemberList.add(tmp)
+                                            if (isAttend == 1) {
+                                                memberSize_attend++
+                                            }
+                                        }
+                                    }
+
+                                })
+
                             }
 
                             memberSize = resultArray.length()
@@ -209,52 +263,17 @@ class AttendCheckMng : AppCompatActivity() {
 
 
                 )
+            }.await()
 
-        viewAdapter = AttendMemberRecyclerViewAdapter(MemberList, applicationContext)
-        viewManager = LinearLayoutManager(applicationContext)
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-
-
-    }
+            viewAdapter = AttendMemberRecyclerViewAdapter(MemberList, applicationContext)
+            viewManager = LinearLayoutManager(applicationContext)
+            recyclerView.apply {
+                setHasFixedSize(true)
+                layoutManager = viewManager
+                adapter = viewAdapter
+            }
+        }
 }
-
-    suspend fun CheckAttend(targetIdx : Int){
-
-        val url = HttpUrl.Builder()
-            .scheme("https")
-            .host("moyeo.shop")
-            .addPathSegment("clubs")
-            .addPathSegment(clubIdx)
-            .addPathSegment("attendance")
-            .addQueryParameter("targetIdx", targetIdx.toString())
-            .build()
-
-        val client = OkHttpClient.Builder().build()
-        val req = Request.Builder()
-            .url(url)
-            .addHeader("x-access-token", jwt)
-            .build()
-        val response = client.newCall(req).enqueue(object : Callback{
-            override fun onFailure(call: Call, e: IOException) {
-                Log.d(TAG, "출석 상황 조회 요청 실패")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                var jsonObject = JSONObject(response.body?.string())
-                Log.d(TAG, jsonObject.getString("message"))
-                Log.d(TAG, jsonObject.getString("code"))
-
-                if(jsonObject.getBoolean("isSuccess")){
-                    var resultArray = jsonObject.getJSONArray("result")
-                    temp = resultArray.getJSONObject(0).get("isAttended") as Int
-                }
-            }
-
-        })
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){

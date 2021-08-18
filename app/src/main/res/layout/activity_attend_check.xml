@@ -52,13 +52,14 @@
                 android:orientation="vertical"
                 android:layout_weight="1">
                 <TextView
-                    android:id="@+id/allCount_text"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="전체 모임 횟수"
+                    android:text="전체 업적 수"
                     android:gravity="center"
                     />
                 <TextView
+                    android:id="@+id/awardCount_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0회"
@@ -82,6 +83,7 @@
                     android:id="@+id/progressCount_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="0회"
                     android:layout_gravity="center" />
             </LinearLayout>
 
@@ -101,15 +103,17 @@
                     android:id="@+id/attendCount_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="0회"
                     android:layout_gravity="center" />
             </LinearLayout>
         </LinearLayout>
 
         <GridView
+            android:id="@+id/award_gridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:numColumns="3"
+            android:numColumns="4"
             android:layout_weight="1"/>
 
         <Button

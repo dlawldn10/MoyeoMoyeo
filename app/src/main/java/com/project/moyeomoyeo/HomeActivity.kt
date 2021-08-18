@@ -59,7 +59,6 @@ class HomeActivity : AppCompatActivity() {
         //이전 인텐트로 전달받은 jwt가 있다면 저장하고, 추후 다음 액티비티로 넘어갈때 전달한다.
         if(intent.getSerializableExtra("userData") != null){
             userData = intent.getSerializableExtra("userData") as UserData
-
         }else{
             Log.d("리스트 ", "멤버 조회 실패")
         }

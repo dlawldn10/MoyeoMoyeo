@@ -9,8 +9,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.GridView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.project.moyeomoyeo.DataClass.AwardData
 import com.project.moyeomoyeo.DataClass.UserAttendData
 import com.project.moyeomoyeo.DataClass.UserData
 import okhttp3.*
@@ -26,20 +29,25 @@ class AttendCheck : AppCompatActivity() {
     val TAG = "출석체크(모임원)"
 
     var attendCount : Int = 0
-    var allCount = 0
+    var awardCount = 0
     var progressCount : Int = 0
 
     lateinit var attendCountText : TextView
-    lateinit var allCountText : TextView
+    lateinit var awardCountText : TextView
     lateinit var progressCountText : TextView
+
+    lateinit var gridView : GridView
+    lateinit var AwardGridViewAdapter : AwardGridViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attend_check)
 
         attendCountText = findViewById(R.id.attendCount_text)
-        allCountText = findViewById(R.id.allCount_text)
+        awardCountText = findViewById(R.id.awardCount_text)
         progressCountText = findViewById(R.id.progressCount_text)
+
+        gridView = findViewById(R.id.award_gridView)
 
         if(intent.getSerializableExtra("userData") != null){
             userData = intent.getSerializableExtra("userData") as UserData
@@ -120,6 +128,10 @@ class AttendCheck : AppCompatActivity() {
                     progressCount = jsonObject.getInt("meetingCount")
                     attendCount = jsonObject.getInt("attendanceCount")
 
+
+                    AwardGridViewAdapter = AwardGridViewAdapter(applicationContext, LoadAward(attendCount))
+                    gridView?.adapter = AwardGridViewAdapter
+
                     SetText()
 
                     Log.d(TAG, "attendCount : $attendCount")
@@ -129,14 +141,65 @@ class AttendCheck : AppCompatActivity() {
 
         })
     }
+
     private fun SetText(){
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             progressCountText.text = "$progressCount 회"
             attendCountText.text = "$attendCount 회"
+            awardCountText.text = "$awardCount 회"
         }, 0)
     }
 
+    private fun LoadAward(attendCount : Int) : ArrayList<AwardData>{
+        var AwardList : ArrayList<AwardData> = ArrayList()
+
+        //초기값 (댓글, 게시글 업적 수 포함)
+        awardCount = 2
+
+        if(attendCount >= 1){
+            AwardList.add(AwardData("첫 출석", true))
+            awardCount++
+        }
+        else{
+            AwardList.add(AwardData("첫 출석", false))
+        }
+
+        if(attendCount >= 5){
+            AwardList.add(AwardData("출석 5회", true))
+            awardCount++
+        }
+        else{
+            AwardList.add(AwardData("출석 5회", false))
+        }
+
+        if(attendCount >= 10){
+            AwardList.add(AwardData("출석 10회", true))
+            awardCount++
+        }
+        else{
+            AwardList.add(AwardData("출석 10회", false))
+        }
+
+        if(attendCount >= 15){
+            AwardList.add(AwardData("출석 15회", true))
+            awardCount++
+        }
+        else{
+            AwardList.add(AwardData("출석 15회", false))
+        }
+
+        AwardList.add(AwardData("첫 게시글", true))
+        AwardList.add(AwardData("게시글 3개", false))
+        AwardList.add(AwardData("게시글 5개", false))
+        AwardList.add(AwardData("게시글 10개", false))
+        AwardList.add(AwardData("첫 댓글", true))
+        AwardList.add(AwardData("댓글 5개", false))
+        AwardList.add(AwardData("댓글 10개", false))
+        AwardList.add(AwardData("댓글 15개", false))
+
+        return AwardList
+    }
 }
 
 
