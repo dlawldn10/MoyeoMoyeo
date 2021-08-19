@@ -47,6 +47,8 @@ class AttendCheckForMng : AppCompatActivity() {
         awardCountText = findViewById(R.id.awardCount_text)
         progressCountText = findViewById(R.id.progressCount_text)
 
+        gridView = findViewById(R.id.award_gridView)
+
         if(intent.getStringExtra("clubIdx") != null){
             clubIdx = intent.getStringExtra("clubIdx")!!
         }

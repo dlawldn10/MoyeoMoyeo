@@ -159,6 +159,7 @@
                     android:src="@drawable/btn_home_plan" />
 
                 <ImageButton
+                    android:id="@+id/Enterprise_Bttn"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:layout_weight="1"

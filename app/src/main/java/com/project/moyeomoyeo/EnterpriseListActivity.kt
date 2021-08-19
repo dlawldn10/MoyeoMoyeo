@@ -25,12 +25,17 @@ class EnterpriseListActivity : AppCompatActivity() {
 
         var enterpriseList = ArrayList<UserAttendData>()
 
-        enterpriseList.add(UserAttendData("",0,0,"","",0))
-        enterpriseList.add(UserAttendData("",0,0,"","",0))
-        enterpriseList.add(UserAttendData("",0,0,"","",0))
-        enterpriseList.add(UserAttendData("",0,0,"","",0))
-        enterpriseList.add(UserAttendData("",0,0,"","",0))
-        enterpriseList.add(UserAttendData("",0,0,"","",0))
+        enterpriseList.add(UserAttendData("",0,0,"삼성전자(주)","https://t1.daumcdn.net/cfile/tistory/2105213758E7D95610",0))
+        enterpriseList.add(UserAttendData("",0,0,"네이버","https://image.rocketpunch.com/company/5466/naver_logo.png?s=400x400&t=inside",0))
+        enterpriseList.add(UserAttendData("",0,0,"(주)카카오게임즈","https://t1.daumcdn.net/cfile/tistory/99BF9E475F60647A1D",0))
+        enterpriseList.add(UserAttendData("",0,0,"라인파이낸셜플러스(주)","https://d.line-scdn.net/n/_s1/_0/linecorp-web-uit/images/line_icon_200_v3.jpg",0))
+        enterpriseList.add(UserAttendData("",0,0,"우아한형제들","https://grepp-programmers.s3.amazonaws.com/production/company/logo/602/logo-woowahan.png",0))
+        enterpriseList.add(UserAttendData("",0,0,"위메프","https://i0.wp.com/img.aapks.com/imgs/5/3/3/533eb800527ddc688fec7dfb1e4ab370_icon.png",0))
+        enterpriseList.add(UserAttendData("",0,0,"컴투스","https://blog.kakaocdn.net/dn/KLcsW/btq5arzRHVm/KqBd2FKcMx2Jk99EVp1ij1/img.jpg",0))
+        enterpriseList.add(UserAttendData("",0,0,"한국전자금융","https://www.nicetcm.co.kr/images/sub/ci.gif",0))
+        enterpriseList.add(UserAttendData("",0,0,"(주)안랩","https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99B889485BDA08240E",0))
+        enterpriseList.add(UserAttendData("",0,0,"쿠팡","https://image10.coupangcdn.com/image/mobile/v3/img_fb_like.png",0))
+        enterpriseList.add(UserAttendData("",0,0,"당근마켓","https://blog.kakaocdn.net/dn/S0wSJ/btqDogzoUNX/kZBkpKPGjdGKJSvKKs35D0/img.png",0))
 
         viewAdapter = AttendMemberRecyclerViewAdapter(enterpriseList, applicationContext)
         viewManager = LinearLayoutManager(applicationContext)
