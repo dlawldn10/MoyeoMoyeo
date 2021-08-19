@@ -80,6 +80,7 @@ class HomeActivity : AppCompatActivity() {
         val ExtraActivityBttn = findViewById<ImageButton>(R.id.ExtraActivies_Bttn)
         val OtherGroupBttn = findViewById<ImageButton>(R.id.OtherGroups_Bttn)
         val CreateBttn = findViewById<FloatingActionButton>(R.id.CreateClub_Bttn)
+        val EnterpriseListBttn = findViewById<ImageButton>(R.id.Enterprise_Bttn)
 
         //각 버튼 씬 전환
         //동아리 게시판x -> 개발
@@ -112,6 +113,11 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, ClubListActivity::class.java)
             intent.putExtra("userData", userData)
             intent.putExtra("sortIdx", 4)
+            startActivity(intent)
+        }
+
+        EnterpriseListBttn.setOnClickListener{
+            val intent = Intent(this, EnterpriseListActivity::class.java)
             startActivity(intent)
         }
 
@@ -254,7 +260,7 @@ class HomeActivity : AppCompatActivity() {
                             entry.get("clubIdx") as Int,
                             entry.get("name") as String,
                             entry.get("description") as String,
-                            entry.get("profileImage") as String,
+                            entry.get("logoImage") as String,
                             1
                         )
                         MyClubList.add(tmp)
