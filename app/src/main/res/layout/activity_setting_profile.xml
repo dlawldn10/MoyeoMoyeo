@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingProfileActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="44dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/SettingProfile_ImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_setting_nickname"
+            android:scaleType="fitStart">
+
+        </ImageView>
+
+
+        <EditText
+            android:id="@+id/SettingProfile_EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#D8D8D8"
+            android:ems="10"
+            android:hint="정보를 입력해주세요."
+            android:inputType="textPersonName"
+            android:textColorHint="#D2DCE1" />
+
+
+        <ImageButton
+            android:id="@+id/SettingProfile_ImageButton"
+            android:layout_width="218dp"
+            android:layout_height="218dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="#FFFFFF"
+            android:elevation="12dp"
+            app:srcCompat="@drawable/btn_modify"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/SettingProfile_ProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/SettingProfileNext_Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_apply"
+                android:fontFamily="@font/notosans_regular"
+                android:text="다음으로"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

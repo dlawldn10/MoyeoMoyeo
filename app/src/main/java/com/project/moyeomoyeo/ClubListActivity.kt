@@ -78,7 +78,7 @@ class ClubListActivity : AppCompatActivity() {
 
     //필터 선택항목 넣기
     var selectedItems_index = arrayListOf<Int>(0, 1)
-    var selectedItems_id = arrayListOf<Int>(R.id.radioButton0, R.id.radioButton9)
+    var selectedItems_id = arrayListOf<Int>(R.id.radioButton0, R.id.radioButton11)
 
 
 
@@ -99,7 +99,7 @@ class ClubListActivity : AppCompatActivity() {
             sortIdx = intent.getIntExtra("sortIdx", 0)
 
             findViewById<TextView>(R.id.my_toolbar_title).text = "${sortValues[sortIdx]}"
-            findViewById<TextView>(R.id.ListTitle_TextView).text = "최신 ${sortValues[sortIdx]} 모집 공고"
+            findViewById<TextView>(R.id.ListTitle_TextView).text = "최신 멘토링 모집 공고"
             findViewById<Button>(R.id.arrangeType_Bttn).text = "최신순"
 
             getList()
@@ -235,24 +235,18 @@ class ClubListActivity : AppCompatActivity() {
                 0 -> {
                     //최신순
                     choiceIdx = 1
-                    findViewById<TextView>(R.id.ListTitle_TextView).text = "최신 ${sortValues[sortIdx]} 모집 공고"
+                    findViewById<TextView>(R.id.ListTitle_TextView).text = "최신 멘토링 모집 공고"
                     findViewById<Button>(R.id.arrangeType_Bttn).text = "최신순"
                     getList()
                 }
                 1 -> {
                     //인기순
                     choiceIdx = 2
-                    findViewById<TextView>(R.id.ListTitle_TextView).text = "인기 ${sortValues[sortIdx]} 모집 공고"
+                    findViewById<TextView>(R.id.ListTitle_TextView).text = "인기 멘토링 모집 공고"
                     findViewById<Button>(R.id.arrangeType_Bttn).text = "인기순"
                     getList()
                 }
-                2 -> {
-                    //TODO: 추천순 추후 추가하기
-//                    findViewById<TextView>(R.id.ClubListTitle_TextView).text = "추천 ${sortValues[sortIdx]} 모집 공고"
-//                    findViewById<Button>(R.id.arrangeType_Bttn).text = "추천순"
-//                    getList(jwt, "3")
-                    Log.d("리스트: ", "추천순으로 정렬")
-                }
+
             }
         })
 
@@ -274,7 +268,7 @@ class ClubListActivity : AppCompatActivity() {
 
         var fieldFilterRadioGroup = dilaog01.findViewById<GridRadioGroup>(R.id.fieldFilter_RadioGroup)
         var areaFilterRadioGroup = dilaog01.findViewById<GridRadioGroup>(R.id.areaFilter_RadioGroup)
-        var okBttn = dilaog01.findViewById<Button>(R.id.filter_ok_Btn)
+        var okBttn = dilaog01.findViewById<Button>(R.id.filter_ok)
 
 
         fieldFilterRadioGroup.findViewById<RadioButton>(selectedItems_id[0]).isChecked = true
@@ -311,8 +305,8 @@ class ClubListActivity : AppCompatActivity() {
             R.id.radioButton6 -> selectedItems_index[0] = 6   //게임
             R.id.radioButton7 -> selectedItems_index[0] = 7   //AI
             R.id.radioButton8 -> selectedItems_index[0] = 8   //데이터분석
-            R.id.radioButton8 -> selectedItems_index[0] = 9   //데이터시각화
-            R.id.radioButton8 -> selectedItems_index[0] = 10   //기타
+            R.id.radioButton9 -> selectedItems_index[0] = 9   //데이터시각화
+            R.id.radioButton10 -> selectedItems_index[0] = 10   //기타
             
 
 
@@ -320,16 +314,16 @@ class ClubListActivity : AppCompatActivity() {
 
         when(selectedItems_id[1]){
             //지역
-            R.id.radioButton9 -> selectedItems_index[1] = 0   //전국
-            R.id.radioButton10 -> selectedItems_index[1] = 1   //수도권
-            R.id.radioButton11 -> selectedItems_index[1] = 2   //충북/충남/대전
-            R.id.radioButton12 -> selectedItems_index[1] = 3   //전북
-            R.id.radioButton13 -> selectedItems_index[1] = 4   //전남/광주
-            R.id.radioButton14 -> selectedItems_index[1] = 5   //경북/대구
-            R.id.radioButton15 -> selectedItems_index[1] = 6   //경남/부산/울산
-            R.id.radioButton16 -> selectedItems_index[1] = 7   //강원
-            R.id.radioButton17 -> selectedItems_index[1] = 8   //제주
-            R.id.radioButton18 -> selectedItems_index[1] = 9   //기타
+            R.id.radioButton11 -> selectedItems_index[1] = 0   //전국
+            R.id.radioButton12 -> selectedItems_index[1] = 1   //수도권
+            R.id.radioButton13 -> selectedItems_index[1] = 2   //충북/충남/대전
+            R.id.radioButton14 -> selectedItems_index[1] = 3   //전북
+            R.id.radioButton15 -> selectedItems_index[1] = 4   //전남/광주
+            R.id.radioButton16 -> selectedItems_index[1] = 5   //경북/대구
+            R.id.radioButton17 -> selectedItems_index[1] = 6   //경남/부산/울산
+            R.id.radioButton18 -> selectedItems_index[1] = 7   //강원
+            R.id.radioButton19 -> selectedItems_index[1] = 8   //제주
+            R.id.radioButton20 -> selectedItems_index[1] = 9   //기타
         }
 
         //분야(field), 지역(area)

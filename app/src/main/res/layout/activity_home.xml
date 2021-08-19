@@ -147,7 +147,7 @@
                     android:layout_weight="1"
                     android:background="#ffffff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/btn_home_plan" />
+                    android:src="@drawable/btn_home_marketing" />
 
                 <ImageButton
                     android:id="@+id/OtherGroups_Bttn"
@@ -156,7 +156,7 @@
                     android:layout_weight="1"
                     android:background="#ffffff"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/btn_home_marketing" />
+                    android:src="@drawable/btn_home_plan" />
 
                 <ImageButton
                     android:id="@+id/Enterprise_Bttn"

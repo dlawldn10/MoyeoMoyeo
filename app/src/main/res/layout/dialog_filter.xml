@@ -14,95 +14,246 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-            android:text="분야"
-            android:textColor="#000000"
-            android:textStyle="bold" />
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/notosans_bold"
+            android:paddingLeft="40dp"
+            android:text="상세 분야"
+            android:textColor="#000000"/>
 
         <com.project.moyeomoyeo.GridRadioGroup
             android:id="@+id/fieldFilter_RadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:columnCount="2"
-            >
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:columnCount="2">
+
 
             <RadioButton
                 android:id="@+id/radioButton0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="전체" />
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="전체"
+                android:textSize="12dp" />
 
             <RadioButton
                 android:id="@+id/radioButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="문화/예술/공연" />
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="서버"
+                android:textSize="12dp" />
 
             <RadioButton
                 android:id="@+id/radioButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="학술/교양"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
+                android:layout_rowWeight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="웹"
+                android:textSize="12dp" />
 
             <RadioButton
                 android:id="@+id/radioButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="어학" />
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="IOS"
+                android:textSize="12dp" />
 
             <RadioButton
                 android:id="@+id/radioButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="친목"
-                android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                />
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="안드로이드"
+                android:textSize="12dp" />
 
             <RadioButton
                 android:id="@+id/radioButton5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="봉사/사회활동" />
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="자료구조/알고리즘"
+                android:textSize="12dp" />
 
             <RadioButton
                 android:id="@+id/radioButton6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="창업/취업"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="게임"
+                android:textSize="12dp" />
 
             <RadioButton
                 android:id="@+id/radioButton7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="운동" />
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="AI"
+                android:textSize="12dp" />
 
             <RadioButton
                 android:id="@+id/radioButton8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="데이터 분석"
+                android:textSize="12dp" />
+
+            <RadioButton
+                android:id="@+id/radioButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="데이터 시각화"
+                android:textSize="12dp" />
+
+            <RadioButton
+                android:id="@+id/radioButton10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
                 android:text="기타"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
+                android:textSize="12dp" />
 
         </com.project.moyeomoyeo.GridRadioGroup>
 
@@ -119,102 +270,227 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-            android:text="활동지역"
-            android:textColor="#000000"
-            android:textStyle="bold" />
+            android:fontFamily="@font/notosans_bold"
+            android:paddingLeft="40dp"
+            android:text="활동 지역"
+            android:textColor="#000000" />
 
         <com.project.moyeomoyeo.GridRadioGroup
             android:id="@+id/areaFilter_RadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:columnCount="2">
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:columnCount="2"
+            android:rowCount="2">
 
-
-            <RadioButton
-                android:id="@+id/radioButton9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="전국" />
-
-            <RadioButton
-                android:id="@+id/radioButton10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수도권"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
 
             <RadioButton
                 android:id="@+id/radioButton11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_row="0"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="충북/충남/대전" />
+                android:layout_column="0"
+                android:layout_margin="2dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="전국"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButton12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전북"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="수도권"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButton13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="전남/광주" />
+                android:layout_margin="2dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="충북/충남/대전"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButton14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="경북/대구"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="전북"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButton15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="경남/부산/울산" />
+                android:layout_margin="2dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="전남/광주"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButton16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="강원"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="경북/대구"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButton17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="20dp"
-                android:text="제주" />
+                android:layout_margin="2dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="경남/부산/울산"
+                android:textSize="12sp" />
 
             <RadioButton
                 android:id="@+id/radioButton18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="강원"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="제주"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/radioButton20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_margin="2dp"
+                android:background="@drawable/filter_btn_selector"
+                android:button="@null"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
                 android:text="기타"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"/>
+                android:textSize="12sp" />
 
 
         </com.project.moyeomoyeo.GridRadioGroup>
@@ -233,7 +509,7 @@
         android:text="선택"
         android:textColor="#303030"
         app:iconTint="#2C2C2C"
-        android:id="@+id/filter_ok_Btn"/>
+        android:id="@+id/filter_ok"/>
 
 
 </LinearLayout>

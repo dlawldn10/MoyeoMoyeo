@@ -18,6 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoyeoMoyeo"
         android:usesCleartextTraffic="true">
+        <activity android:name=".SettingLikeSortActivity"></activity>
+        <activity android:name=".SettingProfileActivity" />
         <activity android:name=".EnterpriseListActivity"></activity>
         <activity android:name=".BasicActivity" />
         <activity android:name=".QnAActivity" />

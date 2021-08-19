@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var viewManager: RecyclerView.LayoutManager
 
     var userData = UserData("", 0, "")
-    var myData = MyData(0, "", "", "")
+    var myData = MyData(0, "", "", "", "", 0)
 
     val MyClubList = ArrayList<ClubPreviewData>()
     val RecommendList = ArrayList<ClubPreviewData>()
@@ -70,8 +70,6 @@ class HomeActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(false)      //뒤로가기 버튼X
         actionBar?.setDisplayShowCustomEnabled(true)    //커스텀 허용
         actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
-        actionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000ff")))
-        actionBar?.setStackedBackgroundDrawable(ColorDrawable(Color.parseColor("#000000ff")))
 
 
         //버튼 선언
@@ -100,7 +98,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //대외활동 게시판x -> 기획
+        //대외활동 게시판x -> 마케팅
         ExtraActivityBttn.setOnClickListener{
             val intent = Intent(this, ClubListActivity::class.java)
             intent.putExtra("userData", userData)
@@ -108,7 +106,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //기타 게시판x -> 마케팅
+        //기타 게시판x -> 기획
         OtherGroupBttn.setOnClickListener{
             val intent = Intent(this, ClubListActivity::class.java)
             intent.putExtra("userData", userData)
@@ -319,7 +317,9 @@ class HomeActivity : AppCompatActivity() {
                             entry.get("userIdx") as Int,
                             entry.get("nickname") as String,
                             entry.get("name") as String,
-                            entry.get("profileImage") as String
+                            "",
+                            entry.get("profileImage") as String,
+                            0
                         )
                         myData = tmp
                     }
