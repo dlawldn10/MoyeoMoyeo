@@ -16,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.project.moyeomoyeo.DataClass.AwardData
 import com.project.moyeomoyeo.DataClass.UserAttendData
 import com.project.moyeomoyeo.DataClass.UserData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -79,8 +83,19 @@ class AttendCheck : AppCompatActivity() {
 
         var createQR = findViewById<Button>(R.id.QRBtn).setOnClickListener {
             val intent = Intent(this, ScanQRActivity::class.java)
+            intent.putExtra("jwt", jwt)
+            intent.putExtra("clubIdx", clubIdx)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(200L)
+            LoadAttendCount()
+        }
+
     }
 
     //액션바 옵션 반영하기
@@ -128,10 +143,6 @@ class AttendCheck : AppCompatActivity() {
                     progressCount = jsonObject.getInt("meetingCount")
                     attendCount = jsonObject.getInt("attendanceCount")
 
-
-                    AwardGridViewAdapter = AwardGridViewAdapter(applicationContext, LoadAward(attendCount))
-                    gridView?.adapter = AwardGridViewAdapter
-
                     SetText()
 
                     Log.d(TAG, "attendCount : $attendCount")
@@ -145,9 +156,12 @@ class AttendCheck : AppCompatActivity() {
     private fun SetText(){
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            progressCountText.text = "$progressCount 회"
-            attendCountText.text = "$attendCount 회"
-            awardCountText.text = "$awardCount 회"
+            AwardGridViewAdapter = AwardGridViewAdapter(applicationContext, LoadAward(attendCount))
+            gridView?.adapter = AwardGridViewAdapter
+
+            progressCountText.text = "$progressCount"
+            attendCountText.text = "$attendCount"
+            awardCountText.text = "$awardCount"
         }, 0)
     }
 

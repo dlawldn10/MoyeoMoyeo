@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import okhttp3.FormBody
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -63,10 +64,14 @@ class ScanQRActivity : AppCompatActivity() {
                 Log.d(TAG, "url : $url")
 
                 val client = OkHttpClient.Builder().build()
+                val formbody = FormBody.Builder()
+                    .build()
                 val req = Request.Builder()
                     .url(url)
                     .addHeader("x-access-token", jwt)
+                    .post(formbody)
                     .build()
+
                 val response = client.newCall(req).execute()
 
                 var jsonObject = JSONObject(response.body?.string())
@@ -105,24 +110,10 @@ class ScanQRActivity : AppCompatActivity() {
                         finish()
                     }
                     builder.setNegativeButton("취소"){dialog:DialogInterface, i: Int->
-
-                    }
-                    builder.show()
-                }
-                else if(result.contents == "test"){
-                    val builder = AlertDialog.Builder(this)
-                    val message = "test success"
-                    builder.setTitle("출석체크")
-                    builder.setMessage(message)
-                    builder.setPositiveButton("확인"){dialog:DialogInterface, i: Int->
-                        finish()
-                    }
-                    builder.setNegativeButton("취소"){dialog:DialogInterface, i: Int->
                         finish()
                     }
                     builder.show()
                 }
-
 
             }
         }

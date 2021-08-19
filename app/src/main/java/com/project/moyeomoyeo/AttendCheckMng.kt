@@ -52,9 +52,9 @@ class AttendCheckMng : AppCompatActivity() {
         setContentView(R.layout.activity_attend_check_mng)
 
         qrCodeIV = findViewById(R.id.QR_imageView)
-        QRbttn = findViewById(R.id.QRBtn)
+     //   QRbttn = findViewById(R.id.QRBtn)
         dateText = findViewById(R.id.DateText)
-        recyclerView = findViewById(R.id.recyclerView)
+        //recyclerView = findViewById(R.id.recyclerView)
         memberNumText = findViewById(R.id.MemberNumText)
 
         if(intent.getStringExtra("jwt") != null){
@@ -76,7 +76,6 @@ class AttendCheckMng : AppCompatActivity() {
         val date = SimpleDateFormat("MM월 dd일", Locale.KOREAN).format(now)
         dateText.text = date
 
-        getMemberList()
 
 
         //툴바
@@ -87,38 +86,42 @@ class AttendCheckMng : AppCompatActivity() {
         actionBar?.setDisplayShowCustomEnabled(true)    //커스텀 허용
         actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
 
-        QRbttn.setOnClickListener {
 
-            val now = System.currentTimeMillis()
-            val date = SimpleDateFormat("yyyyMMdd", Locale.KOREAN).format(now)
+        //QR 생성
+        val dateQR = SimpleDateFormat("yyyyMMdd", Locale.KOREAN).format(now)
 
-            val data = (clubIdx + date).trim()
-            Log.d(TAG, "data = $data")
+        val data = (clubIdx + dateQR).trim()
+        Log.d(TAG, "data = $data")
 
-            QRDate(date.toString())
-            val writer = QRCodeWriter()
-            try{
-                val bitMatrix = writer.encode(data, BarcodeFormat.QR_CODE, 512,512)
-                val width = bitMatrix.width
-                val height = bitMatrix.height
-                val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-                for (x in 0 until width){
-                    for (y in 0 until height){
-                        bmp.setPixel(x,y,if(bitMatrix[x,y]) Color.BLACK else Color.WHITE)
-                    }
+        QRDate(dateQR.toString())
+        val writer = QRCodeWriter()
+        try{
+            val bitMatrix = writer.encode(data, BarcodeFormat.QR_CODE, 100,100)
+            val width = bitMatrix.width
+            val height = bitMatrix.height
+            val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+            for (x in 0 until width){
+                for (y in 0 until height){
+                    bmp.setPixel(x,y,if(bitMatrix[x,y]) Color.BLACK else Color.WHITE)
                 }
-                qrCodeIV.setImageBitmap(bmp)
-
-            }catch(e: WriterException){
-                e.printStackTrace()
             }
+            qrCodeIV.setImageBitmap(bmp)
 
-
+        }catch(e: WriterException){
+            e.printStackTrace()
         }
+
+
+
+        getMemberList()
+
 
     }
 
     private fun QRDate(date : String) {
+
+        CoroutineScope(Dispatchers.Main).launch {
+            CoroutineScope(Dispatchers.IO).async {
 
                 val url = HttpUrl.Builder()
                     .scheme("https")
@@ -150,13 +153,14 @@ class AttendCheckMng : AppCompatActivity() {
                         Log.d(TAG, jsonObject.getString("message"))
                         Log.d(TAG, jsonObject.getString("code"))
                         if(jsonObject.getBoolean("isSuccess")){
+                            Log.d(TAG, "QR 생성 성공")
                         }
                     }
 
                 })
 
-
-
+            }.await()
+        }
 
     }
 
@@ -223,10 +227,7 @@ class AttendCheckMng : AppCompatActivity() {
                                                 val entryResult2: JSONObject =
                                                     resultArray2.getJSONObject(i)
                                                 val QRday =
-                                                    (entryResult2.get("createdAt") as String).substring(
-                                                        0,
-                                                        10
-                                                    )
+                                                    (entryResult2.get("createdAt") as String).substring(0, 10)
 
                                                 if (QRday == today) {
                                                     temp = resultArray2.getJSONObject(i)
@@ -254,6 +255,8 @@ class AttendCheckMng : AppCompatActivity() {
                             }
 
                             memberSize = resultArray.length()
+
+
                         }
                         memberNumText.text = "$memberSize_attend / $memberSize"
 
@@ -265,13 +268,16 @@ class AttendCheckMng : AppCompatActivity() {
                 )
             }.await()
 
+            delay(500L)
+
             viewAdapter = AttendMemberRecyclerViewAdapter(MemberList, applicationContext)
             viewManager = LinearLayoutManager(applicationContext)
-            recyclerView.apply {
+            recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
                 setHasFixedSize(true)
                 layoutManager = viewManager
                 adapter = viewAdapter
             }
+
         }
 }
 
