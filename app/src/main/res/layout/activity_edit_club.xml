@@ -152,7 +152,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="75dp"
@@ -178,15 +179,35 @@
                 android:textSize="11dp"
                 android:enabled="false"/>
 
+            <EditText
+                android:layout_width="95dp"
+                android:layout_height="28dp"
+                android:layout_weight="1"
+                android:background="@drawable/img_image_route"
+                android:baselineAligned="false"
+                android:fontFamily="@font/notosans_regular"
+                android:hint="1:1 비율 권장"
+                android:includeFontPadding="false"
+                android:paddingLeft="10dp"
+                android:textColor="#111111"
+                android:textColorHint="#A6A6A6"
+                android:textSize="11dp"
+                android:enabled="false"/>
+
             <ImageButton
                 android:id="@+id/LogoBtn"
                 android:layout_width="0dp"
-                android:layout_height="37dp"
-                android:layout_gravity="center_vertical"
+                android:layout_height="28dp"
                 android:layout_marginLeft="-7dp"
-                android:layout_marginTop="2dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_file"
+                android:layout_marginTop="1dp"
+                android:layout_weight="0.6"
+                android:background="@drawable/btn_register"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:text="파일선택"
+                android:textColor="#ffffff"
+                android:textSize="12dp"
+                android:fontFamily="@font/notosans_regular"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>
@@ -195,7 +216,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="75dp"
@@ -220,15 +242,19 @@
                 android:textSize="11dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
-            <ImageButton
-                android:id="@+id/ImageBtn"
+            <Button
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
+                android:layout_height="28dp"
                 android:layout_marginLeft="-7dp"
-                android:layout_marginTop="2dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_file"
+                android:layout_marginTop="0dp"
+                android:layout_weight="0.6"
+                android:background="@drawable/btn_register"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:text="파일선택"
+                android:textColor="#ffffff"
+                android:textSize="12dp"
+                android:fontFamily="@font/notosans_regular"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>
@@ -291,8 +317,7 @@
             android:fontFamily="@font/notosans_bold"
             android:text="저장"
             android:textColor="#ffffff"
-            android:textSize="15dp"
-            android:theme="@style/Ripple" />
+            android:textSize="15dp" />
 
     </LinearLayout>
 

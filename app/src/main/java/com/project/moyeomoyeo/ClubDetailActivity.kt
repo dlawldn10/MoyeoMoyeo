@@ -191,10 +191,10 @@ class ClubDetailActivity : AppCompatActivity() {
 
             setToolbar()
 
-            val manageBtn = findViewById<Button>(R.id.ManageBtn)
-            val attendBtn = findViewById<Button>(R.id.AttendCheckBtn)
-            val communityBtn = findViewById<Button>(R.id.CommunityBtn)
-            val optionBtn = findViewById<Button>(R.id.OptionBtn)
+            val manageBtn = findViewById<ImageButton>(R.id.ManageBtn)
+            val attendBtn = findViewById<ImageButton>(R.id.AttendCheckBtn)
+            val communityBtn = findViewById<ImageButton>(R.id.CommunityBtn)
+            val optionBtn = findViewById<ImageView>(R.id.OptionBtn)
 
             findViewById<TextView>(R.id.NameText).text = Data.name
             findViewById<TextView>(R.id.SubNameText).text = Data.description
@@ -250,9 +250,9 @@ class ClubDetailActivity : AppCompatActivity() {
 
             setToolbar()
 
-            val communityBtn = findViewById<Button>(R.id.MyClub_Community_Btn)
-            val attendBtn = findViewById<Button>(R.id.MyClub_AttendCheck_Btn)
-            val withdrawBtn = findViewById<Button>(R.id.withdrawClub_Bttn)
+            val communityBtn = findViewById<ImageButton>(R.id.MyClub_Community_Btn)
+            val attendBtn = findViewById<ImageButton>(R.id.MyClub_AttendCheck_Btn)
+
 
             findViewById<TextView>(R.id.DetailName_TextView).text = Data.name
             findViewById<TextView>(R.id.DetailExplain_TextView).text = Data.description
@@ -289,10 +289,7 @@ class ClubDetailActivity : AppCompatActivity() {
                 startActivity(nextIntent)
             }
             
-            //모임 탈퇴 버튼
-            withdrawBtn.setOnClickListener{
-                
-            }
+
         }
     }
 

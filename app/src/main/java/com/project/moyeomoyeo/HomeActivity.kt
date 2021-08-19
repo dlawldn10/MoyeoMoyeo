@@ -252,7 +252,7 @@ class HomeActivity : AppCompatActivity() {
                             entry.get("clubIdx") as Int,
                             entry.get("name") as String,
                             entry.get("description") as String,
-                            entry.get("profileImage") as String,
+                            entry.get("logoImage") as String,
                             1
                         )
                         MyClubList.add(tmp)
