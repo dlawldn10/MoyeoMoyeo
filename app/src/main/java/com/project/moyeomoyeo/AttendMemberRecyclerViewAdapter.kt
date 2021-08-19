@@ -38,7 +38,7 @@ class AttendMemberRecyclerViewAdapter(private val items : ArrayList<UserAttendDa
 
         nickname.text = items[position].nickname
         if(items[position].isAttended == 1){
-            holder.MemberList.setBackgroundColor(Color.parseColor("#32BF44"))
+            holder.MemberList.setBackgroundColor(Color.parseColor("#B9D4FE"))
         }
         else if(items[position].isAttended == 0){
             holder.MemberList.setBackgroundColor(Color.parseColor("#FFFFFF"))
