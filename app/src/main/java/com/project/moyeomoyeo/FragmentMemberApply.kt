@@ -104,7 +104,7 @@ class FragmentMemberApply : Fragment() {
             }.await()
 
             //리사이클러뷰 선언
-            viewAdapter = ApplyListRecyclerViewAdapter(RequestedApplyList, userData, rootView, Data.clubIdx)
+            viewAdapter = ApplyListRecyclerViewAdapter(RequestedApplyList, userData, rootView, Data.clubIdx, rootView.context)
             viewManager = LinearLayoutManager(rootView.context)
             recyclerView = rootView.findViewById<RecyclerView>(R.id.applyMember_RecyclerView)
             recyclerView.apply {

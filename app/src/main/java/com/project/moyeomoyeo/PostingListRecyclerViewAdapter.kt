@@ -5,11 +5,14 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.project.moyeomoyeo.DataClass.PostingData
 import com.project.moyeomoyeo.DataClass.UserData
+import java.io.IOException
 
 class PostingListRecyclerViewAdapter(private val items : ArrayList<PostingData>,
                                      val context : Context, val userData: UserData)
@@ -27,16 +30,17 @@ class PostingListRecyclerViewAdapter(private val items : ArrayList<PostingData>,
         var NickName = holder.PreviewList.findViewById<TextView>(R.id.Posting_NickName)
         var TimeStamp = holder.PreviewList.findViewById<TextView>(R.id.Posting_Date)
         var content = holder.PreviewList.findViewById<TextView>(R.id.Posting_Content_TextView)
-        var CommentCount = holder.PreviewList.findViewById<TextView>(R.id.PostingPreview_CommentCount_TextView)
-//        var commentNum
+        var ContentPhoto = holder.PreviewList.findViewById<ImageView>(R.id.contentImage_ImageView)
 
-        //프사 uri넣기
-//        ProfilePhoto.setImageURI(items[position].profileImage)
 
+        ContentPhoto.visibility = View.GONE
+        if(URLUtil.isValidUrl(items[position].profileImage)) {
+            Glide.with(context).load(items[position].profileImage).into(ProfilePhoto)
+
+        }
         NickName.text = items[position].nickname
         TimeStamp.text = items[position].createdAt
-        content.setText(items[position].content)
-        CommentCount.text = items[position].commentsCount.toString()
+        content.text = items[position].content
 
         holder.PreviewList.setOnClickListener {
             //포스팅 상세보기

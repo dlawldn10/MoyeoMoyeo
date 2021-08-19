@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.project.moyeomoyeo.DataClass.MemberData
 import com.project.moyeomoyeo.DataClass.UserData
 import kotlinx.coroutines.CoroutineScope
@@ -38,6 +39,7 @@ class ManageMemberListRecyclerViewAdapter(private val items : ArrayList<MemberDa
 
         //프사 uri or url 넣기
         //GroupPhoto <- items[position].ProfilePhoto
+        Glide.with(context).load(items[position].profileImage).into(Photo)
         NickName.text = items[position].nickname
 
         DismissBtn.setOnClickListener {

@@ -3,20 +3,13 @@ package com.project.moyeomoyeo
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
-import androidx.annotation.ColorInt
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.project.moyeomoyeo.DataClass.ClubData
+import com.bumptech.glide.Glide
 import com.project.moyeomoyeo.DataClass.CommentData
-import com.project.moyeomoyeo.DataClass.PostingData
 import com.project.moyeomoyeo.DataClass.UserData
 
 class CommentListRecyclerViewAdapter(private val items : MutableList<CommentData>,
@@ -32,15 +25,14 @@ class CommentListRecyclerViewAdapter(private val items : MutableList<CommentData
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        var Photo = holder.PreviewList.findViewById<ImageView>(R.id.Comment_Photo_imgView)
+        var Photo = holder.CommentList.findViewById<ImageView>(R.id.Comment_Photo_imgView)
         var NickName = holder.CommentList.findViewById<TextView>(R.id.Comment_NickName)
         var TimeStamp = holder.CommentList.findViewById<TextView>(R.id.Comment_Date)
         var Content = holder.CommentList.findViewById<TextView>(R.id.Comment_Content_TextView)
-        var RecommentBtn = holder.CommentList.findViewById<Button>(R.id.Recomment_Bttn)
+        var RecommentBtn = holder.CommentList.findViewById<ImageButton>(R.id.Recomment_Bttn)
 
 
-        //프사 uri or url 넣기
-        //GroupPhoto <- items[position].ProfilePhoto
+        Glide.with(context).load(items[position].profileImage).into(Photo)
         NickName.text = items[position].nickname
         TimeStamp.text = items[position].createdAt
         Content.text = items[position].content
@@ -49,9 +41,9 @@ class CommentListRecyclerViewAdapter(private val items : MutableList<CommentData
         if(items[position].parentCommentIdx != 0){
             //ui다르게하기
             RecommentBtn.visibility = View.GONE
-            holder.CommentList.findViewById<TextView>(R.id.RecommentMargin_textView).visibility = View.VISIBLE
+            holder.CommentList.findViewById<LinearLayout>(R.id.RecommentMargin_layout).visibility = View.VISIBLE
             var rootView = holder.CommentList.findViewById<LinearLayout>(R.id.Comment_Rootlayout)
-            rootView.setBackgroundColor(Color.parseColor("#DFF4F3"))
+            rootView.setBackgroundColor(Color.parseColor("#EFF2F9"))
         }
 
 

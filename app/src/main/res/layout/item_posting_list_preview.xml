@@ -13,7 +13,8 @@
         android:id="@+id/PhotoNick_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/Preview_left"
@@ -33,30 +34,120 @@
             android:id="@+id/Preview_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
 
             <TextView
                 android:id="@+id/Posting_NickName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
-                android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textColor="#111111"
+                android:textSize="15dp"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"/>
 
             <TextView
                 android:id="@+id/Posting_Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="00/00"
+                android:text="00/00 00:00"
                 android:textColor="#828282"
-                android:textSize="12sp" />
+                android:textSize="12dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/Posting_Time"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="00:00"-->
+    <!--            android:textColor="#828282"-->
+    <!--            android:textSize="12sp" />-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detail_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardCornerRadius="16dp"
+        android:layout_below="@+id/PhotoNick_layout"
+        android:layout_marginBottom="18dp">
+
+        <ImageView
+            android:id="@+id/contentImage_ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="#EFF2F9"
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            android:scaleType="fitCenter" />
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/Buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/detail_image"
+        android:orientation="horizontal"
+        android:layout_marginBottom="3dp">
+
+        <LinearLayout
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_like" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_cmt" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_share" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/checkBox"
+                android:layout_width="23dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_store" />
 
         </LinearLayout>
 
@@ -67,91 +158,19 @@
         android:id="@+id/Posting_Content_TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Buttons_layout"
+        android:layout_below="@id/Buttons_layout"
         android:layout_weight="1"
         android:background="#00FFFFFF"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:text="동아리 질문 동아리 질문 동아리 질문 동아리 질문 동아리 질문 동아리 질문 동아리 질문 ?"
-        android:textSize="12sp" />
+        android:textSize="12dp"
+        android:textColor="#111111"
+        android:fontFamily="@font/notosans_regular"
+        />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/ContentImage_CardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/PhotoNick_layout"
-        app:cardCornerRadius="30dp">
 
-        <ImageView
-            android:id="@+id/ContentImage_ImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="271dp"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
-    </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:id="@+id/Buttons_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/ContentImage_CardView">
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_person_24" />
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="?android:attr/textSelectHandleRight" />
-
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/ic_menu_share" />
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@android:drawable/ic_input_get" />
-    </LinearLayout>
-
-<!--    이부분은 삭제하나요?-->
-<!--    여기서부터-->
-    <LinearLayout
-        android:id="@+id/CommentInfo_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Posting_Content_TextView"
-        android:layout_marginTop="5dp"
-        android:gravity="right"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            app:srcCompat="@android:drawable/stat_notify_chat"
-            app:tint="#9F9F9F" />
-
-        <TextView
-            android:id="@+id/PostingPreview_CommentCount_TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1" />
-    </LinearLayout>
-
-<!--    여기까지-->
 
 
 </RelativeLayout>

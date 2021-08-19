@@ -48,6 +48,9 @@ class HomeActivity : AppCompatActivity() {
 
     val TAG = "나의 모임"
 
+    var fieldFilterValues = arrayListOf<String>("전체", "서버", "웹", "iOS", "안드로이드", "자료구조/알고리즘", "게임", "AI", "데이터 분석", "데이터 시각화", "기타")
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        window.requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY)
@@ -191,7 +194,10 @@ class HomeActivity : AppCompatActivity() {
                             entry.get("name") as String,
                             entry.get("description") as String,
                             entry.get("logoImage") as String,
-                            1
+                            1,
+                            entry.get("nickname") as String,
+                            entry.get("profileImage") as String,
+                            entry.get("fieldIdx") as Int
                         )
                         RecommendList.add(tmp)
                     }
@@ -208,7 +214,7 @@ class HomeActivity : AppCompatActivity() {
             }.await()
 
             //리사이클러뷰 선언
-            viewAdapter = RecommendClubListRecyclerViewAdapter(RecommendList, applicationContext, userData)
+            viewAdapter = RecommendClubListRecyclerViewAdapter(RecommendList, applicationContext, userData, fieldFilterValues)
             viewManager = LinearLayoutManager(applicationContext)
             (viewManager as LinearLayoutManager).setOrientation(LinearLayoutManager.HORIZONTAL);
             recyclerView = findViewById<RecyclerView>(R.id.HomeRecommend_RecyclerView).apply {
@@ -253,7 +259,10 @@ class HomeActivity : AppCompatActivity() {
                             entry.get("name") as String,
                             entry.get("description") as String,
                             entry.get("logoImage") as String,
-                            1
+                            1,
+                            entry.get("nickname") as String,
+                            entry.get("profileImage") as String,
+                            0
                         )
                         MyClubList.add(tmp)
                     }

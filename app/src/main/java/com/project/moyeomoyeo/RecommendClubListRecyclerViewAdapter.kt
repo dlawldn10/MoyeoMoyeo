@@ -17,7 +17,7 @@ import com.project.moyeomoyeo.DataClass.ClubPreviewData
 import com.project.moyeomoyeo.DataClass.UserData
 
 class RecommendClubListRecyclerViewAdapter(private val items : ArrayList<ClubPreviewData>,
-                                           val context : Context, val userData: UserData)
+                                           val context : Context, val userData: UserData, val fieldValues : ArrayList<String>)
     : RecyclerView.Adapter<RecommendClubListRecyclerViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,10 +31,14 @@ class RecommendClubListRecyclerViewAdapter(private val items : ArrayList<ClubPre
         var GroupPhoto = holder.PreviewList.findViewById<ImageView>(R.id.RecommendClubLogo_ImageView)
         var GroupName = holder.PreviewList.findViewById<TextView>(R.id.RecommendClubName_TextView)
         var GroupExplain = holder.PreviewList.findViewById<TextView>(R.id.RecommendClubExplain_TextView)
+        var MentorNick = holder.PreviewList.findViewById<TextView>(R.id.MentorNickname_TextView)
+        var MentorField =holder.PreviewList.findViewById<TextView>(R.id.MentorField_TextView)
 
         Glide.with(context).load(items[position].logoImage).into(GroupPhoto)
         GroupName.text = items[position].name
         GroupExplain.text = items[position].description
+        MentorNick.text = items[position].nickname
+        MentorField.text = fieldValues[items[position].fieldIdx]
 
         holder.PreviewList.setOnClickListener {
             val intent = Intent(context, ClubDetailActivity::class.java)

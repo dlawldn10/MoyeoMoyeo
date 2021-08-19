@@ -6,6 +6,249 @@
     android:layout_height="wrap_content"
     android:background="#FFFFFF">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/ContentImage_ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_commu_image01" />
+
+        <RelativeLayout
+            android:id="@+id/posting_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ContentImage_ImageView"
+            android:padding="24dp">
+
+            <LinearLayout
+                android:id="@+id/PhotoNick_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Preview_left"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="100dp">
+
+                    <ImageView
+                        android:id="@+id/Posting_Photo_imgView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#EBEBEB"
+                        app:srcCompat="@drawable/ic_launcher_foreground" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/Preview_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/Posting_NickName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="닉네임"
+                        android:textColor="#111111"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/Posting_Date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_regular"
+                        android:includeFontPadding="false"
+                        android:text="00/00 00:00"
+                        android:textColor="#828282"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/checkBox"
+                        android:layout_width="23dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="#00FFFFFF"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/btn_store" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/Posting_Content_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/PhotoNick_layout"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:ems="10"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:text="동아리 질문 동아리 질문 동아리 질문 동아리 질문 동아리 질문 동아리 질문 동아리 질문 ?"
+                android:textColor="#111111"
+                android:textSize="12dp" />
+
+            <LinearLayout
+                android:id="@+id/Buttons_layout"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/Posting_Content_TextView"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_like" />
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_cmt" />
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/btn_share" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/CommentList_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/EditComment_layout"
+            android:layout_below="@id/posting_layout"
+            android:overScrollMode="never"/>
+
+        <LinearLayout
+            android:id="@+id/EditComment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+            <EditText
+                android:id="@+id/EditComment_EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/img_edit_small"
+                android:ems="10"
+                android:hint="댓글을 입력해 주세요."
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="start|center"
+                android:includeFontPadding="false"
+                android:inputType="textMultiLine"
+                android:textColor="#111111"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/SendComment_Bttn"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_register"
+                android:fontFamily="@font/notosans_regular"
+                android:text="등록"
+                android:includeFontPadding="false"
+                android:textColor="#ffffff"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/EditRecomment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/EditRecomment_EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/img_edit_small"
+                android:ems="10"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="start|center"
+                android:includeFontPadding="false"
+                android:inputType="textMultiLine"
+                android:textColor="#111111"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/SendRecomment_Bttn"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_register"
+                android:fontFamily="@font/notosans_regular"
+                android:text="등록"
+                android:includeFontPadding="false"
+                android:textColor="#ffffff"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -13,195 +256,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.appcompat.widget.Toolbar>
-
-
-    <ImageView
-        android:id="@+id/ContentImage_ImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-    <RelativeLayout
-        android:id="@+id/posting_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ContentImage_ImageView"
-        android:padding="24dp">
-
-        <LinearLayout
-            android:id="@+id/PhotoNick_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/Preview_left"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:cardCornerRadius="100dp">
-
-                <ImageView
-                    android:id="@+id/Posting_Photo_imgView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#EBEBEB"
-                    app:srcCompat="@drawable/ic_launcher_foreground" />
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:id="@+id/Preview_center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/Posting_NickName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="닉네임"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/Posting_Date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:text="00/00"
-                    android:textColor="#828282"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@android:drawable/ic_input_get"/>
-
-        </LinearLayout>
-
-
-
-        <EditText
-            android:id="@+id/Posting_Content_TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/PhotoNick_layout"
-            android:layout_weight="1"
-            android:background="#00FFFFFF"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:text="동아리 질문 동아리 질문 동아리 질문 동아리 질문 동아리 질문 동아리 질문 동아리 질문 ?"
-            android:textSize="12sp" />
-
-        <LinearLayout
-            android:id="@+id/Buttons_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/Posting_Content_TextView">
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_baseline_person_24" />
-
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="?android:attr/textSelectHandleRight" />
-
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_menu_share" />
-
-
-        </LinearLayout>
-
-
-
-
-    </RelativeLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/CommentList_RecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/EditComment_layout"
-        android:layout_below="@id/posting_layout" />
-
-    <LinearLayout
-        android:id="@+id/EditComment_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/EditComment_EditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="#CCCCCC"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:hint="댓글을 작성해 주세요"/>
-
-        <Button
-            android:id="@+id/SendComment_Bttn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="등록" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/EditRecomment_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <EditText
-            android:id="@+id/EditRecomment_EditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="#CCCCCC"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="대댓글을 작성해주세요."
-            android:inputType="textMultiLine" />
-
-        <Button
-            android:id="@+id/SendRecomment_Bttn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="등록" />
-    </LinearLayout>
 
 
 </RelativeLayout>

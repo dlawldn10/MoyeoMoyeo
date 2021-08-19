@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.webkit.URLUtil
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.project.moyeomoyeo.DataClass.CommentData
 import com.project.moyeomoyeo.DataClass.PostingData
 import com.project.moyeomoyeo.DataClass.UserData
@@ -50,6 +53,7 @@ class PostingDetailActivity : AppCompatActivity() {
             var SendCommentBttn = findViewById<Button>(R.id.SendComment_Bttn)
 
 
+
             withContext(
                 CoroutineScope(Dispatchers.IO).coroutineContext
             ) {
@@ -75,6 +79,7 @@ class PostingDetailActivity : AppCompatActivity() {
 
 
             }
+
 
             findViewById<TextView>(R.id.Posting_NickName).text = Data.nickname
             findViewById<TextView>(R.id.Posting_Date).text = Data.createdAt
@@ -187,6 +192,7 @@ class PostingDetailActivity : AppCompatActivity() {
                             entry.get("content") as String,
                             entry.get("userIdx") as Int,
                             entry.get("nickname") as String,
+                            entry.get("profileImage") as String,
                             entry.get("postIdx") as Int,
                             entry.get("parentCommentIdx") as Int,
                             entry.get("seq") as Int,
@@ -226,10 +232,10 @@ class PostingDetailActivity : AppCompatActivity() {
             var acc = 0
             for (i in 0..RequestedCommentList.size-1) {
                 FinalCommentData.add(RequestedCommentList[i])
-                for (j in 0..RecommentList.size-1) {
-                    if(RequestedCommentList[i].commentIdx == RecommentList[j].parentCommentIdx){
+                for (j in 0 until RecommentList.size) {
+                    if(RequestedCommentList[i].commentIdx.equals(RecommentList[j].parentCommentIdx)){
                         acc += 1
-                        Log.d("댓글", i.toString() + ", " + j.toString())
+                        Log.d("댓글", "$i, $j")
                         Log.d("댓글", acc.toString())
                         FinalCommentData.add(RecommentList[j])
                     }
@@ -298,7 +304,6 @@ class PostingDetailActivity : AppCompatActivity() {
                             imm?.hideSoftInputFromWindow(commentEditText.windowToken, 0)
 
 
-//                            findViewById<ImageView>(R.id.Posting_Photo_imgView)
                             //포스팅 새로고침
                             findViewById<TextView>(R.id.Posting_NickName).text = Data.nickname
                             findViewById<TextView>(R.id.Posting_Date).text = Data.createdAt

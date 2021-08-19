@@ -56,8 +56,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="#00FFFFFF"
-        android:tint="#3F51B5"
-        app:srcCompat="@android:drawable/ic_menu_set_as"
-        tools:src="@android:drawable/ic_menu_set_as" />
+        tools:src="@drawable/btn_logout" />
 
 </RelativeLayout>
