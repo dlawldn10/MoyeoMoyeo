@@ -10,9 +10,9 @@
         android:id="@+id/award_imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,5 +29,8 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/award_imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/award_imageView"
+        android:fontFamily="@font/notosans_regular"
+        android:textSize="11dp"
+        android:textColor="#111111"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

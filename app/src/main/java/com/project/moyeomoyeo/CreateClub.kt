@@ -1,43 +1,35 @@
 package com.project.moyeomoyeo
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
-import android.content.res.Resources
 import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
-import android.util.Base64
-import android.util.Base64.NO_WRAP
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.ktx.Firebase
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageButton
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.Default
-import kotlinx.coroutines.Dispatchers.Main
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
-import org.w3c.dom.Text
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
-import java.io.InputStream
-import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class CreateClub : AppCompatActivity() {
 
@@ -54,13 +46,11 @@ class CreateClub : AppCompatActivity() {
     var logoURL  = ""
     var imageURL = ""
 
-    lateinit var areaRadio1 : RadioGroup
-    lateinit var areaRadio2 : RadioGroup
-    lateinit var fieldRadio1 : RadioGroup
-    lateinit var fieldRadio2 : RadioGroup
+    lateinit var sortGroup : ArrayList<AppCompatButton>
+    lateinit var fieldGroup : ArrayList<AppCompatButton>
+    lateinit var areaGroup : ArrayList<AppCompatButton>
 
     lateinit var nameText : TextView
-    lateinit var sortRadio : RadioGroup
     lateinit var description : TextView
     lateinit var detailDescription : TextView
 
@@ -72,15 +62,10 @@ class CreateClub : AppCompatActivity() {
 
     val TAG = "모임생성"
 
+    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_club)
-
-        areaRadio1 = findViewById<RadioGroup>(R.id.Area_RadioGroup1)
-        areaRadio2 = findViewById<RadioGroup>(R.id.Area_RadioGroup2)
-        fieldRadio1 = findViewById<RadioGroup>(R.id.Field_RadioGroup1)
-        fieldRadio2 = findViewById<RadioGroup>(R.id.Field_RadioGroup2)
-
 
 
         if(intent.getStringExtra("jwt") != null){
@@ -90,39 +75,43 @@ class CreateClub : AppCompatActivity() {
             Log.d(TAG, "jwt 토큰이 없습니다")
         }
 
-
+        sortGroup = ArrayList()
+        fieldGroup = ArrayList()
+        areaGroup = ArrayList()
 
         val createBttn = findViewById<Button>(R.id.CreateClub_Bttn)
-        sortRadio = findViewById<RadioGroup>(R.id.Sort_radioGroup)
         nameText = findViewById<EditText>(R.id.Name_EditText)
-        description = findViewById<EditText>(R.id.Description_EditText)
-        val logoBttn = findViewById<Button>(R.id.LogoBtn)
-        val imageBttn = findViewById<Button>(R.id.ImageBtn)
+        description = findViewById<EditText>(R.id.SubNameEditText)
+        val logoBtn = findViewById<AppCompatImageButton>(R.id.LogoBttn)
+        val imageBtn = findViewById<AppCompatImageButton>(R.id.ImageBttn)
 
         detailDescription = findViewById<EditText>(R.id.detailDescription_EditText)
 
-        //종류 라디오 버튼
-        sortRadio.setOnCheckedChangeListener{ group, checkId ->
-            when(checkId){
-                R.id.ClubRBtn -> sort = 1
-                R.id.StudyRBtn -> sort = 2
-                R.id.SpecRBtn -> sort = 3
-                R.id.EtcRBtn -> sort = 4
-            }
-        }
+        sortGroup.add(findViewById(R.id.sort1_btn))
+        sortGroup.add(findViewById(R.id.sort2_btn))
+        sortGroup.add(findViewById(R.id.sort3_btn))
+        sortGroup.add(findViewById(R.id.sort4_btn))
 
-        areaRadio1.clearCheck()
-        areaRadio2.clearCheck()
-        areaRadio1.setOnCheckedChangeListener(areaListener1)
-        areaRadio1.setOnCheckedChangeListener(areaListener2)
+        fieldGroup.add(findViewById(R.id.field1_btn))
+        fieldGroup.add(findViewById(R.id.field2_btn))
+        fieldGroup.add(findViewById(R.id.field3_btn))
+        fieldGroup.add(findViewById(R.id.field4_btn))
+        fieldGroup.add(findViewById(R.id.field5_btn))
 
-        fieldRadio1.clearCheck()
-        fieldRadio2.clearCheck()
-        fieldRadio1.setOnCheckedChangeListener(fieldListener1)
-        fieldRadio1.setOnCheckedChangeListener(fieldListener2)
+        areaGroup.add(findViewById(R.id.area1_btn))
+        areaGroup.add(findViewById(R.id.area2_btn))
+        areaGroup.add(findViewById(R.id.area3_btn))
+        areaGroup.add(findViewById(R.id.area4_btn))
+        areaGroup.add(findViewById(R.id.area5_btn))
+        areaGroup.add(findViewById(R.id.area6_btn))
+        areaGroup.add(findViewById(R.id.area7_btn))
+        areaGroup.add(findViewById(R.id.area8_btn))
+        areaGroup.add(findViewById(R.id.area9_btn))
+        areaGroup.add(findViewById(R.id.area10_btn))
 
         //모임 만들기 버튼
         createBttn.setOnClickListener {
+
             if(nameText.text.trim() == ""){
                 Toast.makeText(this, "이름을 입력해주세요",Toast.LENGTH_SHORT).show()
             }
@@ -140,14 +129,58 @@ class CreateClub : AppCompatActivity() {
             }
 
 
+
+
         }
 
-        logoBttn.setOnClickListener {
+        logoBtn.setOnClickListener {
             openGallary(REQUEST_GALLARY_LOGO)
         }
 
-        imageBttn.setOnClickListener {
+        imageBtn.setOnClickListener {
             openGallary(REQUEST_GALLARY_IMAGE)
+        }
+
+        for(i in 0 until sortGroup.size){
+            sortGroup[i].setOnClickListener {
+                for(j in 0 until sortGroup.size){
+                    sortGroup[j].isSelected = false
+                    sortGroup[j].setTextColor(Color.BLACK)
+                }
+                sortGroup[i].isSelected = true
+                sortGroup[i].setTextColor(Color.WHITE)
+                sort = i + 1
+                Log.d(TAG, "sort : $sort")
+
+            }
+        }
+
+        for(i in 0 until fieldGroup.size){
+            fieldGroup[i].setOnClickListener {
+                for(j in 0 until fieldGroup.size){
+                    fieldGroup[j].isSelected = false
+                    fieldGroup[j].setTextColor(Color.BLACK)
+                }
+                fieldGroup[i].isSelected = true
+                fieldGroup[i].setTextColor(Color.WHITE)
+                field = i + 1
+                Log.d(TAG, "field : $field")
+
+            }
+        }
+
+        for(i in 0 until areaGroup.size){
+            areaGroup[i].setOnClickListener {
+                for(j in 0 until areaGroup.size){
+                    areaGroup[j].isSelected = false
+                    areaGroup[j].setTextColor(Color.BLACK)
+                }
+                areaGroup[i].isSelected = true
+                areaGroup[i].setTextColor(Color.WHITE)
+                area = i + 1
+                Log.d(TAG, "area : $area")
+
+            }
         }
 
         //툴바
@@ -158,70 +191,6 @@ class CreateClub : AppCompatActivity() {
         actionBar?.setDisplayShowCustomEnabled(true)    //커스텀 허용
         actionBar?.setDisplayShowTitleEnabled(false)     //기본 제목 없애기
     }
-
-    //지역 라디오 버튼
-    private val areaListener1 : RadioGroup.OnCheckedChangeListener =
-        RadioGroup.OnCheckedChangeListener { group, checkId ->
-            when(checkId){
-                R.id.Area1RBtn -> area = 1
-                R.id.Area3RBtn -> area = 3
-                R.id.Area5RBtn -> area = 5
-                R.id.Area7RBtn -> area = 7
-                R.id.Area9RBtn -> area = 9
-            }
-            if(checkId != -1){
-                areaRadio2.setOnCheckedChangeListener(null)
-                areaRadio2.clearCheck()
-                areaRadio2.setOnCheckedChangeListener(areaListener2)
-            }
-        }
-
-    private val areaListener2 : RadioGroup.OnCheckedChangeListener =
-        RadioGroup.OnCheckedChangeListener { group, checkId ->
-            when(checkId){
-                R.id.Area2RBtn -> area = 2
-                R.id.Area4RBtn -> area = 4
-                R.id.Area6RBtn -> area = 6
-                R.id.Area8RBtn -> area = 8
-                R.id.Area10RBtn -> area = 10
-            }
-            if(checkId != -1){
-                areaRadio1.setOnCheckedChangeListener(null)
-                areaRadio1.clearCheck()
-                areaRadio1.setOnCheckedChangeListener(areaListener1)
-            }
-        }
-
-    //분야 라디오 버튼
-    private val fieldListener1 : RadioGroup.OnCheckedChangeListener =
-        RadioGroup.OnCheckedChangeListener { group, checkId ->
-            when(checkId){
-                R.id.Field1RBtn -> field = 1
-                R.id.Field2RBtn -> field = 2
-                R.id.Field3RBtn -> field = 3
-                R.id.Field4RBtn -> field = 4
-            }
-            if(checkId != -1){
-                fieldRadio2.setOnCheckedChangeListener(null)
-                fieldRadio2.clearCheck()
-                fieldRadio2.setOnCheckedChangeListener(fieldListener2)
-            }
-        }
-
-    private val fieldListener2 : RadioGroup.OnCheckedChangeListener =
-        RadioGroup.OnCheckedChangeListener { group, checkId ->
-            when(checkId){
-                R.id.Field5RBtn -> field = 5
-                R.id.Field6RBtn -> field = 6
-                R.id.Field7RBtn -> field = 7
-                R.id.Field8RBtn -> field = 8
-            }
-            if(checkId != -1){
-                fieldRadio1.setOnCheckedChangeListener(null)
-                fieldRadio1.clearCheck()
-                fieldRadio1.setOnCheckedChangeListener(fieldListener1)
-            }
-        }
 
     private fun showMessage(message : String){
         val handler = Handler(Looper.getMainLooper())

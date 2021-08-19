@@ -192,7 +192,7 @@ class HomeActivity : AppCompatActivity() {
                             entry.get("clubIdx") as Int,
                             entry.get("name") as String,
                             entry.get("description") as String,
-                            null,
+                            entry.get("logoImage") as String,
                             1
                         )
                         RecommendList.add(tmp)

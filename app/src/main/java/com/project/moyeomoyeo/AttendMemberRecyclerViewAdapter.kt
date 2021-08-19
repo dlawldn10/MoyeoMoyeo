@@ -20,15 +20,15 @@ class AttendMemberRecyclerViewAdapter(private val items : ArrayList<UserAttendDa
     : RecyclerView.Adapter<AttendMemberRecyclerViewAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val myGroup = LayoutInflater.from(parent.context)
+        val member = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_member_list, parent, false)
 
-        return ViewHolder(myGroup)
+        return ViewHolder(member)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var nickname = holder.MemberList.findViewById<TextView>(R.id.nickname_text)
-        val profileImage = holder.MemberList.findViewById<ImageView>(R.id.profile_imageview)
+        var nickname = holder.MemberList.findViewById<TextView>(R.id.Preview_Name)
+        val profileImage = holder.MemberList.findViewById<ImageView>(R.id.Preview_Photo_imgView)
 
         if(URLUtil.isValidUrl(items[position].profile)){
             Glide.with(context)

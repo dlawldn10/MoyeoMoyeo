@@ -29,11 +29,42 @@ class AwardGridViewAdapter(var context : Context?, var awardList : ArrayList<Awa
 
         var AwardItem : AwardData = awardList.get(p0)
 
+        var badgeList = ArrayList<Int>()
+
+        badgeList.add(R.drawable.img_badge01)
+        badgeList.add(R.drawable.img_badge02)
+        badgeList.add(R.drawable.img_badge03)
+        badgeList.add(R.drawable.img_badge04)
+        badgeList.add(R.drawable.img_badge05)
+        badgeList.add(R.drawable.img_badge06)
+        badgeList.add(R.drawable.img_badge07)
+        badgeList.add(R.drawable.img_badge08)
+        badgeList.add(R.drawable.img_badge09)
+        badgeList.add(R.drawable.img_badge10)
+        badgeList.add(R.drawable.img_badge11)
+        badgeList.add(R.drawable.img_badge12)
+
+        var badgeList_dec = ArrayList<Int>()
+
+        badgeList_dec.add(R.drawable.img_badge01_dec)
+        badgeList_dec.add(R.drawable.img_badge02_dec)
+        badgeList_dec.add(R.drawable.img_badge03_dec)
+        badgeList_dec.add(R.drawable.img_badge04_dec)
+        badgeList_dec.add(R.drawable.img_badge05_dec)
+        badgeList_dec.add(R.drawable.img_badge06_dec)
+        badgeList_dec.add(R.drawable.img_badge07_dec)
+        badgeList_dec.add(R.drawable.img_badge08_dec)
+        badgeList_dec.add(R.drawable.img_badge09_dec)
+        badgeList_dec.add(R.drawable.img_badge10_dec)
+        badgeList_dec.add(R.drawable.img_badge11_dec)
+        badgeList_dec.add(R.drawable.img_badge12_dec)
+
+
         if(AwardItem.isActive){
-            image.setImageResource(R.drawable.btn_modify)
+            image.setImageResource(badgeList[p0])
         }
         else{
-            image.setImageResource(R.drawable.btn_scrap)
+            image.setImageResource(badgeList_dec[p0])
         }
 
         name.text = AwardItem.name

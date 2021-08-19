@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CreateClub">
+    tools:context=".CreateClub"
+    android:background="#ffffff">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -18,10 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="모임 설정"
-            android:textColor="#000000"
-            android:textSize="18dp"
-            android:textStyle="bold">
+            android:text="멘토링 생성"
+            android:textColor="#111111"
+            android:textSize="16dp"
+            android:fontFamily="@font/notosans_bold">
 
         </TextView>
 
@@ -30,359 +31,498 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
 
         android:padding="20dp">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="모임 종류"
-        android:textStyle="bold"/>
-
-    <RadioGroup
-        android:id="@+id/Sort_radioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/ClubRBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="동아리" />
-
-        <RadioButton
-            android:id="@+id/StudyRBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="스터디" />
-
-        <RadioButton
-            android:id="@+id/SpecRBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="대외활동" />
-
-        <RadioButton
-            android:id="@+id/EtcRBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="기타" />
-
-    </RadioGroup>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="이름"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:id="@+id/Name_EditText"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:ems="10"
-        android:textSize="14dp"
-        android:hint="18자 이내" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="한줄 설명"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp"/>
-
-    <EditText
-        android:id="@+id/Description_EditText"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:ems="10"
-        android:textSize="14dp"
-        android:hint="24자 이내" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="분야"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-    <RadioGroup
-        android:id="@+id/Field_RadioGroup1"
-        android:layout_width="match_parent"
-        android:layout_height="132dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:id="@+id/Field1RBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="문화/예술/공연" />
-
-            <RadioButton
-                android:id="@+id/Field2RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="학술/교양" />
-
-            <RadioButton
-                android:id="@+id/Field3RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="어학" />
-
-            <RadioButton
-                android:id="@+id/Field4RBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="친목" />
-
-    </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/Field_RadioGroup2"
-            android:layout_width="match_parent"
-            android:layout_height="132dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-                <RadioButton
-                    android:id="@+id/Field5RBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="봉사/사회활동" />
-
-                <RadioButton
-                    android:id="@+id/Field6RBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="창업/취업" />
-
-                <RadioButton
-                    android:id="@+id/Field7RBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="운동" />
-
-                <RadioButton
-                    android:id="@+id/Field8RBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="기타" />
-        </RadioGroup>
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="활동 지역"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-        <RadioGroup
-            android:id="@+id/Area_RadioGroup1"
-            android:layout_width="match_parent"
-            android:layout_height="165dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/Area1RBtn"
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="전국" />
+                android:fontFamily="@font/notosans_bold"
+                android:text="분야"
+                android:textColor="#111111"
+                android:textSize="13dp" />
 
-            <RadioButton
-                android:id="@+id/Area3RBtn"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="층북/충남/대전" />
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/Area5RBtn"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/sort1_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_choice"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="기획"
+                    android:textColor="#111111"
+                    android:textSize="12dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/sort2_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_choice"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="디자인"
+                    android:textColor="#111111"
+                    android:textSize="12dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/sort3_btn"
+                    android:layout_width="110dp"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_choice"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="마케팅/광고"
+                    android:textColor="#111111"
+                    android:textSize="12dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/sort4_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_choice"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="개발"
+                    android:textColor="#111111"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="전남/광주" />
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/notosans_bold"
+                android:text="이름"
+                android:textColor="#111111"
+                android:textSize="13dp" />
 
-            <RadioButton
-                android:id="@+id/Area7RBtn"
+            <EditText
+                android:id="@+id/Name_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/img_edit_small"
+                android:ems="10"
+                android:fontFamily="@font/notosans_regular"
+                android:hint="18자 이내"
+                android:includeFontPadding="false"
+                android:textSize="12dp" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="경남/부산/울산" />
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/notosans_bold"
+                android:text="한줄 설명"
+                android:textColor="#111111"
+                android:textSize="13dp" />
 
-            <RadioButton
-                android:id="@+id/Area9RBtn"
+            <EditText
+                android:id="@+id/SubNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/img_edit_small"
+                android:ems="10"
+                android:fontFamily="@font/notosans_regular"
+                android:hint="24자 이내"
+                android:includeFontPadding="false"
+                android:textSize="12dp" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="제주" />
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/notosans_bold"
+                android:text="분야"
+                android:textColor="#111111"
+                android:textSize="13dp" />
 
-        </RadioGroup>
-
-            <RadioGroup
-                android:id="@+id/Area_RadioGroup2"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="165dp"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/field1_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_choice"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="일반"
+                    android:textColor="#111111"
+                    android:textSize="12dp" />
 
-                <RadioButton
-                    android:id="@+id/Area2RBtn"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/field2_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_choice"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="서비스"
+                    android:textColor="#111111"
+                    android:textSize="12dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/field3_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_choice"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="전략"
+                    android:textColor="#111111"
+                    android:textSize="12dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/field4_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_choice"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="프로젝트"
+                    android:textColor="#111111"
+                    android:textSize="12dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/field5_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_choice"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="기타"
+                    android:textColor="#111111"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/notosans_bold"
+                android:text="활동 지역"
+                android:textColor="#111111"
+                android:textSize="13dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="수도권" />
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
 
-                <RadioButton
-                    android:id="@+id/Area4RBtn"
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area1_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="23dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="7dp"
+                        android:text="전국"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area2_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="23dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="7dp"
+                        android:text="수도권"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area3_btn"
+                        android:layout_width="125dp"
+                        android:layout_height="23dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="7dp"
+                        android:text="충북/충남/대전"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area4_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="23dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="7dp"
+                        android:text="전북"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="전북" />
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
 
-                <RadioButton
-                    android:id="@+id/Area6RBtn"
-                    android:layout_width="match_parent"
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area5_btn"
+                        android:layout_width="95dp"
+                        android:layout_height="23dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="7dp"
+                        android:text="전남/광주"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area6_btn"
+                        android:layout_width="95dp"
+                        android:layout_height="23dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="7dp"
+                        android:text="경북/대구"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area7_btn"
+                        android:layout_width="125dp"
+                        android:layout_height="23dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="7dp"
+                        android:text="경남/부산/울산"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area8_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="23dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="7dp"
+                        android:text="강원"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="경북/대구" />
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/Area8RBtn"
-                    android:layout_width="match_parent"
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area9_btn"
+                        android:layout_width="65dp"
+                        android:layout_height="23dp"
+                        android:layout_marginRight="7dp"
+                        android:text="제주"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/area10_btn"
+                        android:layout_width="65dp"
+                        android:layout_height="23dp"
+                        android:layout_marginRight="7dp"
+                        android:text="기타"
+                        android:textColor="#111111"
+                        android:textSize="12dp"
+                        android:background="@drawable/btn_choice"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/notosans_regular"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="강원" />
+                    android:fontFamily="@font/notosans_bold"
+                    android:gravity="center|start"
+                    android:text="로고"
+                    android:textColor="#111111"
+                    android:textSize="13dp" />
 
-                <RadioButton
-                    android:id="@+id/Area10RBtn"
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/Logo_text"
+                    android:layout_width="95dp"
+                    android:layout_height="28dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/img_image_route"
+                    android:baselineAligned="false"
+                    android:enabled="false"
+                    android:fontFamily="@font/notosans_regular"
+                    android:hint="1:1 비율 권장"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="10dp"
+                    android:textColor="#111111"
+                    android:textColorHint="#A6A6A6"
+                    android:textSize="11dp"
+                    android:singleLine="true"/>
+
+                <ImageButton
+                    android:id="@+id/LogoBttn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-7dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/btn_file"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="기타" />
+                    android:fontFamily="@font/notosans_bold"
+                    android:gravity="center|start"
+                    android:text="이미지"
+                    android:textColor="#111111"
+                    android:textSize="13dp" />
 
-            </RadioGroup>
+                <EditText
+                    android:id="@+id/Image_text"
+                    android:layout_width="95dp"
+                    android:layout_height="28dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/img_image_route"
+                    android:baselineAligned="false"
+                    android:enabled="false"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="10dp"
+                    android:textColor="#111111"
+                    android:textSize="11dp"
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:singleLine="true"/>
+
+                <ImageButton
+                    android:id="@+id/ImageBttn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="-7dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/btn_file"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/notosans_bold"
+                android:gravity="center|start"
+                android:text="멘토링 설명"
+                android:textColor="#111111"
+                android:textSize="13dp" />
+
+            <EditText
+                android:id="@+id/detailDescription_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/img_edit"
+                android:fontFamily="@font/notosans_regular"
+                android:gravity="top"
+                android:hint="멘토링에 대한 상세 내용을 작성해주세요."
+                android:includeFontPadding="false"
+                android:padding="16dp"
+                android:textColor="#111111"
+                android:textColorHint="#a6a6a6"
+                android:textSize="12dp" />
+
+
+            <Button
+                android:id="@+id/CreateClub_Bttn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/btn_apply"
+                android:fontFamily="@font/notosans_bold"
+                android:text="만들기"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
+            <!--android:theme="@style/Ripple"/> -->
+
         </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:gravity="center|start"
-            android:text="로고"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/Logo_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center|start" />
-
-        <Button
-            android:id="@+id/LogoBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="파일 선택" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:gravity="center|start"
-            android:text="이미지"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/Image_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center|start" />
-
-        <Button
-            android:id="@+id/ImageBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="파일 선택" />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|start"
-        android:text="모임 설명"
-        android:layout_marginTop="30dp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/detailDescription_EditText"
-        style="@style/Widget.AppCompat.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:gravity="start"
-        android:singleLine="false"
-        android:textSize="14sp" />
-
-
-    <Button
-        android:id="@+id/CreateClub_Bttn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="모임 만들기"
-        android:textSize="20dp" />
-
-</LinearLayout>
     </ScrollView>
 </LinearLayout>
