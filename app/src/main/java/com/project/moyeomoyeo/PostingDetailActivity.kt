@@ -85,6 +85,12 @@ class PostingDetailActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.Posting_Date).text = Data.createdAt
             findViewById<TextView>(R.id.Posting_Content_TextView).text = Data.content
 
+            if(URLUtil.isValidUrl(Data.profileImage)){
+                Glide.with(this@PostingDetailActivity)
+                    .load(Data.profileImage)
+                    .into(findViewById<ImageView>(R.id.Posting_Photo_imgView))
+            }
+
         }
 
 
@@ -111,7 +117,7 @@ class PostingDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.MyPage->{
-                Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MyPageActivity::class.java)
                 intent.putExtra("userData", userData)
                 startActivity(intent)
@@ -220,7 +226,7 @@ class PostingDetailActivity : AppCompatActivity() {
                     Log.d("리스트 ", jsonObject.get("code").toString())
                     Log.d("리스트 ", jsonObject.get("message").toString())
                     CoroutineScope(Dispatchers.Main).launch {
-                        Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT ).show()
+                        //Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT ).show()
                     }
                 }
 
@@ -308,6 +314,12 @@ class PostingDetailActivity : AppCompatActivity() {
                             findViewById<TextView>(R.id.Posting_NickName).text = Data.nickname
                             findViewById<TextView>(R.id.Posting_Date).text = Data.createdAt
                             findViewById<TextView>(R.id.Posting_Content_TextView).text = Data.content
+
+                            if(URLUtil.isValidUrl(Data.profileImage)){
+                                Glide.with(this@PostingDetailActivity)
+                                    .load(Data.profileImage)
+                                    .into(findViewById<ImageView>(R.id.Posting_Photo_imgView))
+                            }
 
                         }
 

@@ -58,7 +58,8 @@
                 android:hint="  검색어를 입력해주세요"
                 android:includeFontPadding="false"
                 android:paddingLeft="5dp"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:singleLine="true"/>
 
             <ImageButton
                 android:id="@+id/search_imageButton"

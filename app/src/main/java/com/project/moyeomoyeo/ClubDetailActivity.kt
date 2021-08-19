@@ -81,7 +81,7 @@ class ClubDetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.MyPage->{
-                Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
+            //    Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MyPageActivity::class.java)
                 intent.putExtra("userData", userData)
                 startActivity(intent)
@@ -420,7 +420,7 @@ class ClubDetailActivity : AppCompatActivity() {
 
                     if(jsonObject.getBoolean("isSuccess")){
                         CoroutineScope(Dispatchers.Main).launch {
-                            Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
+                          //  Toast.makeText(applicationContext, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show()
 
                         }
                     }else{

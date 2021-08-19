@@ -151,7 +151,7 @@ class ClubListActivity : AppCompatActivity() {
         when(item.itemId){
             //마이페이지 아이콘 클릭
             R.id.MyPage->{
-                Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(applicationContext, "마이페이지", Toast.LENGTH_SHORT).show()
                 intent = Intent(this, MyPageActivity::class.java)
                 intent.putExtra("userData", userData)
                 startActivity(intent)

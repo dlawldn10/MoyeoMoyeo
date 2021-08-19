@@ -194,7 +194,7 @@
                 android:textColor="#111111"
                 android:textSize="12dp" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/SendComment_Bttn"
                 android:layout_width="50dp"
                 android:layout_height="30dp"
