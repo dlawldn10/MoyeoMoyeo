@@ -40,9 +40,14 @@ class LoginActivity : AppCompatActivity() {
 
         loginBttn.setOnClickListener {
             //기능만 넣음. 실제 로그인 안됨.
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
+//            val intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+//            finish()
+
+//            val intent = Intent(this, SettingProfileActivity::class.java)
+            //토큰 정보를 다음 액티비티(홈 액티비티)로 넘긴다
+//            intent.putExtra("userData", userData)
+//            startActivity(intent)
         }
 
 //        var keyHash = Utility.getKeyHash(this)
@@ -151,6 +156,13 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun gotoSettingProfile(userData : UserData){
+        val intent = Intent(this, SettingProfileActivity::class.java)
+        //토큰 정보를 다음 액티비티(홈 액티비티)로 넘긴다
+        intent.putExtra("userData", userData)
+        startActivity(intent)
+    }
+
 
     //코루틴에서 호출
     //okhttp 비동기 방식 - POST
@@ -181,7 +193,7 @@ class LoginActivity : AppCompatActivity() {
 
                 try {
                     //주의* response.body!!.string() 값은 한번밖에 호출 못함.
-                    var jsonString = response.body!!.string().toString()
+                    var jsonString = response.body!!.string()
                     var jsonObject = JSONObject(jsonString)
 
                     if(jsonObject.getBoolean("isSuccess")){
@@ -195,8 +207,15 @@ class LoginActivity : AppCompatActivity() {
                         CoroutineScope(Main).launch {
                             Toast.makeText(applicationContext, "성공적으로 로그인 되었습니다", Toast.LENGTH_SHORT).show()
                         }
-                        //우리쪽 서버에 저장하기까지 완료 되면 다음 액티비티로.
-                        gotoHome(Data)
+
+                        if (Data.member.equals("비회원")){
+                            //회원가입인 경우
+                            gotoSettingProfile(Data)
+                        }else{
+                            //로그인인 경우
+                            gotoHome(Data)
+                        }
+
 
                         //로그인 액티비티는 끝낸다.
                         finish()

@@ -149,7 +149,7 @@
                     android:background="#ffffff"
                     android:padding="0dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/btn_home_plan" />
+                    android:src="@drawable/btn_home_marketing" />
 
                 <ImageButton
                     android:id="@+id/OtherGroups_Bttn"
@@ -159,7 +159,7 @@
                     android:background="#ffffff"
                     android:padding="0dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/btn_home_marketing" />
+                    android:src="@drawable/btn_home_plan" />
 
             </LinearLayout>
 

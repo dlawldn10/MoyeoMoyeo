@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ClubListActivity">
+    tools:context=".ClubListActivity"
+    android:background="#ffffff">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -18,10 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="동아리"
-            android:textColor="#000000"
-            android:textSize="18dp"
-            android:textStyle="bold">
+            android:text="분야"
+            android:textColor="#111111"
+            android:textSize="16dp"
+            android:fontFamily="@font/notosans_bold">
 
         </TextView>
 
@@ -31,33 +32,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
         android:baselineAligned="false"
-        android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp">
 
             <EditText
                 android:id="@+id/searchBar_EditText"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
                 android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@id/search_imageButton"
-                android:background="@android:drawable/editbox_background"
-                android:backgroundTint="#C8C8C8"
-                android:hint="검색어를 입력해주세요" />
+                android:background="@drawable/img_image_route"
+                android:fontFamily="@font/notosans_regular"
+                android:hint="  검색어를 입력해주세요"
+                android:includeFontPadding="false"
+                android:paddingLeft="5dp"
+                android:textSize="14sp" />
 
             <ImageButton
                 android:id="@+id/search_imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
                 android:backgroundTint="#00FFFFFF"
                 app:srcCompat="@drawable/ic_baseline_search_24" />
 
@@ -66,56 +75,69 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:orientation="horizontal"
+            android:paddingRight="24dp"
+            android:paddingLeft="24dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="#EFF2F9">
+
+            <ImageView
+                android:id="@+id/filter_icon"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_filter" />
 
             <Button
                 android:id="@+id/ListFilter_Bttn"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="right"
-                android:text="조건설정"
-                android:textAlignment="center"
-                android:textColor="#838383"
-                app:icon="@android:drawable/ic_menu_preferences"
-                app:iconPadding="4dp"
-                app:iconTint="#000000" />
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/filter_icon"
+                android:includeFontPadding="false"
+                android:minWidth="0dp"
+                android:text="조건 설정"
+                android:textColor="#111111"
+                android:textSize="11dp"  />
 
-            <LinearLayout
+
+            <TextView
+                android:id="@+id/selectedField_TextView"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_gravity="left"
-                android:orientation="horizontal">
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@id/ListFilter_Bttn"
+                android:background="@drawable/btn_filter_result"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="상세 분야"
+                android:textColor="#000000"
+                android:textSize="9dp" />
 
-                <TextView
-                    android:id="@+id/selectedField_TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:backgroundTint="#959595"
-                    android:text="전체"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/selectedArea_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/selectedField_TextView"
+                android:text="지역"
+                android:textColor="#000000"
+                style="?android:attr/borderlessButtonStyle"
+                android:textSize="9dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:background="@drawable/btn_filter_result"/>
 
-                <TextView
-                    android:id="@+id/selectedArea_TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:backgroundTint="#959595"
-                    android:text="전국"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"/>
 
-            </LinearLayout>
         </RelativeLayout>
 
 
@@ -123,7 +145,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="7dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="24dp">
 
             <TextView
                 android:id="@+id/ListTitle_TextView"
@@ -132,9 +158,12 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="16dp"
-                android:text="최신 동아리 모집 공고"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="최신 멘토링 모집 공고"
+                android:textColor="#111111"
+                android:textStyle="bold"
+                android:textSize="14dp"/>
 
             <Button
                 android:id="@+id/arrangeType_Bttn"
@@ -143,12 +172,14 @@
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
                 android:text="정렬방식"
-                android:textAlignment="center"
-                android:textColor="#838383"
+                android:textColor="@color/black"
+                android:textSize="12sp"
                 app:icon="@android:drawable/arrow_down_float"
-                app:iconPadding="0dp"
-                app:iconTint="#5A5A5A" />
+                app:iconSize="10dp"
+                app:iconTint="#000000" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ListRecyclerView"
@@ -159,7 +190,6 @@
 
 
     </LinearLayout>
-
 
 
 </LinearLayout>

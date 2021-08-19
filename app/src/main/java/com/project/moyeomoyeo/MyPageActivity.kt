@@ -23,7 +23,7 @@ import org.json.JSONObject
 class MyPageActivity : AppCompatActivity() {
 
     var userData = UserData("", 0, "")
-    var myData = MyData(0, "", "", "")
+    var myData = MyData(0, "", "", "", "", 0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +88,9 @@ class MyPageActivity : AppCompatActivity() {
                             entry.get("userIdx") as Int,
                             entry.get("nickname") as String,
                             entry.get("name") as String,
-                            entry.get("profileImage") as String
+                            "",
+                            entry.get("profileImage") as String,
+                        0
                         )
                         myData = tmp
                     }
