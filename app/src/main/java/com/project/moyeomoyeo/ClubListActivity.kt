@@ -199,8 +199,8 @@ class ClubListActivity : AppCompatActivity() {
                             entry.get("description") as String,
                             entry.get("logoImage") as String,
                             entry.get("isLike") as Int,
-                            entry.get("nickname") as String,
-                            entry.get("profileImage") as String,
+                            entry.get("nickname").toString(),
+                            entry.get("profileImage").toString(),
                             entry.get("fieldIdx") as Int
                         )
                         RequestedClubList.add(tmp)

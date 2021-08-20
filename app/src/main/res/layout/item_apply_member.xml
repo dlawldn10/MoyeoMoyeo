@@ -61,14 +61,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/Apply_PhotoNick_layout"
+        android:layout_marginTop="3dp"
         android:layout_marginBottom="16dp"
         android:layout_weight="1"
         android:background="#00FFFFFF"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:text="뽑아주시면 열심히 하겠습니다."
-        android:textSize="12sp" />
+        android:text="열심히 하겠습니다."
+        android:textSize="12sp"
+        android:textColor="@color/black"/>
 
     <ImageButton
         android:id="@+id/applyDelete_imageButton"
@@ -78,7 +80,7 @@
         android:layout_marginRight="25dp"
         android:layout_toLeftOf="@id/applyAccept_imageButton"
         android:background="#00FFFFFF"
-        app:srcCompat="@android:drawable/ic_delete" />
+        app:srcCompat="@drawable/btn_refuse" />
 
     <ImageButton
         android:id="@+id/applyAccept_imageButton"
@@ -88,7 +90,7 @@
         android:layout_centerVertical="true"
         android:background="#00FFFFFF"
         android:tint="#4CAF50"
-        app:srcCompat="?android:attr/textCheckMark" />
+        app:srcCompat="@drawable/btn_accpt" />
 
 
 </RelativeLayout>

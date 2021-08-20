@@ -35,14 +35,12 @@ class ApplyListRecyclerViewAdapter(private val items : ArrayList<ApplyData>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var Photo = holder.PreviewList.findViewById<ImageView>(R.id.apply_photo_imageView)
         var NickName = holder.PreviewList.findViewById<TextView>(R.id.apply_nickName_TextView)
-        var Motive = holder.PreviewList.findViewById<TextView>(R.id.apply_motive_TextView)
         var AcceptBtn = holder.PreviewList.findViewById<ImageButton>(R.id.applyAccept_imageButton)
         var DeleteBtn = holder.PreviewList.findViewById<ImageButton>(R.id.applyDelete_imageButton)
 
         Glide.with(context).load(items[position].profileImage).into(Photo)
 
         NickName.text = items[position].nickname
-        Motive.text = items[position].motive
 
         AcceptBtn.setOnClickListener {
             FragmentMemberApply().BuildAcceptDialog(NickName.text as String, items[position], rootView, userData, clubIdx)

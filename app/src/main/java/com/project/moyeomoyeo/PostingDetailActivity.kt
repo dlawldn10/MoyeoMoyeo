@@ -197,12 +197,12 @@ class PostingDetailActivity : AppCompatActivity() {
                             entry.get("commentIdx") as Int,
                             entry.get("content") as String,
                             entry.get("userIdx") as Int,
-                            entry.get("nickname") as String,
-                            entry.get("profileImage") as String,
+                            entry.get("nickname").toString(),
+                            entry.get("profileImage").toString(),
                             entry.get("postIdx") as Int,
                             entry.get("parentCommentIdx") as Int,
                             entry.get("seq") as Int,
-                            entry.get("createdAt") as String,
+                            entry.get("createdAt").toString(),
                             entry.get("status") as Int
 
                         )
