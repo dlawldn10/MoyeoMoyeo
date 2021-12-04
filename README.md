@@ -5,6 +5,9 @@
 여성 IT 멘토링 중개 플랫폼 '위멘토'
 
 
+2021.07.06~2021.08.20
+
+
 <img src = "https://user-images.githubusercontent.com/69448918/143399284-c9af1b24-1e73-492f-a411-8cecfbcd1c94.PNG">
 
 <img src = "https://user-images.githubusercontent.com/69448918/143398776-d8213f0c-bdaa-4b56-b0b1-3b2e8ede1910.PNG">
